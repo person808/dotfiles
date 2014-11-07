@@ -1,0 +1,28 @@
+[hub]
+	protocol = https
+[user]
+	name = person808
+	email = kainaluh808@gmail.com
+[credential]
+	helper = cache
+[alias]
+	co = checkout
+	count = !git shortlog -sn
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = true
+[core]
+	excludesfile = ~/.gitignore
+	editor = vim
+[apply]
+	whitespace = nowarn
+[mergetool]
+	keepBackup = false
+[difftool]
+	prompt = false
+[help]
+	autocorrect = 1
+[push]
+	default = simple
