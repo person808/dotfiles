@@ -115,8 +115,11 @@ nnoremap <Leader>b :enew<CR>
 nnoremap <Leader>l :bnext<CR>
 " Move to the previous buffer
 nnoremap <Leader>h :bprevious<CR>
+" Delete buffer
+nnoremap <Leader>bd :bdelete<CR>
 " Close buffer and preserve window layout
 cnoremap bc BD
+nnoremap <Leader>bc :BD<CR>
 
 " More natural split opening
 set splitbelow
@@ -185,6 +188,7 @@ let g:syntastic_check_on_open = 1  " Check for errors when opening file
 let g:syntastic_aggregate_errors = 1  " Combine errors from multiple linters
 let g:syntastic_python_python_exec = '/usr/bin/python3'  " Use python 3
 let g:syntastic_python_checkers = ['prospector']  " Python linters
+let g:syntastic_python_prospector_args = "-F"
 " }}}
 
 " vim-airline {{{
