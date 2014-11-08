@@ -1,7 +1,7 @@
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
 " Gui plugins
-Plug 'junegunn/seoul256.vim'
+Plug 'w0ng/vim-hybrid'
 Plug 'bling/vim-airline'
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
@@ -34,7 +34,7 @@ call plug#end()
 
 " Misc {{{
 set nocompatible
-set shell=sh  " Set shell to bash for compatibility
+set shell=bash  " Set shell to bash for compatibility
 set history=1000  " Remember more commands and search history
 set undolevels=10000  " Remember more undo levels
 set undofile  " Save undo history between sessions
@@ -45,15 +45,13 @@ set mouse=a  " Mouse support
 set ttymouse=xterm2  " Make sure the mouse works
 set lazyredraw  " Redraw only when necessary for better performance
 set updatetime=1000  " Lower updatetime for faster git gutter updates
-" }}}
-
-" Color Scheme {{{
-set t_Co=256
-let g:seoul256_background=237
-colorscheme seoul256
+let g:plug_threads = 30  " Update more plugins at once
 " }}}
 
 " User Interface {{{
+set t_Co=256  " Use 256 terminal colors
+" let g:hybrid_use_Xresources = 1
+colorscheme hybrid  " Set terminal colorscheme
 set number  " Show line numbers
 set cursorline  " Highlight line the cursor is on
 set showmatch  " Show matching parentheses
@@ -64,6 +62,14 @@ set wildmenu  " Show completions in command mode
 set scrolloff=5  " Always show 5 lines below cursor
 set wrap  " Enable line wrapping
 set linebreak  " Don't wrap lines on words
+
+" vim-airline {{{
+let g:airline#extensions#tabline#enabled = 1  " Show the tabline
+let g:airline#extensions#tabline#fnamemod = ':t'  " Only show filename in tabline
+let g:airline_section_c = '%{getcwd()}'  " Replace path to file with current directory
+let g:airline_powerline_fonts = 1  " Use powerline symbols
+let g:airline_theme= 'zenburn'  " vim-airline theme
+" }}}
 " }}}
 
 " Indentation {{{
@@ -142,6 +148,7 @@ set writebackup
 " }}}
 
 " NERDTree {{{
+let NERDTreeWinSize = 25  " Set NERDTree size
 autocmd vimenter * execute 'NERDTree' | wincmd p  " Start NERDTree with vim
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif  " Automatically close vim if NERDTree is the only buffer
 " <Leader>e toggles NERDTree
@@ -173,9 +180,9 @@ let g:ulti_expand_or_jump_res = 0
 function! ExpandSnippetOrCarriageReturn()
     let snippet = UltiSnips#ExpandSnippetOrJump()
     if g:ulti_expand_or_jump_res > 0
-        return snippet
+	return snippet
     else
-        return "\<CR>"
+	return "\<CR>"
     endif
 endfunction
 inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
@@ -189,14 +196,6 @@ let g:syntastic_aggregate_errors = 1  " Combine errors from multiple linters
 let g:syntastic_python_python_exec = '/usr/bin/python3'  " Use python 3
 let g:syntastic_python_checkers = ['prospector']  " Python linters
 let g:syntastic_python_prospector_args = "-F"
-" }}}
-
-" vim-airline {{{
-let g:airline#extensions#tabline#enabled = 1  " Show the tabline
-let g:airline#extensions#tabline#fnamemod = ':t'  " Only show filename in tabline
-let g:airline_section_c = '%{getcwd()}'  " Replace path to file with current directory
-let g:airline_powerline_fonts = 1  " Use powerline symbols
-let g:airline_theme='zenburn'  " vim-airline theme
 " }}}
 
 " .vimrc Settings {{{
