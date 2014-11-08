@@ -80,6 +80,7 @@ set copyindent  " Copy previous indentation when autoindenting
 set smarttab  " Insert tabs on the start of a line using shiftwidth
 set breakindent  " Make line wrapping respect indentation
 let g:indentLine_char = '┊'  " Use Sublime Text style indent guides
+let g:indentLine_color_term = 236  " Set indent guide color
 " }}}
 
 " Searching {{{
