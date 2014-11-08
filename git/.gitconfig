@@ -4,7 +4,7 @@
 	name = person808
 	email = kainaluh808@gmail.com
 [credential]
-	helper = cache
+	helper = cache --timeout=3600
 [alias]
 	co = checkout
 	count = !git shortlog -sn
