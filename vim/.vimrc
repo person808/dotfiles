@@ -13,12 +13,13 @@ Plug 'scrooloose/syntastic'
 Plug 'vim-scripts/bufkill.vim'
 Plug 'scrooloose/NERDTree'
 Plug 'tpope/vim-dispatch'
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
 " Editing
 Plug 'kristijanhusak/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 " Autocomplete
 Plug 'Raimondi/delimitMate'
-Plug 'Valloric/YouCompleteMe', {'do': './install.sh'}
+Plug 'Shougo/neocomplete.vim'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/UltiSnips'
 " Ctrlp.vim
@@ -172,8 +173,29 @@ nnoremap <C-p><C-y> :CtrlPYankring<CR>
 " }}}
 
 " Autocomplete/Snippets {{{
-let g:ycm_autoclose_preview_window_after_completion = 1  " Automatically close the preview window
-" UltiSnips settings
+" Neocomplete {{{
+let g:neocomplete#enable_at_startup = 1  " Use neocomplete
+let g:neocomplete#enable_smart_case = 1  " Use smart case in neocomplete
+let g:neocomplete#max_list = 30  " Only show 30 suggestions
+let g:neocomplete#enable_auto_delimiter = 1  " Automatically add delimiters
+" <Tab> completion
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+" <CR> inserts completion
+inoremap <expr><CR> neocomplete#close_popup()
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+" }}}
+
+" UltiSnips settings {{{
 " <CR> expands snippet
 let g:UltiSnipsExpandTrigger = "<nop>"
 let g:ulti_expand_or_jump_res = 0
@@ -186,8 +208,9 @@ function! ExpandSnippetOrCarriageReturn()
     endif
 endfunction
 inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"  " Jump backwards in snippets with <s-tab>
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"  " Jump backwards in snippets with <s-tab>
+let g:UltiSnipsJumpForwardTrigger = "<C-n>"  " Jump backwards in snippets with <s-tab>
+let g:UltiSnipsJumpBackwardTrigger = "<C-p>"  " Jump backwards in snippets with <s-tab>
+" }}}
 " }}}
 
 " Syntastic {{{
