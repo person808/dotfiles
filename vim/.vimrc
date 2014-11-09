@@ -48,6 +48,7 @@ set mouse=a  " Mouse support
 set ttymouse=xterm2  " Make sure the mouse works
 set lazyredraw  " Redraw only when necessary for better performance
 set updatetime=1000  " Lower updatetime for faster git gutter updates
+set autochdir  " Automatically change directory to the one of the current file
 let g:plug_threads = 30  " Update more plugins at once
 " }}}
 
@@ -191,6 +192,7 @@ let g:neocomplete#enable_at_startup = 1  " Use neocomplete
 let g:neocomplete#enable_smart_case = 1  " Use smart case in neocomplete
 let g:neocomplete#max_list = 30  " Only show 30 suggestions
 let g:neocomplete#enable_auto_delimiter = 1  " Automatically add delimiters
+let g:neocomplete#enable_refresh_always = 1  " Always refresh completions (May cause slowdowns)
 " <Tab> completion
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
@@ -215,9 +217,9 @@ let g:ulti_expand_or_jump_res = 0
 function! ExpandSnippetOrCarriageReturn()
     let snippet = UltiSnips#ExpandSnippetOrJump()
     if g:ulti_expand_or_jump_res > 0
-	return snippet
+		return snippet
     else
-	return "\<CR>"
+		return "\<CR>"
     endif
 endfunction
 inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
