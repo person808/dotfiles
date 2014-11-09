@@ -62,7 +62,6 @@ set showmatch  " Show matching parentheses
 set laststatus=2  " Always show status
 set showtabline=2  " Always show tab bar
 set showcmd  " Show information about current command
-set wildmenu  " Show completions in command mode
 set scrolloff=5  " Always show 5 lines below cursor
 set wrap  " Enable line wrapping
 set linebreak  " Don't wrap lines on words
@@ -174,7 +173,7 @@ call unite#custom#profile('default', 'context', {
 		\'winheight': 10,
 		\'direction': 'botright',
 		\'smartcase': 1,
-		\'prompt': '» '
+		\'prompt': '>>> '
 		\})
 " <C-p> opens unite
 nnoremap <C-p> :Unite buffer file_mru file/async file_rec/async<CR>
