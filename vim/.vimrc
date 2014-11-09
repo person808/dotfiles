@@ -75,6 +75,9 @@ let g:airline_theme= 'zenburn'  " vim-airline theme
 
 " Indentation {{{
 filetype plugin indent on  " Load filetype specific indent files
+set tabstop=4  " Tabs width is 4
+set shiftwidth=4  " Indents have a width of four
+set softtabstop=4  " Use four columns for tabs
 set autoindent  " Always set autoindenting on
 set copyindent  " Copy previous indentation when autoindenting
 set smarttab  " Insert tabs on the start of a line using shiftwidth
