@@ -22,10 +22,12 @@ Plug 'Raimondi/delimitMate'
 Plug 'Shougo/neocomplete.vim'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/UltiSnips'
-" Ctrlp.vim
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'tacahiroy/ctrlp-funky'
-Plug 'sgur/ctrlp-extensions.vim'
+" Unite
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/unite-outline'
+Plug 'majkinetor/unite-cmdmatch'
+
 " Python
 Plug 'tell-k/vim-autopep8', {'for': 'python'}
 " Fish
@@ -160,20 +162,27 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 nnoremap <Leader>e :NERDTreeToggle<CR>
 " }}}
 
-" ctrlp.vim {{{
-let g:ctrlpmap = '<C-p>'  " Map ctrlp to <C-p>
-let g:ctrlp_cmd = 'CtrlPMixed'  " <C-p> opens file, mru, and buffer searcher
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'  " Ignore some directories
-let g:ctrlp_extensions = ['cmdline', 'funky', 'menu', 'yankring']  " Enable ctrlp extentions
-let g:ctrlp_funky_syntax_highlight = 1  " Syntax highlighting in ctrlp-funky
-" <C-p><C-f> opens CtrlPFunky
-nnoremap <C-p><C-f> :CtrlPFunky<CR>
-" <C-p><C-h> opens CtrlPCmdline history
-nnoremap <C-p><C-h> :CtrlPCmdline<CR>
-" <C-p><C-m> opens CtrlPMenu list of searchers
-nnoremap <C-p><C-m> :CtrlPMenu<CR>
-" <C-p><C-y> opens CtrlPYankring yank history
-nnoremap <C-p><C-y> :CtrlPYankring<CR>
+" Unite {{{
+let g:unite_source_history_yank_enable = 1  " Enable yank history in unite
+call unite#filters#matcher_default#use(['matcher_fuzzy'])  " Fuzzy matching
+call unite#filters#sorter_default#use(['sorter_rank'])  " Sort unite results
+" Unite settings
+call unite#custom#profile('default', 'context', {
+		\'start_insert': 1,
+		\'auto_resize': 1,
+		\'winheight': 10,
+		\'direction': 'botright',
+		\'smartcase': 1,
+		\'prompt': '» '
+		\})
+" <C-p> opens unite
+nnoremap <C-p> :Unite buffer file_mru file/async file_rec/async<CR>
+" <C-p><C-y> opens unite yankring
+nnoremap <C-p><C-y> :Unite history/yank<CR>
+" <C-p><C-o> opens unite outline
+nnoremap <C-p><C-o> :Unite outline<CR>
+" <TAB> opens unite cmdmatch in command mode
+cmap <Tab> <Plug>(unite_cmdmatch_complete)
 " }}}
 
 " Autocomplete/Snippets {{{
