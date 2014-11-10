@@ -54,7 +54,6 @@ let g:plug_threads = 30  " Update more plugins at once
 
 " User Interface {{{
 set t_Co=256  " Use 256 terminal colors
-" let g:hybrid_use_Xresources = 1
 colorscheme hybrid  " Set terminal colorscheme
 set number  " Show line numbers
 set cursorline  " Highlight line the cursor is on
@@ -109,6 +108,9 @@ nnoremap <space> za
 let mapleader=","
 " Map jj to <Esc>
 inoremap jj <Esc>
+" k and j don't skip wrapped lines
+nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 " Open Gundo
 nnoremap <Leader>u :GundoToggle<CR>
 " Toggle indent guides
