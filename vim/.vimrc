@@ -211,6 +211,18 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
+" Play nice with vim-multiple-cursors
+function! Multiple_cursors_before()
+	if exists(':NeoCompleteLock')==2
+		execute 'NeoCompleteLock'
+	endif
+endfunction
+
+function! Multiple_cursors_after()
+	if exists(':NeoCompleteUnlock')==2
+		execute 'NeoCompleteUnlock'
+	endif
+endfunction
 " }}}
 
 " UltiSnips settings {{{
