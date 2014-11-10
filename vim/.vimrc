@@ -26,7 +26,6 @@ Plug 'SirVer/UltiSnips'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite-outline'
-Plug 'majkinetor/unite-cmdmatch'
 
 " Python
 Plug 'tell-k/vim-autopep8', {'for': 'python'}
@@ -67,6 +66,7 @@ set showcmd  " Show information about current command
 set scrolloff=5  " Always show 5 lines below cursor
 set wrap  " Enable line wrapping
 set linebreak  " Don't wrap lines on words
+set wildmenu  " Show completions for command mode
 
 " vim-airline {{{
 let g:airline#extensions#tabline#enabled = 1  " Show the tabline
@@ -185,8 +185,6 @@ nnoremap <C-p> :Unite buffer file_mru file/async file_rec/async<CR>
 nnoremap <C-p><C-y> :Unite history/yank<CR>
 " <C-p><C-o> opens unite outline
 nnoremap <C-p><C-o> :Unite outline<CR>
-" <TAB> opens unite cmdmatch in command mode
-cmap <Tab> <Plug>(unite_cmdmatch_complete)
 " }}}
 
 " Autocomplete/Snippets {{{
