@@ -155,7 +155,6 @@ set writebackup
 " }}}
 
 " NERDTree {{{
-let NERDTreeWinSize = 25  " Set NERDTree size
 autocmd vimenter * execute 'NERDTree' | wincmd p  " Start NERDTree with vim
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif  " Automatically close vim if NERDTree is the only buffer
 " <Leader>e toggles NERDTree
