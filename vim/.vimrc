@@ -265,6 +265,7 @@ let g:syntastic_python_prospector_args = "-F"
 " .vimrc Settings {{{
 autocmd BufWritePost .vimrc source %  " Automatically source .vimrc
 " Fold .vimrc by marker
-set modelines=2
-" vim:foldmethod=marker:foldlevel=0
+set modelines=1
 " }}}
+
+" vim:foldmethod=marker:foldlevel=0
