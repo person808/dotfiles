@@ -26,7 +26,7 @@ Plug 'SirVer/UltiSnips'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite-outline'
-
+Plug 'kopischke/unite-spell-suggest'
 " Python
 Plug 'tell-k/vim-autopep8', {'for': 'python'}
 " Fish
@@ -67,6 +67,16 @@ set scrolloff=5  " Always show 5 lines below cursor
 set wrap  " Enable line wrapping
 set linebreak  " Don't wrap lines on words
 set wildmenu  " Show completions for command mode
+set spell  " Spell check
+
+" Colorscheme {{{
+" Underline misspelled words
+hi clear SpellBad
+hi clear SpellCap
+hi clear SpellRare
+hi SpellBad cterm=underline ctermfg=240
+hi SpellCap cterm=underline ctermfg=240
+" }}}
 
 " vim-airline {{{
 let g:airline#extensions#tabline#enabled = 1  " Show the tabline
@@ -185,6 +195,9 @@ nnoremap <C-p> :Unite buffer file_mru file/async file_rec/async<CR>
 nnoremap <C-p><C-y> :Unite history/yank<CR>
 " <C-p><C-o> opens unite outline
 nnoremap <C-p><C-o> :Unite outline<CR>
+" <C-p><C-s> opens unite-spell-suggest
+nnoremap z= <Nop>
+nnoremap <C-p><C-s> :Unite spell_suggest<CR>
 " }}}
 
 " Autocomplete/Snippets {{{
