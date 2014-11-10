@@ -11,7 +11,7 @@ Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/syntastic'
 Plug 'vim-scripts/bufkill.vim'
-Plug 'scrooloose/NERDTree'
+Plug 'Shougo/vimfiler.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 " Editing
@@ -47,7 +47,7 @@ set mouse=a  " Mouse support
 set ttymouse=xterm2  " Make sure the mouse works
 set lazyredraw  " Redraw only when necessary for better performance
 set updatetime=1000  " Lower updatetime for faster git gutter updates
-set autochdir  " Automatically change directory to the one of the current file
+" set autochdir  " Automatically change directory to the one of the current file
 let g:plug_threads = 30  " Update more plugins at once
 " }}}
 
@@ -169,11 +169,27 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set writebackup
 " }}}
 
-" NERDTree {{{
-autocmd vimenter * execute 'NERDTree' | wincmd p  " Start NERDTree with vim
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif  " Automatically close vim if NERDTree is the only buffer
-" <Leader>e toggles NERDTree
-nnoremap <Leader>e :NERDTreeToggle<CR>
+" Vimfiler {{{
+autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif  " Close vim if vimfiler is the only buffer
+let g:vimfiler_as_default_explorer = 1  " Vimfiler is the default file explorer
+" Vimfiler settings
+call vimfiler#custom#profile('default', 'context', {
+			\'explorer': 1,
+			\'auto_cd': 1,
+			\'winwidth': 25,
+			\'toggle': 1,
+			\'parent': 1
+			\})
+" Vimfiler icons
+let g:vimfiler_tree_leaf_icon = ' '
+let g:vimfiler_tree_opened_icon = '▾'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_file_icon = '-'
+let g:vimfiler_marked_file_icon = '*'
+" <Leader>e toggles vimfiler
+nnoremap <Leader>e :VimFilerExplorer<CR>
+" ? shows vimfiler help
+nmap ? <Plug>(vimfiler_help)
 " }}}
 
 " Unite {{{
