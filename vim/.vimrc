@@ -173,14 +173,6 @@ set writebackup
 " Vimfiler {{{
 autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif  " Close vim if vimfiler is the only buffer
 let g:vimfiler_as_default_explorer = 1  " Vimfiler is the default file explorer
-" Vimfiler settings
-call vimfiler#custom#profile('default', 'context', {
-			\'explorer': 1,
-			\'auto_cd': 1,
-			\'winwidth': 25,
-			\'toggle': 1,
-			\'parent': 1
-			\})
 " Vimfiler icons
 let g:vimfiler_tree_leaf_icon = ' '
 let g:vimfiler_tree_opened_icon = '▾'
@@ -188,9 +180,13 @@ let g:vimfiler_tree_closed_icon = '▸'
 let g:vimfiler_file_icon = '-'
 let g:vimfiler_marked_file_icon = '*'
 " <Leader>e toggles vimfiler
-nnoremap <silent> <Leader>e :VimFilerExplorer<CR>
+nnoremap <silent> <Leader>e :VimFilerExplorer -auto-cd -toggle -winwidth=30 -parent<CR>
 " ? shows vimfiler help
-nmap ? <Plug>(vimfiler_help)
+nmap ? g?
+" sh launches popup shell in vimfiler
+nmap sh H
+" gh shows dotfiles like netrw
+nmap gh .
 " }}}
 
 " Vimshell {{{
