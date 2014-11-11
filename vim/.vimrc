@@ -84,8 +84,8 @@ colorscheme hybrid  " Set terminal colorscheme
 hi clear SpellBad
 hi clear SpellCap
 hi clear SpellRare
-hi SpellBad cterm=underline ctermfg=240
-hi SpellCap cterm=underline ctermfg=240
+hi SpellBad cterm=underline
+hi SpellCap cterm=underline
 " }}}
 
 " vim-airline {{{
