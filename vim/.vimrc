@@ -57,8 +57,10 @@ set t_Co=256  " Use 256 terminal colors
 colorscheme hybrid  " Set terminal colorscheme
 " Show line numbers in current window
 set number
-autocmd WinEnter * setlocal number
-autocmd WinLeave * setlocal nonumber
+augroup set_number
+	autocmd WinEnter * setlocal number
+	autocmd WinLeave * setlocal nonumber
+augroup END
 set cursorline  " Highlight line the cursor is on
 set showmatch  " Show matching parentheses
 set laststatus=2  " Always show status
@@ -173,7 +175,9 @@ set writebackup
 " }}}
 
 " Vimfiler {{{
-autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif  " Close vim if vimfiler is the only buffer
+augroup vimfiler_close
+	autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif  " Close vim if vimfiler is the only buffer
+augroup END
 let g:vimfiler_as_default_explorer = 1  " Vimfiler is the default file explorer
 " Vimfiler icons
 let g:vimfiler_tree_leaf_icon = ' '
@@ -245,11 +249,13 @@ inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 " <CR> inserts completion
 inoremap <expr><CR> neocomplete#close_popup()
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup omnicompletion
+	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup END
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
@@ -295,7 +301,9 @@ let g:syntastic_python_prospector_args = "-F"
 " }}}
 
 " .vimrc Settings {{{
-autocmd BufWritePost .vimrc source %  " Automatically source .vimrc
+augroup source_vimrc
+	autocmd BufWritePost .vimrc source %  " Automatically source .vimrc
+augroup END
 " Fold .vimrc by marker
 set modelines=1
 " }}}
