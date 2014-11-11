@@ -47,14 +47,17 @@ set clipboard=unnamedplus  " Use system clipboard
 set mouse=a  " Mouse support
 set ttymouse=xterm2  " Make sure the mouse works
 set lazyredraw  " Redraw only when necessary for better performance
+set ttyfast  " Improve performance
 set updatetime=1000  " Lower updatetime for faster git gutter updates
-" set autochdir  " Automatically change directory to the one of the current file
+" Automatically change directory to the file's directory (set autochdir is
+" incompatible with vimfiler)
+augroup change_dir
+	autocmd BufEnter * silent! lcd %:p:h
+augroup END
 let g:plug_threads = 30  " Update more plugins at once
 " }}}
 
 " User Interface {{{
-set t_Co=256  " Use 256 terminal colors
-colorscheme hybrid  " Set terminal colorscheme
 " Show line numbers in current window
 set number
 augroup set_number
@@ -73,6 +76,8 @@ set wildmenu  " Show completions for command mode
 set spell  " Spell check
 
 " Colorscheme {{{
+set t_Co=256  " Use 256 terminal colors
+colorscheme hybrid  " Set terminal colorscheme
 " Underline misspelled words
 hi clear SpellBad
 hi clear SpellCap
