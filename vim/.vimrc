@@ -31,7 +31,7 @@ Plug 'kopischke/unite-spell-suggest'
 " Python
 Plug 'tell-k/vim-autopep8', {'for': 'python'}
 " Fish
-Plug 'dag/vim-fish'
+Plug 'dag/vim-fish', {'for': 'fish'}
 call plug#end()
 " }}}
 
