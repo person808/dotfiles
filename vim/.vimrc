@@ -212,8 +212,7 @@ nnoremap <C-p><C-y> :Unite history/yank<CR>
 " <C-p><C-o> opens unite outline
 nnoremap <C-p><C-o> :Unite outline<CR>
 " <C-p><C-s> opens unite-spell-suggest
-nnoremap z= <Nop>
-nnoremap <C-s> :Unite spell_suggest<CR>
+nnoremap z= :Unite spell_suggest<CR>
 " }}}
 
 " Autocomplete/Snippets {{{
