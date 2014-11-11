@@ -221,13 +221,13 @@ call unite#custom#profile('default', 'context', {
 		\'prompt': '>>> '
 		\})
 " <C-p> opens unite
-nnoremap <C-p> :Unite buffer file_mru file/async file_rec/async<CR>
+nnoremap <Leader>f :Unite buffer file_mru file/async file_rec/async<CR>
 " <C-p><C-y> opens unite yankring
-nnoremap <C-p><C-y> :Unite history/yank<CR>
+nnoremap <Leader>y :Unite history/yank<CR>
 " <C-p><C-o> opens unite outline
-nnoremap <C-p><C-o> :Unite outline<CR>
+nnoremap <Leader>o :Unite outline<CR>
 " <C-p><C-s> opens unite-spell-suggest
-nnoremap z= :Unite spell_suggest<CR>
+nnoremap <Leader>s :Unite spell_suggest<CR>
 " }}}
 
 " Autocomplete/Snippets {{{
