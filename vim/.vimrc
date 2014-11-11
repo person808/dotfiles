@@ -131,23 +131,23 @@ nnoremap <Leader>ig :IndentLinesToggle<CR>
 " :w! saves files using sudo
 cnoremap w! w !sudo tee > /dev/null %
 " <Leader>c comments line
-nnoremap <Leader>c :Commentary<CR>
-vnoremap <Leader>c :Commentary<CR>
+nnoremap <silent> <Leader>c :Commentary<CR>
+vnoremap <silent> <Leader>c :Commentary<CR>
 " }}}
 
 " Buffers/Tabs/Splits {{{
 set hidden  " Hide buffers instead of closing them
 " Open a new empty buffer
-nnoremap <Leader>b :enew<CR>
+nnoremap <silent> <Leader>b :enew<CR>
 " Move to the next buffer
-nnoremap <Leader>l :bnext<CR>
+nnoremap <silent> <Leader>l :bnext<CR>
 " Move to the previous buffer
-nnoremap <Leader>h :bprevious<CR>
+nnoremap <silent> <Leader>h :bprevious<CR>
 " Delete buffer
-nnoremap <Leader>bd :bdelete<CR>
+nnoremap <silent> <Leader>bd :bdelete<CR>
 " Close buffer and preserve window layout
 cnoremap bc BD
-nnoremap <Leader>bc :BD<CR>
+nnoremap <silent> <Leader>bc :BD<CR>
 
 " More natural split opening
 set splitbelow
@@ -213,7 +213,7 @@ nnoremap <C-p><C-y> :Unite history/yank<CR>
 nnoremap <C-p><C-o> :Unite outline<CR>
 " <C-p><C-s> opens unite-spell-suggest
 nnoremap z= <Nop>
-nnoremap <C-p><C-s> :Unite spell_suggest<CR>
+nnoremap <C-s> :Unite spell_suggest<CR>
 " }}}
 
 " Autocomplete/Snippets {{{
