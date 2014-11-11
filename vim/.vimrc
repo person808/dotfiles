@@ -115,6 +115,8 @@ set foldnestmax=10  " 10 nested folds max
 set foldmethod=indent  " Fold based on indent level
 " Space opens/closes folds
 nnoremap <space> za
+" <C-space> toggles all folds
+nnoremap <C-space> zi
 " }}}
 
 " Misc Keybindings  {{{
