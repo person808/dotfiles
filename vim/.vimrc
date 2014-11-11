@@ -14,6 +14,8 @@ Plug 'Shougo/vimfiler.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimshell.vim'
+Plug 'junegunn/vim-pseudocl'
+Plug 'junegunn/vim-oblique'
 " Editing
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'kristijanhusak/vim-multiple-cursors'
@@ -231,13 +233,13 @@ call unite#custom#profile('default', 'context', {
 		\'smartcase': 1,
 		\'prompt': '>>> '
 		\})
-" <C-p> opens unite
+" <Leader>f opens unite
 nnoremap <Leader>f :Unite buffer file_mru file/async file_rec/async<CR>
-" <C-p><C-y> opens unite yankring
+" <Leader>y opens unite yankring
 nnoremap <Leader>y :Unite history/yank<CR>
-" <C-p><C-o> opens unite outline
+" <Leader>o opens unite outline
 nnoremap <Leader>o :Unite outline<CR>
-" <C-p><C-s> opens unite-spell-suggest
+" <Leader>o opens unite-spell-suggest
 nnoremap <Leader>s :Unite spell_suggest<CR>
 " }}}
 
