@@ -7,12 +7,12 @@ Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 " Add features
 Plug 'sjl/gundo.vim'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/syntastic'
 Plug 'vim-scripts/bufkill.vim'
-Plug 'Shougo/vimfiler.vim'
-Plug 'tpope/vim-dispatch'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
+Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/vimshell.vim'
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
@@ -198,8 +198,6 @@ nnoremap <silent> <Leader>e :VimFilerExplorer -auto-cd -toggle -winwidth=30 -par
 nmap ? g?
 " sh launches popup shell in vimfiler
 nmap sh H
-" gh shows dotfiles like netrw
-nmap gh .
 " }}}
 
 " Vimshell {{{
