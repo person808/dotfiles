@@ -6,7 +6,6 @@ Plug 'bling/vim-airline'
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 " Add features
-Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/syntastic'
@@ -14,7 +13,9 @@ Plug 'vim-scripts/bufkill.vim'
 Plug 'Shougo/vimfiler.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
+Plug 'Shougo/vimshell.vim'
 " Editing
+Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'kristijanhusak/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 " Autocomplete
@@ -187,9 +188,27 @@ let g:vimfiler_tree_closed_icon = '▸'
 let g:vimfiler_file_icon = '-'
 let g:vimfiler_marked_file_icon = '*'
 " <Leader>e toggles vimfiler
-nnoremap <Leader>e :VimFilerExplorer<CR>
+nnoremap <silent> <Leader>e :VimFilerExplorer<CR>
 " ? shows vimfiler help
 nmap ? <Plug>(vimfiler_help)
+" }}}
+
+" Vimshell {{{
+" Vimshell prompt
+let g:vimshell_prompt_expr =
+		\ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
+let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
+" Initialize execute file list.
+let g:vimshell_execute_file_list = {}
+call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
+let g:vimshell_execute_file_list['rb'] = 'ruby'
+let g:vimshell_execute_file_list['pl'] = 'perl'
+let g:vimshell_execute_file_list['py'] = 'python'
+call vimshell#set_execute_file('html,xhtml', 'gexe opera-beta')
+" <Leader>sh opens vimshell
+nnoremap <Leader>sh :VimShell<CR>
+" <Leader>shp opens vimshell popup
+nnoremap <Leader>shp :VimShellPop<CR>
 " }}}
 
 " Unite {{{
