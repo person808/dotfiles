@@ -14,14 +14,13 @@ Plug 'vim-scripts/bufkill.vim'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/vimshell.vim'
-Plug 'junegunn/vim-pseudocl'
-Plug 'junegunn/vim-oblique'
+Plug 'haya14busa/incsearch.vim'
 " Editing
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'kristijanhusak/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 " Autocomplete
-Plug 'Raimondi/delimitMate'
+Plug 'cohama/lexima.vim'
 Plug 'Shougo/neocomplete.vim'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/UltiSnips'
