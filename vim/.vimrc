@@ -14,7 +14,8 @@ Plug 'vim-scripts/bufkill.vim'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/vimshell.vim'
-Plug 'haya14busa/incsearch.vim'
+Plug 'junegunn/vim-oblique'
+Plug 'junegunn/vim-pseudocl'
 " Editing
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'kristijanhusak/vim-multiple-cursors'
