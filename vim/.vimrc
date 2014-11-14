@@ -21,7 +21,6 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'kristijanhusak/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 " Autocomplete
-" Plug 'cohama/lexima.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/neocomplete.vim'
 Plug 'honza/vim-snippets'
