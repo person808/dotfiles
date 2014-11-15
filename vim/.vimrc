@@ -16,6 +16,7 @@ Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/vimshell.vim'
 Plug 'junegunn/vim-oblique'
 Plug 'junegunn/vim-pseudocl'
+Plug 'tpope/vim-eunuch'
 " Editing
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'kristijanhusak/vim-multiple-cursors'
@@ -138,8 +139,6 @@ nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 nnoremap <Leader>u :GundoToggle<CR>
 " Toggle indent guides
 nnoremap <Leader>ig :IndentLinesToggle<CR>
-" :w! saves files using sudo
-cnoremap w! w !sudo tee > /dev/null %
 " <Leader>c comments line
 nnoremap <silent> <Leader>c :Commentary<CR>
 vnoremap <silent> <Leader>c :Commentary<CR>
