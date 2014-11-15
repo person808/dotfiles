@@ -93,7 +93,7 @@ let g:airline#extensions#tabline#enabled = 1  " Show the tabline
 let g:airline#extensions#tabline#fnamemod = ':t'  " Only show filename in tabline
 let g:airline_section_c = '%{getcwd()}'  " Replace path to file with current directory
 let g:airline_powerline_fonts = 1  " Use powerline symbols
-let g:airline_theme= 'zenburn'  " vim-airline theme
+let g:airline_theme= 'hybrid'  " vim-airline theme
 " }}}
 " }}}
 
