@@ -142,6 +142,8 @@ nnoremap <Leader>ig :IndentLinesToggle<CR>
 " <Leader>c comments line
 nnoremap <silent> <Leader>c :Commentary<CR>
 vnoremap <silent> <Leader>c :Commentary<CR>
+" :w! writes file with sudo
+cnoremap :w! :SudoWrite
 " }}}
 
 " Buffers/Tabs/Splits {{{
