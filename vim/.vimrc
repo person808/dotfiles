@@ -143,7 +143,7 @@ nnoremap <Leader>ig :IndentLinesToggle<CR>
 nnoremap <silent> <Leader>c :Commentary<CR>
 vnoremap <silent> <Leader>c :Commentary<CR>
 " :w! writes file with sudo
-cnoremap :w! :SudoWrite
+cnoremap w! SudoWrite
 " }}}
 
 " Buffers/Tabs/Splits {{{
