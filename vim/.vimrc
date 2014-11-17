@@ -52,6 +52,7 @@ set ttymouse=xterm2  " Make sure the mouse works
 set lazyredraw  " Redraw only when necessary for better performance
 set ttyfast  " Improve performance
 set updatetime=1000  " Lower updatetime for faster git gutter updates
+set confirm  " Ask if I want to save the file when I quit instead of failing when there are unsaved changes
 " Automatically change directory to the file's directory (set autochdir is
 " incompatible with vimfiler)
 augroup change_dir
