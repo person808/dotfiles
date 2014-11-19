@@ -1,10 +1,11 @@
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
 " Gui plugins
-Plug 'w0ng/vim-hybrid'
-Plug 'bling/vim-airline'
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
+Plug 'zefei/cake16'
+Plug 'godlygeek/csapprox'
+Plug 'ap/vim-buftabline'
 " Add features
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-dispatch'
@@ -81,7 +82,7 @@ set spell  " Spell check
 
 " Colorscheme {{{
 set t_Co=256  " Use 256 terminal colors
-colorscheme hybrid  " Set terminal colorscheme
+colorscheme cake16  " Set terminal colorscheme
 " Underline misspelled words
 hi clear SpellBad
 hi clear SpellCap
@@ -90,12 +91,23 @@ hi SpellBad cterm=underline
 hi SpellCap cterm=underline
 " }}}
 
-" vim-airline {{{
-let g:airline#extensions#tabline#enabled = 1  " Show the tabline
-let g:airline#extensions#tabline#fnamemod = ':t'  " Only show filename in tabline
-let g:airline_section_c = '%{getcwd()}'  " Replace path to file with current directory
-let g:airline_powerline_fonts = 1  " Use powerline symbols
-let g:airline_theme= 'hybrid'  " vim-airline theme
+" Tabline/Statusline {{{
+let g:buftabline_indicators = 1  " Show buffer state in buffer label
+" Statusline settings
+autocmd BufWinEnter,WinEnter,VimEnter * let w:getcwd = getcwd()
+let &statusline = " %{StatuslineTag()} "
+let &statusline .= "\ue0b1 %<%f "
+let &statusline .= "%{&readonly ? \"\ue0a2 \" : &modified ? '+ ' : ''}"
+let &statusline .= "%=\u2571 %{&filetype == '' ? 'unknown' : &filetype} "
+let &statusline .= "\u2571 %l:%2c \u2571 %p%% "
+function! StatuslineTag()
+	if exists('b:git_dir')
+		let dir = fnamemodify(b:git_dir[:-6], ':t')
+		return dir." \ue0a0 ".fugitive#head(7)
+	else
+		return fnamemodify(getwinvar(0, 'getcwd', getcwd()), ':t')
+	endif
+endfunction
 " }}}
 " }}}
 
@@ -109,7 +121,7 @@ set copyindent  " Copy previous indentation when autoindenting
 set smarttab  " Insert tabs on the start of a line using shiftwidth
 set breakindent  " Make line wrapping respect indentation
 let g:indentLine_char = '┊'  " Use Sublime Text style indent guides
-let g:indentLine_color_term = 236  " Set indent guide color
+let g:indentLine_color_term = 102  " Set indent guide color
 " }}}
 
 " Searching {{{
