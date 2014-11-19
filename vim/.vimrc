@@ -317,12 +317,5 @@ let g:syntastic_python_checkers = ['prospector']  " Python linters
 let g:syntastic_python_prospector_args = "-F"
 " }}}
 
-" .vimrc Settings {{{
-augroup source_vimrc
-	autocmd BufWritePost .vimrc source %  " Automatically source .vimrc
-augroup END
-" Fold .vimrc by marker
-set modelines=1
-" }}}
-
+set modelines=1  " Fold .vimrc by markers
 " vim:foldmethod=marker:foldlevel=0
