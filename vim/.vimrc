@@ -4,7 +4,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'zefei/cake16'
-Plug 'godlygeek/csapprox'
 Plug 'ap/vim-buftabline'
 " Add features
 Plug 'sjl/gundo.vim'
