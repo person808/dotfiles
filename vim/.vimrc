@@ -41,7 +41,6 @@ call plug#end()
 " }}}
 
 " Misc {{{
-set nocompatible
 set shell=bash  " Set shell to bash for compatibility
 set history=1000  " Remember more commands and search history
 set undolevels=10000  " Remember more undo levels
