@@ -211,10 +211,6 @@ let g:vimfiler_file_icon = '-'
 let g:vimfiler_marked_file_icon = '*'
 " <Leader>e toggles vimfiler
 nnoremap <silent> <Leader>e :VimFilerExplorer -auto-cd -toggle -winwidth=30 -parent<CR>
-" ? shows vimfiler help
-nmap ? g?
-" sh launches popup shell in vimfiler
-nmap sh H
 " }}}
 
 " Vimshell {{{
