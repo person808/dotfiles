@@ -9,7 +9,6 @@ Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/syntastic'
-Plug 'vim-scripts/bufkill.vim'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/vimshell.vim'
@@ -173,10 +172,7 @@ nnoremap <silent> <Leader>l :bnext<CR>
 " Move to the previous buffer
 nnoremap <silent> <Leader>h :bprevious<CR>
 " Delete buffer
-nnoremap <silent> <Leader>bd :bdelete<CR>
-" Close buffer and preserve window layout
-cnoremap bc BD
-nnoremap <silent> <Leader>bc :BD<CR>
+nnoremap <silent> <Leader>c :bdelete<CR>
 
 " More natural split opening
 set splitbelow
