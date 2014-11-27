@@ -75,6 +75,8 @@ set showcmd  " Show information about current command
 set scrolloff=5  " Always show 5 lines below cursor
 set wrap  " Enable line wrapping
 set linebreak  " Don't wrap lines on words
+" Highlight past 80th column
+execute "set colorcolumn=" . join(range(81,335), ',')
 set wildmenu  " Show completions for command mode
 set spell  " Spell check
 
