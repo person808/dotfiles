@@ -21,7 +21,7 @@ Plug 'kristijanhusak/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 Plug 'sjl/gundo.vim'
 " Autocomplete
-Plug 'Raimondi/delimitMate'
+Plug 'cohama/lexima.vim'
 Plug 'Shougo/neocomplete.vim'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/UltiSnips'
