@@ -15,8 +15,6 @@ Plug 'Shougo/vimshell.vim'
 Plug 'junegunn/vim-oblique'
 Plug 'junegunn/vim-pseudocl'
 Plug 'tpope/vim-eunuch'
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
 " Editing
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'kristijanhusak/vim-multiple-cursors'
@@ -60,10 +58,6 @@ augroup change_dir
 	autocmd BufEnter * silent! lcd %:p:h
 augroup END
 let g:plug_threads = 40  " Update more plugins at once
-let g:session_autoload = 'yes'  " Always load last session
-let g:session_autosave = 'yes'  " Always save sessions
-let g:session_autosave_periodic = 1  " Save sessions every minute
-let g:session_default_to_last = 'yes'  " Always load most recent session
 " }}}
 
 " User Interface {{{
