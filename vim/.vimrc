@@ -104,6 +104,7 @@ hi SpellCap cterm=underline
 " Tabline/Statusline {{{
 let g:airline_powerline_fonts=1  " Use powerline symbols
 let g:airline#extensions#tabline#enabled = 1  " Show buffers in tabline
+let g:airline#extensions#tabline#fnamemod = ':t'  " Only show file name in tabline
 let g:airline_section_c = '%{getcwd()}'  " Show current directory in statusline
 " }}}
 " }}}
