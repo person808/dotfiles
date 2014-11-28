@@ -3,8 +3,8 @@ call plug#begin('~/.vim/plugged')
 " Gui plugins
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
-Plug 'zefei/cake16'
-Plug 'ap/vim-buftabline'
+Plug 'bling/vim-airline'
+Plug 'altercation/vim-colors-solarized'
 " Add features
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
@@ -84,7 +84,15 @@ set spell  " Spell check
 
 " Colorscheme {{{
 set t_Co=256  " Use 256 terminal colors
-colorscheme cake16  " Set terminal colorscheme
+set background=light  " Use solarized light
+colorscheme solarized  " Set terminal colorscheme
+
+" Don't underline and bold folds
+hi clear Folded
+hi Folded ctermfg=11 guifg=DarkBlue guibg=LightGrey
+" Change sign column colors
+hi clear SignColumn
+hi SignColumn ctermfg=11
 " Underline misspelled words
 hi clear SpellBad
 hi clear SpellCap
@@ -94,25 +102,9 @@ hi SpellCap cterm=underline
 " }}}
 
 " Tabline/Statusline {{{
-" Tabline
-let g:buftabline_indicators = 1  " Show buffer state in buffer label
-
-" Statusline
-autocmd BufWinEnter,WinEnter,VimEnter * let w:getcwd = getcwd()
-let &statusline = " %{StatuslineTag()} "
-let &statusline .= "\ue0b1 %<%f "
-let &statusline .= "%{&readonly ? \"\ue0a2 \" : &modified ? '+ ' : ''}"
-let &statusline .= "%=\u2571 %{&filetype == '' ? 'unknown' : &filetype} "
-let &statusline .= "\u2571 %l:%2c \u2571 %p%% "
-
-function! StatuslineTag()
-	if exists('b:git_dir')
-		let dir = fnamemodify(b:git_dir[:-6], ':t')
-		return dir." \ue0a0 ".fugitive#head(7)
-	else
-		return fnamemodify(getwinvar(0, 'getcwd', getcwd()), ':t')
-	endif
-endfunction
+let g:airline_powerline_fonts=1  " Use powerline symbols
+let g:airline#extensions#tabline#enabled = 1  " Show buffers in tabline
+let g:airline_section_c = '%{getcwd()}'  " Show current directory in statusline
 " }}}
 " }}}
 
