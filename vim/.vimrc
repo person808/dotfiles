@@ -81,6 +81,7 @@ set linebreak  " Don't wrap lines on words
 execute "set colorcolumn=" . join(range(81,335), ',')
 set wildmenu  " Show completions for command mode
 set spell  " Spell check
+set noshowmode  " Don't show mode in command window
 
 " Colorscheme {{{
 set t_Co=256  " Use 256 terminal colors
