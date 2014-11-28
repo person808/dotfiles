@@ -52,11 +52,13 @@ set ttyfast  " Improve performance
 set updatetime=1000  " Lower updatetime for faster git gutter updates
 set timeoutlen=1000 ttimeoutlen=10  " Faster switching between modes
 set confirm  " Ask if I want to save the file when I quit instead of failing when there are unsaved changes
+
 " Automatically change directory to the file's directory (set autochdir is
 " incompatible with vimfiler)
 augroup change_dir
 	autocmd BufEnter * silent! lcd %:p:h
 augroup END
+
 let g:plug_threads = 40  " Update more plugins at once
 " }}}
 
@@ -92,14 +94,17 @@ hi SpellCap cterm=underline
 " }}}
 
 " Tabline/Statusline {{{
+" Tabline
 let g:buftabline_indicators = 1  " Show buffer state in buffer label
-" Statusline settings
+
+" Statusline
 autocmd BufWinEnter,WinEnter,VimEnter * let w:getcwd = getcwd()
 let &statusline = " %{StatuslineTag()} "
 let &statusline .= "\ue0b1 %<%f "
 let &statusline .= "%{&readonly ? \"\ue0a2 \" : &modified ? '+ ' : ''}"
 let &statusline .= "%=\u2571 %{&filetype == '' ? 'unknown' : &filetype} "
 let &statusline .= "\u2571 %l:%2c \u2571 %p%% "
+
 function! StatuslineTag()
 	if exists('b:git_dir')
 		let dir = fnamemodify(b:git_dir[:-6], ':t')
@@ -194,6 +199,7 @@ set writebackup
 augroup vimfiler_close
 	autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif  " Close vim if vimfiler is the only buffer
 augroup END
+
 let g:vimfiler_as_default_explorer = 1  " Vimfiler is the default file explorer
 " Vimfiler icons
 let g:vimfiler_tree_leaf_icon = ' '
@@ -201,6 +207,7 @@ let g:vimfiler_tree_opened_icon = '▾'
 let g:vimfiler_tree_closed_icon = '▸'
 let g:vimfiler_file_icon = '-'
 let g:vimfiler_marked_file_icon = '*'
+
 " <Leader>e toggles vimfiler
 nnoremap <silent> <Leader>e :VimFilerExplorer -auto-cd -toggle -winwidth=30 -parent<CR>
 " }}}
@@ -217,6 +224,7 @@ let g:vimshell_execute_file_list['rb'] = 'ruby'
 let g:vimshell_execute_file_list['pl'] = 'perl'
 let g:vimshell_execute_file_list['py'] = 'python'
 call vimshell#set_execute_file('html,xhtml', 'gexe opera-beta')
+
 " <Leader>sh opens vimshell
 nnoremap <Leader>sh :VimShell<CR>
 " <Leader>shp opens vimshell popup
@@ -236,6 +244,7 @@ call unite#custom#profile('default', 'context', {
 		\'smartcase': 1,
 		\'prompt': '>>> '
 		\})
+
 " <Leader>f opens unite
 nnoremap <Leader>f :Unite buffer file_mru file/async file_rec/async<CR>
 " <Leader>y opens unite yankring
@@ -253,11 +262,13 @@ let g:neocomplete#enable_smart_case = 1  " Use smart case in neocomplete
 let g:neocomplete#max_list = 30  " Only show 30 suggestions
 let g:neocomplete#enable_auto_delimiter = 1  " Automatically add delimiters
 let g:neocomplete#enable_refresh_always = 1  " Always refresh completions (May cause slowdowns)
-" <Tab> completion
+
+" <Tab> cycles through completion
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 " <CR> inserts completion
-inoremap <expr><CR> neocomplete#close_popup()
+" inoremap <expr><CR> neocomplete#close_popup()
+
 " Enable omni completion.
 augroup omnicompletion
 	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -266,10 +277,12 @@ augroup omnicompletion
 	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 augroup END
+
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
+
 " Play nice with vim-multiple-cursors
 function! Multiple_cursors_before()
 	if exists(':NeoCompleteLock')==2
