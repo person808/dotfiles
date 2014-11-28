@@ -267,7 +267,7 @@ let g:neocomplete#enable_refresh_always = 1  " Always refresh completions (May c
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 " <CR> inserts completion
-" inoremap <expr><CR> neocomplete#close_popup()
+inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 " Enable omni completion.
 augroup omnicompletion
@@ -309,9 +309,9 @@ function! ExpandSnippetOrCarriageReturn()
 		return "\<CR>"
     endif
 endfunction
-inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
-let g:UltiSnipsJumpForwardTrigger = "<C-n>"  " Jump backwards in snippets with <s-tab>
-let g:UltiSnipsJumpBackwardTrigger = "<C-p>"  " Jump backwards in snippets with <s-tab>
+inoremap <expr> <CR> pumvisible() ? "<CR>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
+let g:UltiSnipsJumpForwardTrigger = "<C-n>"  " Jump backwards in snippets with <C-n>
+let g:UltiSnipsJumpBackwardTrigger = "<C-p>"  " Jump backwards in snippets with <C-p>
 " }}}
 " }}}
 
