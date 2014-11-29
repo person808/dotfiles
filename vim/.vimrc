@@ -150,11 +150,6 @@ nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 " Open Gundo
 nnoremap <Leader>u :GundoToggle<CR>
-" Toggle indent guides
-nnoremap <Leader>ig :IndentLinesToggle<CR>
-" <Leader>c comments line
-nnoremap <silent> <Leader>c :Commentary<CR>
-vnoremap <silent> <Leader>c :Commentary<CR>
 " :w! writes file with sudo
 cnoremap w! SudoWrite
 " }}}
