@@ -31,6 +31,7 @@ Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite-outline'
 Plug 'kopischke/unite-spell-suggest'
 " Python
+Plug 'davidhalter/jedi-vim', {'for': 'python'}
 Plug 'tell-k/vim-autopep8', {'for': 'python'}
 " Fish
 Plug 'dag/vim-fish', {'for': 'fish'}
@@ -255,6 +256,11 @@ let g:neocomplete#enable_smart_case = 1  " Use smart case in neocomplete
 let g:neocomplete#max_list = 30  " Only show 30 suggestions
 let g:neocomplete#enable_auto_delimiter = 1  " Automatically add delimiters
 let g:neocomplete#enable_refresh_always = 1  " Always refresh completions (May cause slowdowns)
+let g:jedi#completions_enabled = 0  " Don't complete using jedi-vim
+let g:jedi#auto_vim_configuration = 0  " Prevent jedi-vim from changing settings
+let g:jedi#use_tabs_not_buffers = 0  " Open command output in buffers
+let g:jedi#show_call_signatures = 0  " Don't show call signatures popup
+let g:jedi#force_py_version = 3  " Use python 3
 
 " <Tab> cycles through completion
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -271,7 +277,7 @@ augroup omnicompletion
 	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+	autocmd FileType python setlocal omnifunc=jedi#completions
 	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 augroup END
 
@@ -279,6 +285,13 @@ augroup END
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
+
+" Use jedi-vim for python omnicompletion
+if !exists('g:neocomplete#force_omni_input_patterns')
+	let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.python =
+	\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 
 " Play nice with vim-multiple-cursors
 function! Multiple_cursors_before()
