@@ -250,7 +250,6 @@ nnoremap <Leader>s :Unite spell_suggest<CR>
 " }}}
 
 " Autocomplete/Snippets {{{
-" Neocomplete {{{
 let g:neocomplete#enable_at_startup = 1  " Use neocomplete
 let g:neocomplete#enable_smart_case = 1  " Use smart case in neocomplete
 let g:neocomplete#max_list = 30  " Only show 30 suggestions
@@ -262,6 +261,10 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 " <CR> inserts completion
 inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
+
+let g:UltiSnipsExpandTrigger = "<C-j>"  " <C-n> expands snippet
+let g:UltiSnipsJumpForwardTrigger = "<C-j>"  " <C-n> jumps forwards in snippet
+let g:UltiSnipsJumpBackwardTrigger = "<C-k>"  " <C-p> jumps backwards in snippet
 
 " Enable omni completion.
 augroup omnicompletion
@@ -289,24 +292,6 @@ function! Multiple_cursors_after()
 		execute 'NeoCompleteUnlock'
 	endif
 endfunction
-" }}}
-
-" UltiSnips settings {{{
-" <CR> expands snippet
-let g:UltiSnipsExpandTrigger = "<nop>"
-let g:ulti_expand_or_jump_res = 0
-function! ExpandSnippetOrCarriageReturn()
-    let snippet = UltiSnips#ExpandSnippetOrJump()
-    if g:ulti_expand_or_jump_res > 0
-		return snippet
-    else
-		return "\<CR>"
-    endif
-endfunction
-inoremap <expr> <CR> pumvisible() ? "<CR>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
-let g:UltiSnipsJumpForwardTrigger = "<C-n>"  " Jump backwards in snippets with <C-n>
-let g:UltiSnipsJumpBackwardTrigger = "<C-p>"  " Jump backwards in snippets with <C-p>
-" }}}
 " }}}
 
 " Syntastic {{{
