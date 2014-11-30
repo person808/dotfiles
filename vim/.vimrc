@@ -95,12 +95,6 @@ hi Folded ctermfg=11 guifg=DarkBlue guibg=LightGrey
 " Change sign column colors
 hi clear SignColumn
 hi SignColumn ctermfg=11
-" Underline misspelled words
-hi clear SpellBad
-hi clear SpellCap
-hi clear SpellRare
-hi SpellBad cterm=underline
-hi SpellCap cterm=underline
 " }}}
 
 " Tabline/Statusline {{{
