@@ -16,9 +16,9 @@ Plug 'junegunn/vim-oblique'
 Plug 'junegunn/vim-pseudocl'
 Plug 'tpope/vim-eunuch'
 " Editing
-Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'kristijanhusak/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
+Plug 'junegunn/vim-easy-align'
 Plug 'sjl/gundo.vim'
 " Autocomplete
 Plug 'cohama/lexima.vim'
@@ -146,6 +146,9 @@ nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 nnoremap <Leader>u :GundoToggle<CR>
 " :w! writes file with sudo
 cnoremap w! SudoWrite
+" vim-easy-align keybindings
+nmap ga <Plug>(EasyAlign)
+vmap <Enter> <Plug>(EasyAlign)
 " }}}
 
 " Buffers/Tabs/Splits {{{
@@ -180,8 +183,9 @@ set writebackup
 " }}}
 
 " Vimfiler {{{
+" Close vim if vimfiler is the only buffer
 augroup vimfiler_close
-	autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif  " Close vim if vimfiler is the only buffer
+	autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
 augroup END
 
 let g:vimfiler_as_default_explorer = 1  " Vimfiler is the default file explorer
