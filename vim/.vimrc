@@ -4,7 +4,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
-Plug 'altercation/vim-colors-solarized'
+Plug 'chriskempson/base16-vim'
 " Add features
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
@@ -86,15 +86,9 @@ set noshowmode  " Don't show mode in command window
 
 " Colorscheme {{{
 set t_Co=256  " Use 256 terminal colors
-set background=light  " Use solarized light
-colorscheme solarized  " Set terminal colorscheme
-
-" Don't underline and bold folds
-hi clear Folded
-hi Folded ctermfg=11 guifg=DarkBlue guibg=LightGrey
-" Change sign column colors
-hi clear SignColumn
-hi SignColumn ctermfg=11
+set background=dark  " Use dark background
+let base16colorspace=256  " Use 256 colors for base16
+colorscheme base16-eighties  " Set terminal colorscheme
 " }}}
 
 " Tabline/Statusline {{{
