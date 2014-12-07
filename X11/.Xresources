@@ -13,17 +13,24 @@ URxvt.geometry:    100x40
 URxvt.iso14755:    false
 
 ! URxvt extensions
-URxvt.perl-ext-common:        default,clipboard,matcher,keyboard-select
-URxvt.keysym.M-u:             perl:url-select:select_next
-URxvt.url-launcher:           /usr/bin/opera
-URxvt.underlineURLs:          True
-URxvt.matcher.button:         1
-URxvt.keysym.M-Escape:        perl:keyboard-select:activate
-URxvt.keysym.Shift-Control-C: perl:clipboard:copy
-URxvt.keysym.Shift-Control-V: perl:clipboard:paste
-URxvt.keysym.Control-Alt-V:   perl:clipboard:paste_escaped
-URxvt.copyCommand:            xsel -ib
-URxvt.pasteCommand:           xsel -ob
+URxvt.perl-ext-common:            default,clipboard,matcher,keyboard-select,tabbedex
+URxvt.keysym.M-u:                 perl:url-select:select_next
+URxvt.url-launcher:               /usr/bin/opera
+URxvt.underlineURLs:              True
+URxvt.matcher.button:             1
+URxvt.keysym.M-Escape:            perl:keyboard-select:activate
+URxvt.keysym.Shift-Control-C:     perl:clipboard:copy
+URxvt.keysym.Shift-Control-V:     perl:clipboard:paste
+URxvt.keysym.Control-Alt-V:       perl:clipboard:paste_escaped
+URxvt.copyCommand:                xsel -ib
+URxvt.pasteCommand:               xsel -ob
+URxvt.tabbed.autohide:            false
+URxvt.keysym.Control-Shift-t:     perl:tabbedex:new_tab
+URxvt.keysym.Control-Tab:         perl:tabbedex:next_tab
+URxvt.keysym.Control-Shift-Tab:   perl:tabbedex:prev_tab
+URxvt.keysym.Control-Shift-Left:  perl:tabbedex:move_tab_left
+URxvt.keysym.Control-Shift-Right: perl:tabbedex:move_tab_right
+URxvt.keysym.Control-Shift-r:     perl:tabbedex:rename_tab
 
 ! Base16 Eighties
 #define base00 #2d2d2d
