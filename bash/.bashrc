@@ -8,5 +8,3 @@
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
-# Set editor to vim
-export EDITOR=vim
