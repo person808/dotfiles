@@ -4,14 +4,15 @@ Xft.antialias:  true
 Xft.hinting:    true
 
 ! URxvt settings
-URxvt.termname:    rxvt-unicode-256color
-URxvt.scrollBar:   false
-URxvt.font:        xft:Monaco for Powerline:size=9
-URxvt.cursorBlink: true
-URxvt.saveLines:   10000
-URxvt.geometry:    100x40
-URxvt.iso14755:    false
-URxvt*iso14755_52: False
+URxvt.termname:       rxvt-unicode-256color
+URxvt.scrollBar:      false
+URxvt.font:           xft:Monaco for Powerline:size=9
+URxvt.cursorBlink:    true
+URxvt.saveLines:      10000
+URxvt.geometry:       100x40
+URxvt.internalBorder: 0
+URxvt.iso14755:       false
+URxvt*iso14755_52:    False
 
 ! URxvt extensions
 URxvt.perl-ext-common:        default,clipboard,matcher,keyboard-select,tabbedex
@@ -25,8 +26,8 @@ URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.keysym.Control-Alt-V:   perl:clipboard:paste_escaped
 URxvt.copyCommand:            xsel -ib
 URxvt.pasteCommand:           xsel -ob
-URxvt.tabbed.autohide:        false
-URxvt.tabbed.new-button:      true
+URxvt.tabbed.autohide:        true
+URxvt.tabbed.new-button:      false
 URxvt.keysym.Control-t:       perl:tabbedex:new_tab
 URxvt.keysym.Control-Right:   perl:tabbedex:next_tab
 URxvt.keysym.Control-Left:    perl:tabbedex:prev_tab
