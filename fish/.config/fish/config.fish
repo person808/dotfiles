@@ -10,5 +10,4 @@ end
 set -U fish_user_paths $fish_user_paths ~/.dotfiles/bin
 
 # Use 256 colors
-set TERM "gnome-256color"
 eval sh base16-eighties.dark.sh
