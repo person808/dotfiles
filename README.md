@@ -21,12 +21,17 @@ Everything's built around topic areas. If you're adding a new area to your
 forked dotfiles — say, "Java" — you can simply add a `java` directory and put
 files in there.
 
-## Special files
+## Files
 
 There's a few special files in the hierarchy.
 
 - **bin/**: Anything in `bin/` will get added to your `$PATH` and be made
   available everywhere.
+
+- **ranger/**: Settings for the CLI file manager `ranger`.
+
+- **X11/**: Generic settings for window managers and `urxvt`. 
+	- URxvt settings require `urxvt-tabbedex` from the AUR.
 
 ## Thanks
 
