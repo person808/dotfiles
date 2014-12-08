@@ -241,7 +241,6 @@ nnoremap <Leader>s :Unite spell_suggest<CR>
 let g:neocomplete#enable_at_startup = 1  " Use neocomplete
 let g:neocomplete#enable_smart_case = 1  " Use smart case in neocomplete
 let g:neocomplete#max_list = 30  " Only show 30 suggestions
-let g:neocomplete#enable_auto_delimiter = 1  " Automatically add delimiters
 let g:neocomplete#enable_refresh_always = 1  " Always refresh completions (May cause slowdowns)
 let g:jedi#completions_enabled = 0  " Don't complete using jedi-vim
 let g:jedi#auto_vim_configuration = 0  " Prevent jedi-vim from changing settings
