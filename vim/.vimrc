@@ -178,11 +178,6 @@ set writebackup
 " }}}
 
 " Vimfiler {{{
-" Close vim if vimfiler is the only buffer
-augroup vimfiler_close
-	autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
-augroup END
-
 let g:vimfiler_as_default_explorer = 1  " Vimfiler is the default file explorer
 " Vimfiler icons
 let g:vimfiler_tree_leaf_icon = ' '
