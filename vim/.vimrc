@@ -18,6 +18,7 @@ Plug 'tpope/vim-eunuch'
 " Editing
 Plug 'kristijanhusak/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 Plug 'sjl/gundo.vim'
 " Autocomplete
