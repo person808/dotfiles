@@ -67,10 +67,6 @@ let g:plug_threads = 40  " Update more plugins at once
 " User Interface {{{
 " Show line numbers in current window
 set number
-augroup set_number
-	autocmd WinEnter * setlocal number
-	autocmd WinLeave * setlocal nonumber
-augroup END
 set cursorline  " Highlight line the cursor is on
 set showmatch  " Show matching parentheses
 set laststatus=2  " Always show status
