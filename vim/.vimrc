@@ -8,13 +8,13 @@ Plug 'chriskempson/base16-vim'
 " Add features
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-eunuch'
 Plug 'scrooloose/syntastic'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/vimshell.vim'
 Plug 'junegunn/vim-oblique'
 Plug 'junegunn/vim-pseudocl'
-Plug 'tpope/vim-eunuch'
 " Editing
 Plug 'kristijanhusak/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
@@ -227,13 +227,21 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])  " Fuzzy matching
 call unite#filters#sorter_default#use(['sorter_rank'])  " Sort unite results
 " Unite settings
 call unite#custom#profile('default', 'context', {
-		\'start_insert': 1,
 		\'auto_resize': 1,
-		\'winheight': 10,
 		\'direction': 'botright',
 		\'smartcase': 1,
-		\'prompt': '>>> '
+		\'start_insert': 1,
+		\'prompt': '>>> ',
+		\'winheight': 10
 		\})
+" Unite-outline settings
+call unite#custom#profile('source/outline', 'context', {
+			\'auto_resize': 0,
+			\'prompt_direction': 'top',
+			\'start_insert': 0,
+			\'vertical': 1,
+			\'winwidth': 35
+			\})
 
 " <Leader>f opens unite
 nnoremap <Leader>f :Unite buffer file_mru file/async file_rec/async<CR>
