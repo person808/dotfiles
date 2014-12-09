@@ -228,10 +228,11 @@ call unite#custom#profile('default', 'context', {
 " Unite-outline settings
 call unite#custom#profile('source/outline', 'context', {
 			\'auto_resize': 0,
+			\'no_quit': 1,
 			\'prompt_direction': 'top',
 			\'start_insert': 0,
 			\'vertical': 1,
-			\'winwidth': 35
+			\'winwidth': 40
 			\})
 
 " <Leader>f opens unite
