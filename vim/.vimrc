@@ -53,7 +53,7 @@ set lazyredraw  " Redraw only when necessary for better performance
 set ttyfast  " Improve performance
 set updatetime=1000  " Lower updatetime for faster git gutter updates
 set timeoutlen=1000 ttimeoutlen=10  " Faster switching between modes
-set confirm  " Ask if I want to save the file when I quit instead of failing when there are unsaved changes
+set confirm  " Confirm if I want to quit if there is an unsaved file
 
 " Automatically change directory to the file's directory (set autochdir is
 " incompatible with vimfiler)
