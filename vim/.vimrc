@@ -32,10 +32,10 @@ Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite-outline'
 Plug 'kopischke/unite-spell-suggest'
 " Python
-Plug 'davidhalter/jedi-vim', {'for': 'python'}
-Plug 'tell-k/vim-autopep8', {'for': 'python'}
+Plug 'davidhalter/jedi-vim'
+Plug 'tell-k/vim-autopep8'
 " Fish
-Plug 'dag/vim-fish', {'for': 'fish'}
+Plug 'dag/vim-fish'
 call plug#end()
 " }}}
 
