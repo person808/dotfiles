@@ -199,11 +199,11 @@ let g:vimshell_execute_file_list['pl'] = 'perl'
 let g:vimshell_execute_file_list['py'] = 'python'
 call vimshell#set_execute_file('html,xhtml', 'gexe opera-beta')
 
+" Syntax highlighting in vimshell interactive
 augroup interpreter-filetypes
 	autocmd FileType int-python setlocal filetype=int-python.python
 augroup END
 
-augroup END
 " <Leader>sh opens vimshell
 nnoremap <Leader>sh :VimShell<CR>
 " <Leader>shp opens vimshell popup
