@@ -53,6 +53,7 @@ set ttyfast  " Improve performance
 set updatetime=1000  " Lower updatetime for faster git gutter updates
 set timeoutlen=1000 ttimeoutlen=10  " Faster switching between modes
 set confirm  " Confirm if I want to quit if there is an unsaved file
+set virtualedit=onemore  " Allow cursor to move to EOL in normal mode
 
 " Automatically change directory to the file's directory (set autochdir is
 " incompatible with vimfiler)
