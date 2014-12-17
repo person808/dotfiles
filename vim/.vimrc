@@ -13,8 +13,7 @@ Plug 'scrooloose/syntastic'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/vimshell.vim'
-Plug 'junegunn/vim-oblique'
-Plug 'junegunn/vim-pseudocl'
+Plug 'haya14busa/incsearch.vim'
 " Editing
 Plug 'kristijanhusak/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
@@ -114,6 +113,19 @@ set ignorecase   " Ignore case when searching
 set smartcase   " Ignore case if search pattern is all lowercase
 set hlsearch  " Highlight search terms
 set incsearch  " Show search matches as you type
+let g:incsearch#auto_nohlsearch = 1  " Automatically turn off highlighting
+let g:incsearch#consistent_n_direction = 1  " Make n and N consistent
+
+" incsearch.vim keybindings
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
 " }}}
 
 " Folding {{{
