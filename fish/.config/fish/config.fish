@@ -11,6 +11,3 @@ set -U fish_user_paths $fish_user_paths ~/.dotfiles/bin
 
 # Set editor
 set -Ux EDITOR vim
-
-# Use 256 colors
-eval sh base16-eighties.dark.sh

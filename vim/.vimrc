@@ -4,7 +4,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
-Plug 'chriskempson/base16-vim'
+Plug 'junegunn/seoul256.vim'
 " Add features
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
@@ -83,13 +83,15 @@ set noshowmode  " Don't show mode in command window
 
 " Colorscheme {{{
 set t_Co=256  " Use 256 terminal colors
-set background=dark  " Use dark background
-let base16colorspace=256  " Use 256 colors for base16
-colorscheme base16-eighties  " Set terminal colorscheme
+colorscheme seoul256  " Set terminal colorscheme
+" Underline misspelled words
+hi clear SpellBad SpellCap SpellLocal SpellRare
+hi SpellBad cterm=underline
 " }}}
 
 " Tabline/Statusline {{{
-let g:airline_powerline_fonts=1  " Use powerline symbols
+let g:airline_theme = 'bubblegum'
+let g:airline_powerline_fonts = 1  " Use powerline symbols
 let g:airline#extensions#tabline#enabled = 1  " Show buffers in tabline
 let g:airline#extensions#tabline#fnamemod = ':t'  " Only show file name in tabline
 let g:airline_section_c = '%{getcwd()}'  " Show current directory in statusline
