@@ -29,7 +29,6 @@ Plug 'SirVer/UltiSnips'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite-outline'
-Plug 'kopischke/unite-spell-suggest'
 " Python
 Plug 'davidhalter/jedi-vim'
 Plug 'tell-k/vim-autopep8'
@@ -145,6 +144,8 @@ inoremap jj <Esc>
 " k and j don't skip wrapped lines
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+" <Leader>s opens spelling corrections
+nnoremap <Leader>s a<C-x><C-s>
 " Open Gundo
 nnoremap <Leader>u :GundoToggle<CR>
 " :w! writes file with sudo
@@ -253,8 +254,6 @@ nnoremap <Leader>f :Unite buffer file_mru file/async file_rec/async<CR>
 nnoremap <Leader>y :Unite history/yank<CR>
 " <Leader>o opens unite outline
 nnoremap <Leader>o :Unite outline<CR>
-" <Leader>o opens unite-spell-suggest
-nnoremap <Leader>s :Unite spell_suggest<CR>
 " }}}
 
 " Autocomplete/Snippets {{{
