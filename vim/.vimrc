@@ -145,7 +145,7 @@ inoremap jj <Esc>
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 " <Leader>s opens spelling corrections
-nnoremap <Leader>s a<C-x><C-s>
+nnoremap <Leader>s a<C-x><C-s><C-p>
 " Open Gundo
 nnoremap <Leader>u :GundoToggle<CR>
 " :w! writes file with sudo
