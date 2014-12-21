@@ -263,6 +263,7 @@ let g:neocomplete#enable_at_startup = 1  " Use neocomplete
 let g:neocomplete#enable_smart_case = 1  " Use smart case in neocomplete
 let g:neocomplete#max_list = 30  " Only show 30 suggestions
 let g:neocomplete#enable_refresh_always = 1  " Always refresh completions
+call neocomplete#custom#source('ultisnips', 'rank', 1000)  " Rank snippets higher
 
 " Enable omni completion.
 augroup omnicompletion
@@ -314,9 +315,9 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 " <CR> inserts completion
 inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
-let g:UltiSnipsExpandTrigger = "<C-j>"  " <C-n> expands snippet
-let g:UltiSnipsJumpForwardTrigger = "<C-j>"  " <C-n> jumps forwards in snippet
-let g:UltiSnipsJumpBackwardTrigger = "<C-k>"  " <C-p> jumps backwards in snippet
+let g:UltiSnipsExpandTrigger = "<C-j>"  " <C-j> expands snippet
+let g:UltiSnipsJumpForwardTrigger = "<C-j>"  " <C-j> jumps forwards in snippet
+let g:UltiSnipsJumpBackwardTrigger = "<C-k>"  " <C-k> jumps backwards in snippet
 " }}}
 " }}}
 
