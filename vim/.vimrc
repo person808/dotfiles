@@ -79,6 +79,7 @@ execute "set colorcolumn=" . join(range(81,335), ',')
 set wildmenu  " Show completions for command mode
 set spell  " Spell check
 set noshowmode  " Don't show mode in command window
+let g:gundo_preview_bottom = 1  " Show gundo preview below windows
 
 " Colorscheme {{{
 set t_Co=256  " Use 256 terminal colors
