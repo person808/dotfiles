@@ -262,7 +262,6 @@ nnoremap <Leader>o :Unite outline<CR>
 let g:neocomplete#enable_at_startup = 1  " Use neocomplete
 let g:neocomplete#enable_smart_case = 1  " Use smart case in neocomplete
 let g:neocomplete#max_list = 30  " Only show 30 suggestions
-let g:neocomplete#enable_refresh_always = 1  " Always refresh completions
 call neocomplete#custom#source('ultisnips', 'rank', 1000)  " Rank snippets higher
 
 " Enable omni completion.
