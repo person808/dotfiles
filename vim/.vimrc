@@ -79,6 +79,7 @@ execute "set colorcolumn=" . join(range(81,335), ',')
 set wildmenu  " Show completions for command mode
 set spell  " Spell check
 set noshowmode  " Don't show mode in command window
+set shortmess+=c  " Don't show autocomplete messages in command line
 let g:gundo_preview_bottom = 1  " Show gundo preview below windows
 
 " Colorscheme {{{
@@ -296,7 +297,7 @@ endfunction
 let g:jedi#completions_enabled = 0  " Don't complete using jedi-vim
 let g:jedi#auto_vim_configuration = 0  " Prevent jedi-vim from changing settings
 let g:jedi#use_tabs_not_buffers = 0  " Open command output in buffers
-let g:jedi#show_call_signatures = 2  " Show call signatures in command line
+let g:jedi#show_call_signatures = 2  " Disable call signatures
 let g:jedi#force_py_version = 3  " Use python 3
 
 " Use jedi-vim for python omnicompletion
