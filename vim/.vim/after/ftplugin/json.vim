@@ -1,1 +1,1 @@
-autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufWritePre * :%s/\s\+$//e  " Strip trailing whitespace
