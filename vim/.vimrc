@@ -12,7 +12,6 @@ Plug 'tpope/vim-eunuch'
 Plug 'scrooloose/syntastic'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
-Plug 'Shougo/vimshell.vim'
 Plug 'haya14busa/incsearch.vim'
 " Editing
 Plug 'kristijanhusak/vim-multiple-cursors'
@@ -199,32 +198,6 @@ let g:vimfiler_marked_file_icon = '*'
 
 " <Leader>e toggles vimfiler
 nnoremap <silent> <Leader>e :VimFilerExplorer -auto-cd -toggle -winwidth=30 -parent<CR>
-" }}}
-
-" Vimshell {{{
-" Vimshell prompt
-let g:vimshell_prompt_expr =
-		\ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
-let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
-" Initialize execute file list.
-let g:vimshell_execute_file_list = {}
-call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
-let g:vimshell_execute_file_list['rb'] = 'ruby'
-let g:vimshell_execute_file_list['pl'] = 'perl'
-let g:vimshell_execute_file_list['py'] = 'python'
-call vimshell#set_execute_file('html,xhtml', 'gexe opera-beta')
-
-" Syntax highlighting in vimshell interactive
-augroup interpreter-filetypes
-	autocmd FileType int-python setlocal filetype=int-python.python
-augroup END
-
-" <Leader>sh opens vimshell
-nnoremap <Leader>sh :VimShell<CR>
-" <Leader>shp opens vimshell popup
-nnoremap <Leader>shp :VimShellPop<CR>
-" <Leader>shi opens vimshell interactive interpreter
-nnoremap <Leader>shi :VimShellInteractive<CR>
 " }}}
 
 " Unite {{{
