@@ -238,18 +238,14 @@ let g:neocomplete#enable_smart_case = 1  " Use smart case in neocomplete
 let g:neocomplete#max_list = 30  " Only show 30 suggestions
 call neocomplete#custom#source('ultisnips', 'rank', 1000)  " Rank snippets higher
 
-" Enable omni completion.
-augroup omnicompletion
-	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType python setlocal omnifunc=jedi#completions
-	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-augroup END
-
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
 	let g:neocomplete#sources#omni#input_patterns = {}
+endif
+
+" Initialize variable to allow custom omnicomplete patterns
+if !exists('g:neocomplete#force_omni_input_patterns')
+	let g:neocomplete#force_omni_input_patterns = {}
 endif
 
 " Play nice with vim-multiple-cursors
@@ -264,21 +260,6 @@ function! Multiple_cursors_after()
 		execute 'NeoCompleteUnlock'
 	endif
 endfunction
-" }}}
-
-" Python {{{
-let g:jedi#completions_enabled = 0  " Don't complete using jedi-vim
-let g:jedi#auto_vim_configuration = 0  " Prevent jedi-vim from changing settings
-let g:jedi#use_tabs_not_buffers = 0  " Open command output in buffers
-let g:jedi#show_call_signatures = 2  " Disable call signatures
-let g:jedi#force_py_version = 3  " Use python 3
-
-" Use jedi-vim for python omnicompletion
-if !exists('g:neocomplete#force_omni_input_patterns')
-	let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.python =
-	\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 " }}}
 
 " Keybindings {{{
@@ -297,9 +278,6 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-k>"  " <C-k> jumps backwards in snippet
 " Syntastic {{{
 let g:syntastic_check_on_open = 1  " Check for errors when opening file
 let g:syntastic_aggregate_errors = 1  " Combine errors from multiple linters
-let g:syntastic_python_python_exec = '/usr/bin/python3'  " Use python 3
-let g:syntastic_python_checkers = ['prospector']  " Python linters
-let g:syntastic_python_prospector_args = "-F"
 " }}}
 
 set modelines=1  " Fold .vimrc by markers
