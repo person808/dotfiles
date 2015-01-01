@@ -10,6 +10,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
 Plug 'scrooloose/syntastic'
+Plug 'Chiel92/vim-autoformat'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
 Plug 'haya14busa/incsearch.vim'
@@ -30,7 +31,6 @@ Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite-outline'
 " Python
 Plug 'davidhalter/jedi-vim'
-Plug 'tell-k/vim-autopep8'
 " Fish
 Plug 'dag/vim-fish'
 call plug#end()
@@ -154,6 +154,8 @@ cnoremap w! SudoWrite
 " vim-easy-align keybindings
 nmap ga <Plug>(EasyAlign)
 vmap <Enter> <Plug>(EasyAlign)
+" GQ formats code using vim-autoformat
+nnoremap GQ :Autoformat<CR><CR>
 " }}}
 
 " Buffers/Tabs/Splits {{{
