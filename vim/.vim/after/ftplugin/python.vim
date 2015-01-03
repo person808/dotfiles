@@ -1,5 +1,4 @@
 " Buffer settings
-setlocal expandtab  " Use spaces instead of tabs
 setlocal omnifunc=jedi#completions  " Omnicomplete
 setlocal textwidth=99  " Set maximum line length
 " Autocmds

@@ -14,6 +14,7 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
 Plug 'haya14busa/incsearch.vim'
+Plug 'sheerun/vim-polyglot'
 " Editing
 Plug 'kristijanhusak/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
