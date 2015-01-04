@@ -148,7 +148,7 @@ nnoremap <Leader>u :GundoToggle<CR>
 cnoremap w! SudoWrite
 nmap ga <Plug>(EasyAlign)
 vmap <Enter> <Plug>(EasyAlign)
-nnoremap GQ :Autoformat<CR><CR>
+nnoremap Q :Autoformat<CR><CR>
 " }}}
 
 " Buffers/Tabs/Splits {{{
