@@ -139,8 +139,8 @@ nnoremap <space> za
 " }}}
 
 " Misc Keybindings  {{{
-" Remap leader to comma
 let mapleader=","
+let maplocalleader=",,"
 " Map jj to <Esc>
 inoremap jj <Esc>
 " k and j don't skip wrapped lines
