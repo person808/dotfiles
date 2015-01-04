@@ -191,13 +191,13 @@ let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#profile('default', 'context', {
-		\'auto_resize': 1,
-		\'direction': 'botright',
-		\'smartcase': 1,
-		\'start_insert': 1,
-		\'prompt': '>>> ',
-		\'winheight': 10
-		\})
+			\'auto_resize': 1,
+			\'direction': 'botright',
+			\'smartcase': 1,
+			\'start_insert': 1,
+			\'prompt': '>>> ',
+			\'winheight': 10
+			\})
 call unite#custom#profile('source/outline', 'context', {
 			\'auto_resize': 0,
 			\'no_quit': 1,
