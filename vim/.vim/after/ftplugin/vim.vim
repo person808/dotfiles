@@ -1,5 +1,5 @@
 " Buffer settings
-setlocal keywordprg=":help"
+setlocal keywordprg=:help
 " Autocmds
 augroup whitespace
 	autocmd BufWritePre * :%s/\s\+$//e  " Strip trailing whitespace
