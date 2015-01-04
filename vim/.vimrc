@@ -38,21 +38,21 @@ call plug#end()
 " }}}
 
 " Misc {{{
-set shell=bash  " Set shell to bash for compatibility
-set history=1000  " Remember more commands and search history
-set undolevels=10000  " Remember more undo levels
-set undofile  " Save undo history between sessions
-set undodir=$HOME/.vim/undo  " Save undo history in custom folder
-set backspace=indent,eol,start  " Backspace over everything in insert mode
-set clipboard=unnamedplus  " Use system clipboard
-set mouse=a  " Mouse support
-set ttymouse=xterm2  " Make sure the mouse works
-set lazyredraw  " Redraw only when necessary for better performance
-set ttyfast  " Improve performance
-set updatetime=1000  " Lower updatetime for faster git gutter updates
-set timeoutlen=1000 ttimeoutlen=10  " Faster switching between modes
-set confirm  " Confirm if I want to quit if there is an unsaved file
-set virtualedit=onemore  " Allow cursor to move to EOL in normal mode
+set shell=bash
+set history=1000
+set undolevels=10000
+set undofile
+set undodir=$HOME/.vim/undo
+set backspace=indent,eol,start
+set clipboard=unnamedplus
+set mouse=a
+set ttymouse=xterm2
+set lazyredraw
+set ttyfast
+set updatetime=1000
+set timeoutlen=1000 ttimeoutlen=10
+set confirm
+set virtualedit=onemore
 
 " Automatically change directory to the file's directory (set autochdir is
 " incompatible with vimfiler)
@@ -60,62 +60,61 @@ augroup change_dir
 	autocmd BufEnter * silent! lcd %:p:h
 augroup END
 
-let g:plug_threads = 40  " Update more plugins at once
+let g:plug_threads = 40
 " }}}
 
 " User Interface {{{
-" Show line numbers in current window
 set number
-set cursorline  " Highlight line the cursor is on
-set showmatch  " Show matching parentheses
-set laststatus=2  " Always show status
-set showtabline=2  " Always show tab bar
-set showcmd  " Show information about current command
-set scrolloff=5  " Always show 5 lines below cursor
-set wrap  " Enable line wrapping
-set linebreak  " Don't wrap lines on words
+set cursorline
+set showmatch
+set laststatus=2
+set showtabline=2
+set showcmd
+set scrolloff=5
+set wrap
+set linebreak
 " Highlight past 80th column
 execute "set colorcolumn=" . join(range(81,335), ',')
-set wildmenu  " Show completions for command mode
-set spell  " Spell check
-set noshowmode  " Don't show mode in command window
-set shortmess+=c  " Don't show autocomplete messages in command line
-let g:gundo_preview_bottom = 1  " Show gundo preview below windows
+set wildmenu
+set spell
+set noshowmode
+set shortmess+=c
+let g:gundo_preview_bottom = 1
 
 " Colorscheme {{{
-set t_Co=256  " Use 256 terminal colors
-let g:hybrid_use_Xresources = 1  " Use colors from .Xresources
-colorscheme hybrid  " Set terminal colorscheme
+set t_Co=256
+let g:hybrid_use_Xresources = 1
+colorscheme hybrid
 " }}}
 
 " Tabline/Statusline {{{
-let g:airline_powerline_fonts = 1  " Use powerline symbols
-let g:airline#extensions#tabline#enabled = 1  " Show buffers in tabline
-let g:airline#extensions#tabline#fnamemod = ':t'  " Only show file name in tabline
-let g:airline_section_c = '%{getcwd()}'  " Show current directory in statusline
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline_section_c = '%{getcwd()}'
 " }}}
 " }}}
 
 " Indentation {{{
-filetype plugin indent on  " Load filetype specific indent files
-set tabstop=4  " Tabs width is 4
-set shiftwidth=4  " Indents have a width of four
-set softtabstop=4  " Use four columns for tabs
-set autoindent  " Always set autoindenting on
-set copyindent  " Copy previous indentation when autoindenting
-set smarttab  " Insert tabs on the start of a line using shiftwidth
-set breakindent  " Make line wrapping respect indentation
-let g:indentLine_char = '┊'  " Use Sublime Text style indent guides
-let g:indentLine_color_term = 102  " Set indent guide color
+filetype plugin indent on
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+set copyindent
+set smarttab
+set breakindent
+let g:indentLine_char = '┊'
+let g:indentLine_color_term = 102
 " }}}
 
 " Searching {{{
-set ignorecase   " Ignore case when searching
-set smartcase   " Ignore case if search pattern is all lowercase
-set hlsearch  " Highlight search terms
-set incsearch  " Show search matches as you type
-let g:incsearch#auto_nohlsearch = 1  " Automatically turn off highlighting
-let g:incsearch#consistent_n_direction = 1  " Make n and N consistent
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+let g:incsearch#auto_nohlsearch = 1
+let g:incsearch#consistent_n_direction = 1
 
 " incsearch.vim keybindings
 map /  <Plug>(incsearch-forward)
@@ -130,50 +129,38 @@ map g# <Plug>(incsearch-nohl-g#)
 " }}}
 
 " Folding {{{
-set foldenable  " Enable folding
-set foldlevelstart=10  " Open most folds by default
-set foldnestmax=10  " 10 nested folds max
-set foldmethod=indent  " Fold based on indent level
-" Space opens/closes folds
+set foldenable
+set foldlevelstart=10
+set foldnestmax=10
+set foldmethod=indent
 nnoremap <space> za
 " }}}
 
 " Misc Keybindings  {{{
 let mapleader=","
 let maplocalleader=",,"
-" Map jj to <Esc>
 inoremap jj <Esc>
 " k and j don't skip wrapped lines
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 " <Leader>s opens spelling corrections
 nnoremap <Leader>s a<C-x><C-s><C-p>
-" Open Gundo
 nnoremap <Leader>u :GundoToggle<CR>
-" :w! writes file with sudo
 cnoremap w! SudoWrite
-" vim-easy-align keybindings
 nmap ga <Plug>(EasyAlign)
 vmap <Enter> <Plug>(EasyAlign)
-" GQ formats code using vim-autoformat
 nnoremap GQ :Autoformat<CR><CR>
 " }}}
 
 " Buffers/Tabs/Splits {{{
-set hidden  " Hide buffers instead of closing them
-" Open a new empty buffer
-nnoremap <silent> <Leader>b :enew<CR>
-" Move to the next buffer
-nnoremap <silent> <Leader>l :bnext<CR>
-" Move to the previous buffer
-nnoremap <silent> <Leader>h :bprevious<CR>
-" Delete buffer
-nnoremap <silent> <Leader>c :bdelete<CR>
-
-" More natural split opening
+set hidden
 set splitbelow
 set splitright
 
+nnoremap <silent> <Leader>b :enew<CR>
+nnoremap <silent> <Leader>l :bnext<CR>
+nnoremap <silent> <Leader>h :bprevious<CR>
+nnoremap <silent> <Leader>c :bdelete<CR>
 " Better split navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -182,7 +169,6 @@ nnoremap <C-H> <C-W><C-H>
 " }}}
 
 " Backups {{{
-" Keep backups away from folders and in tmp
 set backup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backupskip=/tmp/*,/private/tmp/*
@@ -191,23 +177,20 @@ set writebackup
 " }}}
 
 " Vimfiler {{{
-let g:vimfiler_as_default_explorer = 1  " Vimfiler is the default file explorer
-" Vimfiler icons
+let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_tree_leaf_icon = ' '
 let g:vimfiler_tree_opened_icon = '▾'
 let g:vimfiler_tree_closed_icon = '▸'
 let g:vimfiler_file_icon = '-'
 let g:vimfiler_marked_file_icon = '*'
 
-" <Leader>e toggles vimfiler
 nnoremap <silent> <Leader>e :VimFilerExplorer -auto-cd -toggle -winwidth=30 -parent<CR>
 " }}}
 
 " Unite {{{
-let g:unite_source_history_yank_enable = 1  " Enable yank history in unite
-call unite#filters#matcher_default#use(['matcher_fuzzy'])  " Fuzzy matching
-call unite#filters#sorter_default#use(['sorter_rank'])  " Sort unite results
-" Unite settings
+let g:unite_source_history_yank_enable = 1
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#profile('default', 'context', {
 		\'auto_resize': 1,
 		\'direction': 'botright',
@@ -216,7 +199,6 @@ call unite#custom#profile('default', 'context', {
 		\'prompt': '>>> ',
 		\'winheight': 10
 		\})
-" Unite-outline settings
 call unite#custom#profile('source/outline', 'context', {
 			\'auto_resize': 0,
 			\'no_quit': 1,
@@ -226,20 +208,17 @@ call unite#custom#profile('source/outline', 'context', {
 			\'winwidth': 40
 			\})
 
-" <Leader>f opens unite
 nnoremap <Leader>f :Unite buffer file_mru file/async file_rec/async<CR>
-" <Leader>y opens unite yankring
 nnoremap <Leader>y :Unite history/yank<CR>
-" <Leader>o opens unite outline
 nnoremap <Leader>o :Unite outline<CR>
 " }}}
 
 " Autocomplete/Snippets {{{
 " Global settings {{{
-let g:neocomplete#enable_at_startup = 1  " Use neocomplete
-let g:neocomplete#enable_smart_case = 1  " Use smart case in neocomplete
-let g:neocomplete#max_list = 30  " Only show 30 suggestions
-call neocomplete#custom#source('ultisnips', 'rank', 1000)  " Rank snippets higher
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#max_list = 30
+call neocomplete#custom#source('ultisnips', 'rank', 1000)
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -266,21 +245,21 @@ endfunction
 " }}}
 
 " Keybindings {{{
-" <Tab> cycles through completion
+" <Tab> cycles through completions
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 " <CR> inserts completion
 inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
-let g:UltiSnipsExpandTrigger = "<C-j>"  " <C-j> expands snippet
-let g:UltiSnipsJumpForwardTrigger = "<C-j>"  " <C-j> jumps forwards in snippet
-let g:UltiSnipsJumpBackwardTrigger = "<C-k>"  " <C-k> jumps backwards in snippet
+let g:UltiSnipsExpandTrigger = "<C-j>"
+let g:UltiSnipsJumpForwardTrigger = "<C-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 " }}}
 " }}}
 
 " Syntastic {{{
-let g:syntastic_check_on_open = 1  " Check for errors when opening file
-let g:syntastic_aggregate_errors = 1  " Combine errors from multiple linters
+let g:syntastic_check_on_open = 1
+let g:syntastic_aggregate_errors = 1
 " }}}
 
 set modelines=1  " Fold .vimrc by markers
