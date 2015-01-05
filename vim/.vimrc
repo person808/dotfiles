@@ -52,6 +52,7 @@ set updatetime=1000
 set timeoutlen=1000 ttimeoutlen=10
 set confirm
 set virtualedit=onemore
+let g:plug_threads = 40
 
 " Automatically change directory to the file's directory (set autochdir is
 " incompatible with vimfiler)
@@ -59,7 +60,10 @@ augroup change_dir
 	autocmd BufEnter * silent! lcd %:p:h
 augroup END
 
-let g:plug_threads = 40
+" Opens files at the last known cursor position
+augroup open_last_line
+	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
 " }}}
 
 " User Interface {{{
