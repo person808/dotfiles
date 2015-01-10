@@ -48,6 +48,16 @@
   (evil-commentary-default-setup)
   )
 
+(use-package undo-tree
+  :ensure t
+  :init
+  ;; (global-undo-tree-mode 1)
+  :config
+  (progn
+      ;; (undo-tree-auto-save-history t)
+    )
+  )
+
 (use-package aggressive-indent
   :ensure t
   :init
@@ -121,6 +131,26 @@
   ;; Disable normal expansions so snippets only expand from company-mode
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
   (define-key yas-minor-mode-map (kbd "TAB") nil)
+  )
+
+(use-package magit
+  :ensure t
+  :config
+  (progn
+    ;; Better integration with evil-mode
+    (evil-set-initial-state 'magit-mode 'normal)
+    (evil-set-initial-state 'magit-status-mode 'normal)
+    (evil-set-initial-state 'magit-diff-mode 'normal)
+    (evil-set-initial-state 'magit-log-mode 'normal)
+    (evil-define-key 'normal magit-mode-map
+      "j" 'magit-goto-next-section
+      "k" 'magit-goto-previous-section)
+    (evil-define-key 'normal magit-log-mode-map
+      "j" 'magit-goto-next-section
+      "k" 'magit-goto-previous-section)
+    (evil-define-key 'normal magit-diff-mode-map
+      "j" 'magit-goto-next-section
+      "k" 'magit-goto-previous-section))
   )
 
 (use-package anaconda-mode
