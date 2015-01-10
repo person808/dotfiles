@@ -11,6 +11,8 @@
 (require 'use-package)
 
 ;; Plugin settings
+
+;; Evil-mode plugins
 (use-package evil-leader
   :commands (evil-leader-mode)
   :ensure t
@@ -42,28 +44,6 @@
     )
   )
 
-(use-package evil-commentary
-  :ensure t
-  :init
-  (evil-commentary-default-setup)
-  )
-
-(use-package undo-tree
-  :ensure t
-  :init
-  ;; (global-undo-tree-mode 1)
-  :config
-  (progn
-      ;; (undo-tree-auto-save-history t)
-    )
-  )
-
-(use-package aggressive-indent
-  :ensure t
-  :init
-  (global-aggressive-indent-mode 1)
-  )
-
 (use-package key-chord
   :ensure t
   :init
@@ -73,6 +53,35 @@
     (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)  ; Map jj to <Esc>
     )
   )
+
+(use-package undo-tree
+  :ensure t
+  :init
+  ;; (global-undo-tree-mode 1)
+  :config
+  (progn
+    ;; (undo-tree-auto-save-history t)
+    )
+  )
+
+;; Editing
+
+(use-package evil-commentary
+  :ensure t
+  :init
+
+
+
+  (evil-commentary-default-setup)
+  )
+
+(use-package aggressive-indent
+  :ensure t
+  :init
+  (global-aggressive-indent-mode 1)
+  )
+
+;; Autocomplete
 
 (use-package company
   :ensure t
@@ -133,6 +142,24 @@
   (define-key yas-minor-mode-map (kbd "TAB") nil)
   )
 
+(use-package anaconda-mode
+  :ensure t
+  :mode "\\.py\\'"
+  :interpreter ("anaconda-mode" . python-mode)
+  :config
+  (add-hook 'python-mode-hook 'eldoc-mode)
+  )
+
+(use-package company-anaconda
+  :ensure t
+  :init
+  (with-eval-after-load 'company
+    (add-to-list 'company-language-backends 'company-anaconda)
+    )
+  )
+
+;; Addtional features
+
 (use-package magit
   :ensure t
   :config
@@ -153,18 +180,15 @@
       "k" 'magit-goto-previous-section))
   )
 
-(use-package anaconda-mode
-  :ensure t
-  :mode "\\.py\\'"
-  :interpreter ("anaconda-mode" . python-mode)
-  )
-(use-package company-anaconda
+(use-package flycheck
   :ensure t
   :init
-  (with-eval-after-load 'company
-    (add-to-list 'company-language-backends 'company-anaconda)
+  (global-flycheck-mode t)
+  :config
+  (progn
+    
     )
-  )
+;; Appearance
 
 (use-package ample-theme
   :ensure t
