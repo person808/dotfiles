@@ -64,8 +64,9 @@
   :ensure t
   :config
   (progn
-    (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
-    (setq undo-tree-auto-save-history t)))
+    (setq
+     undo-tree-history-directory-alist `(("." . "~/.emacs.d/undo/"))
+     undo-tree-auto-save-history t)))
 
 ;; Editing
 
@@ -195,19 +196,17 @@
 (scroll-bar-mode -1)
 (global-linum-mode 1)
 (setq default-frame-alist
-      '(
-	(width . 45)
+      '((width . 45)
 	(height . 20)
-	(font . "Monaco-9")
-	))
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
-(setq mouse-wheel-progressive-speed nil)
+	(font . "Monaco-9")))
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
+      mouse-wheel-progressive-speed nil)
 
 ;; Misc settings
 (defalias 'yes-or-no-p 'y-or-n-p)
 (visual-line-mode 1)
-(setq backup-directory-alist `(("." . "~/.emacs.d/saves/")))
-(setq backup-by-copying t)
+(setq backup-directory-alist `(("." . "~/.emacs.d/saves/"))
+      backup-by-copying t)
 (setq vc-follow-symlinks t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
