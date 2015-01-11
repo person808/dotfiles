@@ -20,12 +20,23 @@
   (global-evil-leader-mode)
   :config
   (progn
-    (evil-leader/set-leader ",")  ; Map <Leader> to ,
-    (evil-leader/set-key "c" 'kill-buffer-and-window)  ; <Leader>c closes buffer
-    (evil-leader/set-key "h" 'evil-prev-buffer)  ; <Leader>h goes to previous buffer
-    (evil-leader/set-key "l" 'evil-next-buffer)  ; <Leader>l goes to next buffer
-    )
-  )
+    (evil-leader/set-leader ",")
+    (defun new-buffer ()
+      "Creates a new empty buffer."
+      (interactive)
+      (switch-to-buffer (generate-new-buffer "buffer")))
+    (evil-leader/set-key
+      "c" 'kill-buffer-and-window
+      "h" (let ((map (make-sparse-keymap)))  ; Adding multiple keymaps to a prefix
+	    (define-key map (kbd "s") 'git-gutter:stage-hunk)
+	    (define-key map (kbd "r") 'git-gutter:revert-hunk)
+	    map)
+      "p" 'evil-prev-buffer
+      "n" 'evil-next-buffer
+      "b" 'new-buffer
+      "u" 'undo-tree-visualize
+      "sh" 'eshell
+      )))
 
 (use-package evil
   :ensure t
@@ -33,16 +44,12 @@
   (evil-mode t)
   :config
   (progn
-    ;; Make j and k respect line wrapping
     (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
     (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
-    ;; Better split navigation
     (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
     (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
     (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
-    (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
-    )
-  )
+    (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)))
 
 (use-package key-chord
   :ensure t
@@ -50,36 +57,27 @@
   (key-chord-mode 1)
   :config
   (progn
-    (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)  ; Map jj to <Esc>
-    )
-  )
+    (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
+    ))
 
 (use-package undo-tree
   :ensure t
-  :init
-  ;; (global-undo-tree-mode 1)
   :config
   (progn
-    ;; (undo-tree-auto-save-history t)
-    )
-  )
+    (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
+    (setq undo-tree-auto-save-history t)))
 
 ;; Editing
 
 (use-package evil-commentary
   :ensure t
   :init
-
-
-
-  (evil-commentary-default-setup)
-  )
+  (evil-commentary-default-setup))
 
 (use-package aggressive-indent
   :ensure t
   :init
-  (global-aggressive-indent-mode 1)
-  )
+  (global-aggressive-indent-mode 1))
 
 ;; Autocomplete
 
@@ -89,32 +87,8 @@
   (global-company-mode 1)
   :config
   (progn
-    (setq company-language-backends
-	  '(company-bbdb
-	    company-nxml
-	    company-css
-	    company-eclim
-	    company-semantic
-	    company-clang
-	    company-xcode
-	    company-ropemacs
-	    company-cmake
-	    company-capf
-	    ))
-    
-    ;; Set default company backends
-    (setq company-backends '((company-yasnippet
-			      company-dabbrev-code
-			      company-gtags
-			      company-etags
-			      company-keywords)
-			     company-oddmuse
-			     company-files
-			     company-dabbrev))
-    (add-hook 'after-init-hook (add-to-list 'company-backends 'company-language-backends))
-    (setq company-idle-delay 0)  ; No delay for autocomplete
-    
-    ;; TAB completes common prefix and cycles through completions
+    (setq company-idle-delay 0)
+
     (defun company-complete-common-or-cycle ()
       "Allows tab to complete the common prefix and cycle through completions."
       (interactive)
@@ -127,36 +101,27 @@
 
     (define-key company-active-map [tab] 'company-complete-common-or-cycle)
     (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
-    ;; <backtab> goes backwards through completions
-    (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
-    )
-  )
+    (define-key company-active-map (kbd "<backtab>") 'company-select-previous)))
 
 (use-package yasnippet
   :ensure t
   :init
   (yas-global-mode 1)
   :config
-  ;; Disable normal expansions so snippets only expand from company-mode
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
-  (define-key yas-minor-mode-map (kbd "TAB") nil)
-  )
+  (define-key yas-minor-mode-map  (kbd "TAB") nil))
 
 (use-package anaconda-mode
   :ensure t
   :mode "\\.py\\'"
-  :interpreter ("anaconda-mode" . python-mode)
   :config
-  (add-hook 'python-mode-hook 'eldoc-mode)
-  )
+  (add-hook 'python-mode-hook 'eldoc-mode))
 
 (use-package company-anaconda
   :ensure t
   :init
   (with-eval-after-load 'company
-    (add-to-list 'company-language-backends 'company-anaconda)
-    )
-  )
+    (add-to-list 'company-backends 'company-anaconda)))
 
 ;; Addtional features
 
@@ -164,7 +129,6 @@
   :ensure t
   :config
   (progn
-    ;; Better integration with evil-mode
     (evil-set-initial-state 'magit-mode 'normal)
     (evil-set-initial-state 'magit-status-mode 'normal)
     (evil-set-initial-state 'magit-diff-mode 'normal)
@@ -177,41 +141,75 @@
       "k" 'magit-goto-previous-section)
     (evil-define-key 'normal magit-diff-mode-map
       "j" 'magit-goto-next-section
-      "k" 'magit-goto-previous-section))
-  )
+      "k" 'magit-goto-previous-section)))
+
+(use-package git-gutter
+  :ensure t
+  :init
+  (global-git-gutter-mode t)
+  (git-gutter:linum-setup)
+  :config
+  (progn
+    (setq git-gutter:modified-sign "~"
+	  git-gutter:added-sign "+"
+	  git-gutter:deleted-sign "_")
+    (define-key evil-normal-state-map "]c" 'git-gutter:next-hunk)
+    (define-key evil-normal-state-map "[c" 'git-gutter:previous-hunk)))
 
 (use-package flycheck
   :ensure t
   :init
-  (global-flycheck-mode t)
+  (global-flycheck-mode t))
+
+(use-package helm
+  :ensure t
+  :init
+  (helm-mode t)
   :config
   (progn
-    
-    )
+    (helm-autoresize-mode t)))
+
 ;; Appearance
 
 (use-package ample-theme
   :ensure t
   :init
-  (load-theme 'ample-flat t)  ; Colorscheme
-  )
+  (load-theme 'ample-flat t))
+
+(use-package smooth-scrolling
+  :ensure t
+  :config
+  (progn
+    (setq scroll-margin 5
+	  scroll-conservatively 10000
+	  scroll-step 1)))
 
 ;; Non-plugin settings
 
 ;; Appearance
-;; No splash screen
 (setq inhibit-splash-screen t
       inhibit-startup-echo-area-message t
       inhibit-startup-message t)
-(menu-bar-mode -1)  ; Disable menu bar
-(tool-bar-mode -1)  ; Disable tool bar
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(global-linum-mode 1)
 (setq default-frame-alist
       '(
-	(width . 45)  ; Window width
-	(height . 20)  ; Height width
-	(font . "Monaco-9")  ; Font
+	(width . 45)
+	(height . 20)
+	(font . "Monaco-9")
 	))
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+(setq mouse-wheel-progressive-speed nil)
 
 ;; Misc settings
-(defalias 'yes-or-no-p 'y-or-n-p)  ; Use y-n instead of yes-no for prompts
-(visual-line-mode 1)  ; Word wrap
+(defalias 'yes-or-no-p 'y-or-n-p)
+(visual-line-mode 1)
+(setq backup-directory-alist `(("." . "~/.emacs.d/saves/")))
+(setq backup-by-copying t)
+(setq vc-follow-symlinks t)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Editing
+(electric-pair-mode 1)
