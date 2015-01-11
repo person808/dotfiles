@@ -21,21 +21,21 @@
   :config
   (progn
     (evil-leader/set-leader ",")
+
     (defun new-buffer ()
       "Creates a new empty buffer."
       (interactive)
       (switch-to-buffer (generate-new-buffer "buffer")))
+
     (evil-leader/set-key
       "c" 'kill-buffer-and-window
-      "h" (let ((map (make-sparse-keymap)))  ; Adding multiple keymaps to a prefix
-	    (define-key map (kbd "s") 'git-gutter:stage-hunk)
-	    (define-key map (kbd "r") 'git-gutter:revert-hunk)
-	    map)
-      "p" 'evil-prev-buffer
-      "n" 'evil-next-buffer
+      "h" 'evil-prev-buffer
+      "l" 'evil-next-buffer
       "b" 'new-buffer
       "u" 'undo-tree-visualize
-      "sh" 'eshell
+      "esh" 'eshell
+      "sh" 'git-gutter:stage-hunk
+      "rh" 'git-gutter:revert-hunk
       )))
 
 (use-package evil
