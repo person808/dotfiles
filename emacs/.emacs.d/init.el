@@ -151,6 +151,7 @@
   (git-gutter:linum-setup)
   :config
   (progn
+    (add-hook 'magit-revert-buffer-hook 'git-gutter:update-all-windows)
     (setq git-gutter:modified-sign "~ "
 	  git-gutter:added-sign "+ "
 	  git-gutter:deleted-sign "_ "
