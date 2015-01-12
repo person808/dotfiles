@@ -151,9 +151,10 @@
   (git-gutter:linum-setup)
   :config
   (progn
-    (setq git-gutter:modified-sign "~"
-	  git-gutter:added-sign "+"
-	  git-gutter:deleted-sign "_")
+    (setq git-gutter:modified-sign "~ "
+	  git-gutter:added-sign "+ "
+	  git-gutter:deleted-sign "_ "
+	  git-gutter:hide-gutter t)
     (define-key evil-normal-state-map "]c" 'git-gutter:next-hunk)
     (define-key evil-normal-state-map "[c" 'git-gutter:previous-hunk)))
 
@@ -195,6 +196,7 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (global-linum-mode 1)
+(setq linum-format "%d ")
 (setq default-frame-alist
       '((width . 45)
 	(height . 20)
@@ -203,8 +205,10 @@
       mouse-wheel-progressive-speed nil)
 
 ;; Misc settings
-(defalias 'yes-or-no-p 'y-or-n-p)
 (visual-line-mode 1)
+(defalias 'yes-or-no-p 'y-or-n-p)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
+      mouse-wheel-progressive-speed nil)
 (setq backup-directory-alist `(("." . "~/.emacs.d/saves/"))
       backup-by-copying t)
 (setq vc-follow-symlinks t)
