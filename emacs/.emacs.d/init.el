@@ -201,8 +201,7 @@
       '((width . 45)
 	(height . 20)
 	(font . "Monaco-9")))
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
-      mouse-wheel-progressive-speed nil)
+(setq-default fringes-outside-margins 1)
 
 ;; Misc settings
 (visual-line-mode 1)
