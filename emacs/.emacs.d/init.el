@@ -88,7 +88,20 @@
   (global-company-mode 1)
   :config
   (progn
-    (setq company-idle-delay 0)
+    (setq company-idle-delay 0
+	  company-minimum-prefix-length 2)
+
+    (defun company-mode/backend-with-yas (backend)
+      "Adds yasnippet to company-backends."
+      (if (or (not company-mode/enable-yas)
+	      (and (listp backend)
+		   (member 'company-yasnippet backend)))
+	  backend
+	(append (if (consp backend) backend (list backend))
+		'(:with company-yasnippet))))
+
+    (defvar company-mode/enable-yas t)
+    (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
 
     (defun company-complete-common-or-cycle ()
       "Allows tab to complete the common prefix and cycle through completions."
@@ -114,15 +127,15 @@
 
 (use-package anaconda-mode
   :ensure t
-  :mode "\\.py\\'"
+  :init (add-hook 'python-mode-hook 'anaconda-mode)
   :config
   (add-hook 'python-mode-hook 'eldoc-mode))
 
 (use-package company-anaconda
   :ensure t
-  :init
-  (with-eval-after-load 'company
-    (add-to-list 'company-backends 'company-anaconda)))
+  :if (boundp 'company-backends)
+  :defer t
+  :init (add-to-list 'company-backends 'company-anaconda))
 
 ;; Addtional features
 
