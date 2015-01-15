@@ -280,7 +280,10 @@
   :ensure t
   :defer t
   :init
-  (add-hook 'prog-mode-hook 'vim-empty-lines-mode))
+  (add-hook 'prog-mode-hook 'vim-empty-lines-mode)
+  :config
+  (progn
+    (diminish 'vim-empty-lines-mode)))
 
 ;; Non-plugin settings
 
