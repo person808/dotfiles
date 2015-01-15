@@ -277,6 +277,12 @@
 	  scroll-conservatively 10000
 	  scroll-step 1)))
 
+(use-package vim-empty-lines-mode
+  :ensure t
+  :defer t
+  :init
+  (add-hook 'prog-mode-hook 'vim-empty-lines-mode))
+
 ;; Non-plugin settings
 
 ;; Appearance
