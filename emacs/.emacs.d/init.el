@@ -177,6 +177,7 @@
 	  git-gutter:added-sign "+ "
 	  git-gutter:deleted-sign "_ "
 	  git-gutter:hide-gutter t)
+
     (define-key evil-normal-state-map "]c" 'git-gutter:next-hunk)
     (define-key evil-normal-state-map "[c" 'git-gutter:previous-hunk)))
 
