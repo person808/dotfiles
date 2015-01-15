@@ -156,6 +156,8 @@
   :ensure t
   :config
   (progn
+    (diminish 'magit-auto-revert-mode)
+
     (evil-set-initial-state 'magit-mode 'normal)
     (evil-set-initial-state 'magit-status-mode 'normal)
     (evil-set-initial-state 'magit-diff-mode 'normal)
