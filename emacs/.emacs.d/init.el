@@ -211,10 +211,9 @@
 (scroll-bar-mode -1)
 (global-linum-mode 1)
 (setq default-frame-alist
-      '((width . 45)
-	(height . 20)
+      '((width . 50)
+	(height . 25)
 	(font . "Monaco-9")))
-(setq-default fringes-outside-margins 1)
 
 ;; Misc settings
 (visual-line-mode 1)
@@ -224,7 +223,7 @@
 (setq backup-directory-alist `(("." . "~/.emacs.d/saves/"))
       backup-by-copying t)
 (setq vc-follow-symlinks t)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Editing
 (electric-pair-mode 1)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
