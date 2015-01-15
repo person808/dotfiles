@@ -53,6 +53,7 @@
 
 (use-package key-chord
   :ensure t
+  :defer t
   :init
   (key-chord-mode 1)
   :config
@@ -62,6 +63,7 @@
 
 (use-package undo-tree
   :ensure t
+  :defer t
   :config
   (progn
     (setq
@@ -72,11 +74,13 @@
 
 (use-package evil-commentary
   :ensure t
+  :defer t
   :init
   (evil-commentary-default-setup))
 
 (use-package aggressive-indent
   :ensure t
+  :defer t
   :init
   (global-aggressive-indent-mode 1))
 
@@ -84,6 +88,7 @@
 
 (use-package company
   :ensure t
+  :defer t
   :init
   (global-company-mode 1)
   :config
@@ -119,6 +124,7 @@
 
 (use-package yasnippet
   :ensure t
+  :defer t
   :init
   (yas-global-mode 1)
   :config
@@ -127,17 +133,18 @@
 
 (use-package anaconda-mode
   :ensure t
+  :defer t
   :init (add-hook 'python-mode-hook 'anaconda-mode)
   :config
   (add-hook 'python-mode-hook 'eldoc-mode))
 
 (use-package company-anaconda
   :ensure t
-  :if (boundp 'company-backends)
   :defer t
+  :if (boundp 'company-backends)
   :init (add-to-list 'company-backends 'company-anaconda))
 
-;; Addtional features
+;; Git plugins
 
 (use-package magit
   :ensure t
@@ -159,6 +166,7 @@
 
 (use-package git-gutter
   :ensure t
+  :defer t
   :init
   (global-git-gutter-mode t)
   (git-gutter:linum-setup)
@@ -174,11 +182,13 @@
 
 (use-package flycheck
   :ensure t
+  :defer t
   :init
   (global-flycheck-mode t))
 
 (use-package helm
   :ensure t
+  :defer t
   :init
   (helm-mode t)
   :config
@@ -189,11 +199,13 @@
 
 (use-package ample-theme
   :ensure t
+  :defer t
   :init
   (load-theme 'ample-flat t))
 
 (use-package smooth-scrolling
   :ensure t
+  :defer t
   :config
   (progn
     (setq scroll-margin 5
