@@ -32,10 +32,7 @@
       "h" 'evil-prev-buffer
       "l" 'evil-next-buffer
       "b" 'new-buffer
-      "u" 'undo-tree-visualize
-      "esh" 'eshell
-      "sh" 'git-gutter:stage-hunk
-      "rh" 'git-gutter:revert-hunk
+      "sh" 'eshell
       )))
 
 (use-package evil
@@ -58,8 +55,7 @@
   (key-chord-mode 1)
   :config
   (progn
-    (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
-    ))
+    (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)))
 
 (use-package undo-tree
   :ensure t
@@ -69,7 +65,9 @@
     (diminish 'undo-tree-mode)
     (setq
      undo-tree-history-directory-alist `(("." . "~/.emacs.d/undo/"))
-     undo-tree-auto-save-history t)))
+     undo-tree-auto-save-history t)
+
+    (evil-leader/set-key "u" 'undo-tree-visualize)))
 
 ;; Editing
 
@@ -171,7 +169,12 @@
       "k" 'magit-goto-previous-section)
     (evil-define-key 'normal magit-diff-mode-map
       "j" 'magit-goto-next-section
-      "k" 'magit-goto-previous-section)))
+      "k" 'magit-goto-previous-section)
+    (evil-leader/set-key
+      "gb" 'magit-blame-mode
+      "gl" 'magit-log
+      "gs" 'magit-status
+      "gc" 'magit-commit)))
 
 (use-package git-gutter
   :ensure t
@@ -189,7 +192,12 @@
 	  git-gutter:hide-gutter t)
 
     (define-key evil-normal-state-map "]c" 'git-gutter:next-hunk)
-    (define-key evil-normal-state-map "[c" 'git-gutter:previous-hunk)))
+    (define-key evil-normal-state-map "[c" 'git-gutter:previous-hunk)
+    (evil-leader/set-key
+      "ghs" 'git-gutter:stage-hunk
+      "ghr" 'git-gutter:revert-hunk)))
+
+;; Error checking
 
 (use-package flycheck
   :ensure t
