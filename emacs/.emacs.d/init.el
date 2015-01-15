@@ -66,6 +66,7 @@
   :defer t
   :config
   (progn
+    (diminish 'undo-tree-mode)
     (setq
      undo-tree-history-directory-alist `(("." . "~/.emacs.d/undo/"))
      undo-tree-auto-save-history t)))
@@ -82,7 +83,10 @@
   :ensure t
   :defer t
   :init
-  (global-aggressive-indent-mode 1))
+  (global-aggressive-indent-mode t)
+  :config
+  (progn
+    (diminish 'aggressive-indent-mode)))
 
 ;; Autocomplete
 
@@ -90,7 +94,7 @@
   :ensure t
   :defer t
   :init
-  (global-company-mode 1)
+  (global-company-mode t)
   :config
   (progn
     (setq company-idle-delay 0
@@ -128,8 +132,13 @@
   :init
   (yas-global-mode 1)
   :config
-  (define-key yas-minor-mode-map (kbd "<tab>") nil)
-  (define-key yas-minor-mode-map  (kbd "TAB") nil))
+  (progn
+    (diminish 'yas-minor-mode)
+
+    (define-key yas-minor-mode-map (kbd "<tab>") nil)
+    (define-key yas-minor-mode-map  (kbd "TAB") nil)))
+
+;; Python autocomplete
 
 (use-package anaconda-mode
   :ensure t
@@ -172,6 +181,7 @@
   (git-gutter:linum-setup)
   :config
   (progn
+    (diminish 'git-gutter-mode)
     (add-hook 'magit-revert-buffer-hook 'git-gutter:update-all-windows)
     (setq git-gutter:modified-sign "~ "
 	  git-gutter:added-sign "+ "
