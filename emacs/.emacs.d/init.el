@@ -32,8 +32,7 @@
       "h" 'evil-prev-buffer
       "l" 'evil-next-buffer
       "b" 'new-buffer
-      "sh" 'eshell
-      )))
+      "sh" 'eshell)))
 
 (use-package evil
   :ensure t
