@@ -14,14 +14,13 @@
 
 ;; Evil-mode plugins
 (use-package evil-leader
-  :commands (evil-leader-mode)
   :ensure t
+  :demand t
   :init
   (global-evil-leader-mode)
+  (evil-leader/set-leader ",")
   :config
   (progn
-    (evil-leader/set-leader ",")
-
     (defun new-buffer ()
       "Creates a new empty buffer."
       (interactive)
@@ -203,7 +202,24 @@
   :ensure t
   :defer t
   :init
-  (global-flycheck-mode t))
+  (global-flycheck-mode t)
+  :config
+  (progn
+    (setq flycheck-indication-mode nil)
+
+    (custom-set-faces
+     '(flycheck-error ((t (:underline "Red1"))))
+     '(flycheck-info ((t (:underline "ForestGreen"))))
+     '(flycheck-warning ((t (:underline "orange")))))
+
+    (evil-leader/set-key
+      "ec" 'flycheck-clear
+      "ef" 'flycheck-mode
+      "el" 'flycheck-list-errors
+      "en" 'flycheck-next-error
+      "ep" 'flycheck-previous-error)))
+
+;; Helm packages
 
 (use-package helm
   :ensure t
@@ -212,7 +228,36 @@
   (helm-mode t)
   :config
   (progn
-    (helm-autoresize-mode t)))
+    (diminish 'helm-mode)
+    (helm-autoresize-mode t)
+    (setq helm-recentf-fuzzy-match t
+	  helm-buffers-fuzzy-matching t
+	  helm-locate-fuzzy-match t)
+
+    (define-key helm-map (kbd "C-j") 'helm-next-line)
+    (define-key helm-map (kbd "C-k") 'helm-previous-line)
+    (define-key helm-map (kbd "C-h") 'helm-next-source)
+    (define-key helm-map (kbd "C-l") 'helm-previous-source)))
+
+(use-package helm-ag
+  :ensure t
+  :defer t
+  :config
+  (progn
+    (setq helm-ag-base-command "ag --nocolor --nogroup --ignore-case"
+	  helm-ag-command-option "--all-text"
+	  helm-ag-insert-at-point 'symbol)))
+
+;; Shows possible key combinations
+
+(use-package guide-key
+  :ensure t
+  :defer t
+  :init (guide-key-mode 1)
+  :config
+  (progn
+    (diminish 'guide-key-mode)
+    (setq guide-key/guide-key-sequence '("C-x"))))
 
 ;; Appearance
 
