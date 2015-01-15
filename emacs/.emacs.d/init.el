@@ -18,9 +18,10 @@
   :demand t
   :init
   (global-evil-leader-mode)
-  (evil-leader/set-leader ",")
   :config
   (progn
+    (evil-leader/set-leader ",")
+
     (defun new-buffer ()
       "Creates a new empty buffer."
       (interactive)
@@ -185,9 +186,9 @@
   (progn
     (diminish 'git-gutter-mode)
     (add-hook 'magit-revert-buffer-hook 'git-gutter:update-all-windows)
-    (setq git-gutter:modified-sign "~ "
-	  git-gutter:added-sign "+ "
-	  git-gutter:deleted-sign "_ "
+    (setq git-gutter:modified-sign "~"
+	  git-gutter:added-sign "+"
+	  git-gutter:deleted-sign "-"
 	  git-gutter:hide-gutter t)
 
     (define-key evil-normal-state-map "]c" 'git-gutter:next-hunk)
