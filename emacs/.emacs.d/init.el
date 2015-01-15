@@ -210,7 +210,6 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (global-linum-mode 1)
-(setq linum-format "%d ")
 (setq default-frame-alist
       '((width . 45)
 	(height . 20)
