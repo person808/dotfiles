@@ -256,7 +256,7 @@
 (use-package guide-key
   :ensure t
   :defer t
-  :init (guide-key-mode 1)
+  :init (guide-key-mode t)
   :config
   (progn
     (diminish 'guide-key-mode)
