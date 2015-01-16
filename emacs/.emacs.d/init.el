@@ -330,6 +330,10 @@
 (setq backup-directory-alist `(("." . "~/.emacs.d/saves/"))
       backup-by-copying t)
 (setq vc-follow-symlinks t)
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
 ;; Editing
 (electric-pair-mode 1)
