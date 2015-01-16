@@ -269,6 +269,18 @@
   :init
   (load-theme 'ample-flat t))
 
+(use-package fill-column-indicator
+  :ensure t
+  :defer t
+  :init
+  (define-globalized-minor-mode global-fci-mode fci-mode turn-on-fci-mode)
+  (global-fci-mode t)
+  :config
+  (progn
+    (setq fci-rule-column 80
+	  fci-rule-color "grey20"
+	  fci-rule-width 2)))
+
 (use-package smooth-scrolling
   :ensure t
   :defer t
