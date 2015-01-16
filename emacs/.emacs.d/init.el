@@ -192,9 +192,9 @@
 	  git-gutter:deleted-sign "-"
 	  git-gutter:hide-gutter t)
 
-    (define-key evil-normal-state-map "]c" 'git-gutter:next-hunk)
-    (define-key evil-normal-state-map "[c" 'git-gutter:previous-hunk)
     (evil-leader/set-key
+      "ghn" 'git-gutter:next-hunk
+      "ghp" 'git-gutter:previous-hunk
       "ghs" 'git-gutter:stage-hunk
       "ghr" 'git-gutter:revert-hunk)))
 
