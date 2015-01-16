@@ -180,6 +180,18 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set writebackup
 " }}}
 
+" Git {{{
+nmap <Leader>ghn <Plug>GitGutterNextHunk
+nmap <Leader>ghp <Plug>GitGutterPreviousHunk
+nmap <Leader>ghs <Plug>GitGutterStageHunk
+nmap <Leader>ghr <Plug>GitGutterRevertHunk
+nmap <Leader>ghv <Plug>GitGutterPreviewHunk
+nmap <Leader>gb :Gblame<CR>
+nmap <Leader>gl :Glog<CR>
+nmap <Leader>gs :Gstatus<CR>
+nmap <Leader>gc :Gcommit<CR>
+" }}}
+
 " Vimfiler {{{
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_tree_leaf_icon = ' '
