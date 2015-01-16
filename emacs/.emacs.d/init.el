@@ -309,14 +309,16 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(global-linum-mode 1)
+(global-linum-mode t)
+(global-hl-line-mode t)
 (setq default-frame-alist
       '((width . 45)
 	(height . 20)
 	(font . "Monaco-9")))
 
 ;; Misc settings
-(visual-line-mode 1)
+(global-visual-line-mode t)
+(diminish 'visual-line-mode)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
       mouse-wheel-progressive-speed nil)
