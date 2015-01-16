@@ -298,8 +298,8 @@
 (scroll-bar-mode -1)
 (global-linum-mode 1)
 (setq default-frame-alist
-      '((width . 50)
-	(height . 25)
+      '((width . 45)
+	(height . 20)
 	(font . "Monaco-9")))
 
 ;; Misc settings
