@@ -95,7 +95,7 @@
   :config
   (progn
     (setq company-idle-delay 0
-	  company-minimum-prefix-length 0
+	  company-minimum-prefix-length 1
 	  company-global-modes '(not git-commit-mode))
 
     (defun company-mode/backend-with-yas (backend)
