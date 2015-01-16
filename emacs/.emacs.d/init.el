@@ -136,7 +136,7 @@
     (define-key yas-minor-mode-map (kbd "<tab>") nil)
     (define-key yas-minor-mode-map  (kbd "TAB") nil)))
 
-;; Python autocomplete
+;; Python
 
 (use-package anaconda-mode
   :ensure t
@@ -150,6 +150,11 @@
   :defer t
   :if (boundp 'company-backends)
   :init (add-to-list 'company-backends 'company-anaconda))
+
+(use-package pyvenv
+  :ensure t
+  :defer t
+  :init (add-hook 'python-mode-hook 'pyvenv-mode))
 
 ;; Git plugins
 
@@ -306,9 +311,9 @@
 (setq inhibit-splash-screen t
       inhibit-startup-echo-area-message t
       inhibit-startup-message t)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+(menu-bar-mode nil)
+(tool-bar-mode nil)
+(scroll-bar-mode nil)
 (global-linum-mode t)
 (global-hl-line-mode t)
 (setq default-frame-alist
