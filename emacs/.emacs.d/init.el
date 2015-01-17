@@ -110,16 +110,6 @@
     (defvar company-mode/enable-yas t)
     (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
 
-    (defun company-complete-common-or-cycle ()
-      "Allows tab to complete the common prefix and cycle through completions."
-      (interactive)
-      (when (company-manual-begin)
-	(let ((tick (buffer-chars-modified-tick)))
-	  (call-interactively 'company-complete-common)
-	  (when (eq tick (buffer-chars-modified-tick))
-	    (let ((company-selection-wrap-around t))
-	      (call-interactively 'company-select-next))))))
-
     (define-key company-active-map [tab] 'company-complete-common-or-cycle)
     (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
     (define-key company-active-map (kbd "<backtab>") 'company-select-previous)))
