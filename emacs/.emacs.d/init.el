@@ -321,8 +321,17 @@
 (use-package ample-theme
   :ensure t
   :defer t
+  :init (load-theme 'ample-flat t))
+
+(use-package adaptive-wrap
+  :ensure t
+  :defer t
   :init
-  (load-theme 'ample-flat t))
+  (global-visual-line-mode t)
+  (diminish 'visual-line-mode)
+  (setq-default truncate-lines nil)
+  (define-globalized-minor-mode global-adaptive-wrap-mode adaptive-wrap-prefix-mode adaptive-wrap-prefix-mode)
+  (global-adaptive-wrap-mode t))
 
 (use-package fill-column-indicator
   :ensure t
@@ -372,8 +381,6 @@
 	(font . "Monaco-9")))
 
 ;; Misc settings
-(global-visual-line-mode t)
-(diminish 'visual-line-mode)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
       mouse-wheel-progressive-speed nil)
