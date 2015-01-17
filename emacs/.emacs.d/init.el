@@ -343,7 +343,8 @@
   (progn
     (setq fci-rule-column 80
 	  fci-rule-color "grey20"
-	  fci-rule-width 2)))
+	  fci-rule-width 2
+	  fci-handle-truncate-lines nil)))
 
 (use-package smooth-scrolling
   :ensure t
