@@ -7,7 +7,7 @@ if [ -f $HOME/.config/fish/aliases.fish ]
 end
 
 # Add ~/.dotfiles/bin/ to path
-set -U fish_user_paths $fish_user_paths ~/.dotfiles/bin
+set -U $fish_user_paths ~/.dotfiles/bin ~/.local/bin
 
 # Set editor
 set -Ux EDITOR vim
