@@ -133,7 +133,11 @@
   :defer t
   :init (add-hook 'python-mode-hook 'anaconda-mode)
   :config
-  (add-hook 'python-mode-hook 'eldoc-mode))
+  (add-hook 'python-mode-hook 'eldoc-mode)
+
+  (evil-leader/set-key-for-mode 'python-mode
+    "mhd" 'anaconda-mode-view-doc
+    "mg"  'anaconda-mode-goto))
 
 (use-package company-anaconda
   :ensure t
