@@ -316,6 +316,16 @@
     (diminish 'guide-key-mode)
     (setq guide-key/guide-key-sequence '("C-x"))))
 
+;; A better package menu
+(use-package paradox
+  :ensure t
+  :defer t
+  :config
+  (progn
+    (setq paradox-display-download-count t
+	  paradox-execute-asynchronously t
+	  paradox-lines-per-entry 2)))
+
 ;; Appearance
 
 (use-package ample-theme
