@@ -62,9 +62,9 @@
   :config
   (progn
     (diminish 'undo-tree-mode)
-    (setq
-     undo-tree-history-directory-alist `(("." . "~/.emacs.d/undo/"))
-     undo-tree-auto-save-history t)
+    (setq undo-tree-history-directory-alist `(("." . "~/.emacs.d/undo/"))
+	  undo-tree-auto-save-history t
+	  undo-tree-visualizer-diff t)
 
     (evil-leader/set-key "u" 'undo-tree-visualize)))
 
