@@ -244,7 +244,7 @@
     (add-hook 'magit-revert-buffer-hook 'git-gutter:update-all-windows)
     (setq git-gutter:modified-sign "~"
 	  git-gutter:added-sign "+"
-	  git-gutter:deleted-sign "-"
+	  git-gutter:deleted-sign "_"
 	  git-gutter:hide-gutter t)
 
     (evil-leader/set-key
