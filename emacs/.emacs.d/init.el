@@ -155,8 +155,8 @@
   :config
   (progn
     (setq mode-name "Python"
-	  tab-width 4
-	  electric-indent-chars (delq ?: electric-indent-chars))
+	  tab-width 4)
+    ;; electric-indent-chars (delq ?: electric-indent-chars))
 
     (if (executable-find "ipython")
 	(setq python-shell-interpreter "ipython"
