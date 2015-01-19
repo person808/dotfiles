@@ -223,9 +223,18 @@ call unite#custom#profile('source/outline', 'context', {
 			\'winwidth': 40
 			\})
 
+if executable('ag')
+	let g:unite_source_grep_command = 'ag'
+	let g:unite_source_grep_default_opts =
+				\'-i --line-numbers --nocolor --nogroup --hidden --ignore ' .
+				\'''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+	let g:unite_source_grep_recursive_opt = ''
+endif
+
 nnoremap <Leader>f :Unite buffer file_mru file/async file_rec/async<CR>
 nnoremap <Leader>y :Unite history/yank<CR>
 nnoremap <Leader>o :Unite outline<CR>
+nnoremap <Leader>g :Unite grep<CR>
 " }}}
 
 " Autocomplete/Snippets {{{
