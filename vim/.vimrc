@@ -212,6 +212,7 @@ call unite#custom#profile('default', 'context', {
 			\'smartcase': 1,
 			\'start_insert': 1,
 			\'prompt': '>>> ',
+			\'prompt_visible': 1,
 			\'winheight': 10
 			\})
 call unite#custom#profile('source/outline', 'context', {
