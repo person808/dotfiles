@@ -197,7 +197,7 @@
       "ef" 'flycheck-mode
       "el" 'flycheck-list-errors
       "en" 'flycheck-next-error
-      "ep" 'flycheck-previous-error)))
+      "ep" 'flycheck-previous-error))))
 
 ;; Helm packages
 
