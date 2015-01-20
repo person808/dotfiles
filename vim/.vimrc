@@ -218,6 +218,7 @@ call unite#custom#profile('default', 'context', {
 call unite#custom#profile('source/outline', 'context', {
 			\'auto_resize': 0,
 			\'prompt_direction': 'top',
+			\'prompt_visible': 0,
 			\'start_insert': 0,
 			\'vertical': 1,
 			\'winwidth': 40
