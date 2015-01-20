@@ -43,5 +43,6 @@
       `((".*" ,temporary-file-directory t)))
 
 ;; Editing
-(electric-pair-mode 1)
+(electric-pair-mode t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(semantic-mode t)
