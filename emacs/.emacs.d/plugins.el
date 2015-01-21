@@ -93,7 +93,8 @@
   :defer t
   :init
   (show-smartparens-global-mode t)
-  (smartparens-global-strict-mode t))
+  (smartparens-global-strict-mode t)
+  (diminish 'smartparens-mode))
 
 ;; Autocomplete
 
