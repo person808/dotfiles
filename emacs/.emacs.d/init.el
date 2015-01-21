@@ -29,6 +29,7 @@
       '((width . 45)
 	(height . 20)
 	(font . "Monaco-9")))
+(setq-default fringe-indicator-alist (assq-delete-all 'truncation fringe-indicator-alist))
 
 ;; Misc settings
 (defalias 'yes-or-no-p 'y-or-n-p)
