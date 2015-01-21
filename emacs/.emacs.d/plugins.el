@@ -214,10 +214,11 @@
   :defer t
   :init
   (helm-mode t)
+  (helm-autoresize-mode t)
+  (helm-adaptive-mode t)
   :config
   (progn
     (diminish 'helm-mode)
-    (helm-autoresize-mode t)
     (setq helm-recentf-fuzzy-match t
 	  helm-buffers-fuzzy-matching t
 	  helm-locate-fuzzy-match t)
