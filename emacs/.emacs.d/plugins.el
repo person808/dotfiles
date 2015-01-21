@@ -221,7 +221,12 @@
     (diminish 'helm-mode)
     (setq helm-recentf-fuzzy-match t
 	  helm-buffers-fuzzy-matching t
-	  helm-locate-fuzzy-match t)
+	  helm-locate-fuzzy-match t
+	  helm-M-x-fuzzy-match t
+	  helm-semantic-fuzzy-match t
+	  helm-imenu-fuzzy-match t
+	  helm-apropos-fuzzy-match t
+	  helm-lisp-fuzzy-completion t)
 
     (define-key helm-map (kbd "C-j") 'helm-next-line)
     (define-key helm-map (kbd "C-k") 'helm-previous-line)
