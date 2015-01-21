@@ -262,11 +262,9 @@
   :ensure t
   :defer t
   :init
-  (global-visual-line-mode t)
+  (add-hook 'text-mode-hook 'visual-line-mode t)
   (diminish 'visual-line-mode)
-  (setq-default truncate-lines nil)
-  (define-globalized-minor-mode global-adaptive-wrap-mode adaptive-wrap-prefix-mode adaptive-wrap-prefix-mode)
-  (global-adaptive-wrap-mode t))
+  (add-hook 'text-mode-hook 'adaptive-wrap-prefix-mode t))
 
 (use-package fill-column-indicator
   :ensure t
