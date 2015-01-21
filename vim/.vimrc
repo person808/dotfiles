@@ -185,10 +185,10 @@ nmap <Leader>ghp <Plug>GitGutterPreviousHunk
 nmap <Leader>ghs <Plug>GitGutterStageHunk
 nmap <Leader>ghr <Plug>GitGutterRevertHunk
 nmap <Leader>ghv <Plug>GitGutterPreviewHunk
-nmap <Leader>gb :Gblame<CR>
-nmap <Leader>gl :Glog<CR>
-nmap <Leader>gs :Gstatus<CR>
-nmap <Leader>gc :Gcommit<CR>
+nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gl :Glog<CR>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gc :Gcommit<CR>
 " }}}
 
 " Vimfiler {{{
