@@ -249,8 +249,7 @@
   :config
   (progn
     (setq paradox-display-download-count t
-	  paradox-execute-asynchronously t
-	  paradox-lines-per-entry 2)))
+	  paradox-execute-asynchronously t)))
 
 ;; Appearance
 
