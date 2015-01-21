@@ -88,6 +88,13 @@
   (progn
     (diminish 'aggressive-indent-mode)))
 
+(use-package smartparens
+  :ensure t
+  :defer t
+  :init
+  (show-smartparens-global-mode t)
+  (smartparens-global-strict-mode t))
+
 ;; Autocomplete
 
 (use-package company
