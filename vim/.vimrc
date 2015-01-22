@@ -180,11 +180,11 @@ set writebackup
 " }}}
 
 " Git {{{
-nmap <Leader>ghn <Plug>GitGutterNextHunk
-nmap <Leader>ghp <Plug>GitGutterPreviousHunk
-nmap <Leader>ghs <Plug>GitGutterStageHunk
-nmap <Leader>ghr <Plug>GitGutterRevertHunk
-nmap <Leader>ghv <Plug>GitGutterPreviewHunk
+nmap ghn <Plug>GitGutterNextHunk
+nmap ghp <Plug>GitGutterPreviousHunk
+nmap ghs <Plug>GitGutterStageHunk
+nmap ghr <Plug>GitGutterRevertHunk
+nmap ghv <Plug>GitGutterPreviewHunk
 nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>gl :Glog<CR>
 nnoremap <Leader>gs :Gstatus<CR>
