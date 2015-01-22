@@ -1,10 +1,10 @@
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
 " Gui plugins
-Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'w0ng/vim-hybrid'
+Plug 'Yggdroot/indentLine'
 " Add features
 Plug 'Chiel92/vim-autoformat'
 Plug 'haya14busa/incsearch.vim'
