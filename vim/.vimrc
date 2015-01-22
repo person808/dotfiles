@@ -213,28 +213,28 @@ let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#profile('default', 'context', {
-			\'auto_resize': 1,
-			\'direction': 'botright',
-			\'smartcase': 1,
-			\'start_insert': 1,
-			\'prompt': '>>> ',
-			\'prompt_visible': 1,
-			\'winheight': 10
-			\})
+			\ 'auto_resize': 1,
+			\ 'direction': 'botright',
+			\ 'smartcase': 1,
+			\ 'start_insert': 1,
+			\ 'prompt': '>>> ',
+			\ 'prompt_visible': 1,
+			\ 'winheight': 10
+			\ })
 call unite#custom#profile('source/outline', 'context', {
-			\'auto_resize': 0,
-			\'prompt_direction': 'top',
-			\'prompt_visible': 0,
-			\'start_insert': 0,
-			\'vertical': 1,
-			\'winwidth': 40
-			\})
+			\ 'auto_resize': 0,
+			\ 'prompt_direction': 'top',
+			\ 'prompt_visible': 0,
+			\ 'start_insert': 0,
+			\ 'vertical': 1,
+			\ 'winwidth': 40
+			\ })
 
 if executable('ag')
 	let g:unite_source_grep_command = 'ag'
 	let g:unite_source_grep_default_opts =
-				\'-i --line-numbers --nocolor --nogroup --hidden --ignore ' .
-				\'''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+				\ '-i --line-numbers --nocolor --nogroup --hidden --ignore ' .
+				\ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
 	let g:unite_source_grep_recursive_opt = ''
 endif
 
