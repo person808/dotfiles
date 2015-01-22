@@ -15,11 +15,13 @@ Plug 'Shougo/vimfiler.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
 " Editing
 Plug 'junegunn/vim-easy-align'
 Plug 'kristijanhusak/vim-multiple-cursors'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-sleuth'
 " Autocomplete
 Plug 'cohama/lexima.vim'
 Plug 'honza/vim-snippets'
