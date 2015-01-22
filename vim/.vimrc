@@ -276,8 +276,11 @@ endfunction
 " }}}
 
 " Keybindings {{{
-" <Tab> cycles through completions
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" <Tab> cycles completes common string and cycles through completions
+inoremap <expr><TAB>
+		\ neocomplete#complete_common_string() != '' ?
+		\   neocomplete#complete_common_string() :
+		\ pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 " <CR> inserts completion
 inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
