@@ -28,7 +28,7 @@ Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
 " Autocomplete
-Plug 'cohama/lexima.vim'
+Plug 'Raimondi/delimitMate'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/neocomplete.vim'
 Plug 'SirVer/UltiSnips'
@@ -202,6 +202,12 @@ nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 " }}}
 
+" DelimitMate {{{
+let g:delimitMate_expand_cr = 2
+let g:delimitMate_expand_inside_quotes = 1
+let g:delimitMate_balance_matchpairs = 1
+" }}}
+
 " Vimfiler {{{
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_tree_leaf_icon = ' '
@@ -290,7 +296,7 @@ inoremap <expr><TAB>
       \ pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 " <CR> inserts completion
-inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : '<Plug>(delimitMateCR)'
 
 let g:UltiSnipsExpandTrigger = "<C-j>"
 let g:UltiSnipsJumpForwardTrigger = "<C-j>"
