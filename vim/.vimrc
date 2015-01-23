@@ -50,7 +50,7 @@ set mouse=a
 set ttymouse=xterm2
 set lazyredraw
 set ttyfast
-set updatetime=1000
+set updatetime=200
 set timeoutlen=1000 ttimeoutlen=10
 set confirm
 set virtualedit=onemore
@@ -294,8 +294,12 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 " }}}
 
 " Syntastic {{{
-let g:syntastic_check_on_open = 1
 let g:syntastic_aggregate_errors = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+augroup syntastic
+	autocmd CursorHold * nested update
+augroup END
 " }}}
 
 set modelines=1  " Fold .vimrc by markers
