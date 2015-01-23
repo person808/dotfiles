@@ -23,7 +23,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 " Editing
 Plug 'junegunn/vim-easy-align'
-Plug 'kristijanhusak/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
