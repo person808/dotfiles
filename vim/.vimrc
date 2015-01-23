@@ -59,12 +59,12 @@ let g:plug_threads = 40
 " Automatically change directory to the file's directory (set autochdir is
 " incompatible with vimfiler)
 augroup change_dir
-	autocmd BufEnter * silent! lcd %:p:h
+  autocmd BufEnter * silent! lcd %:p:h
 augroup END
 
 " Opens files at the last known cursor position
 augroup open_last_line
-	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 " }}}
 
@@ -213,29 +213,29 @@ let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#profile('default', 'context', {
-			\ 'auto_resize': 1,
-			\ 'direction': 'botright',
-			\ 'smartcase': 1,
-			\ 'start_insert': 1,
-			\ 'prompt': '>>> ',
-			\ 'prompt_visible': 1,
-			\ 'winheight': 10
-			\ })
+      \ 'auto_resize': 1,
+      \ 'direction': 'botright',
+      \ 'smartcase': 1,
+      \ 'start_insert': 1,
+      \ 'prompt': '>>> ',
+      \ 'prompt_visible': 1,
+      \ 'winheight': 10
+      \ })
 call unite#custom#profile('source/outline', 'context', {
-			\ 'auto_resize': 0,
-			\ 'prompt_direction': 'top',
-			\ 'prompt_visible': 0,
-			\ 'start_insert': 0,
-			\ 'vertical': 1,
-			\ 'winwidth': 40
-			\ })
+      \ 'auto_resize': 0,
+      \ 'prompt_direction': 'top',
+      \ 'prompt_visible': 0,
+      \ 'start_insert': 0,
+      \ 'vertical': 1,
+      \ 'winwidth': 40
+      \ })
 
 if executable('ag')
-	let g:unite_source_grep_command = 'ag'
-	let g:unite_source_grep_default_opts =
-				\ '-i --line-numbers --nocolor --nogroup --hidden --ignore ' .
-				\ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-	let g:unite_source_grep_recursive_opt = ''
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts =
+        \ '-i --line-numbers --nocolor --nogroup --hidden --ignore ' .
+        \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+  let g:unite_source_grep_recursive_opt = ''
 endif
 
 nnoremap <Leader>f :Unite buffer file_mru file/async file_rec/async<CR>
@@ -255,34 +255,34 @@ call neocomplete#custom#source('ultisnips', 'rank', 1000)
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
-	let g:neocomplete#sources#omni#input_patterns = {}
+  let g:neocomplete#sources#omni#input_patterns = {}
 endif
 
 " Initialize variable to allow custom omnicomplete patterns
 if !exists('g:neocomplete#force_omni_input_patterns')
-	let g:neocomplete#force_omni_input_patterns = {}
+  let g:neocomplete#force_omni_input_patterns = {}
 endif
 
 " Play nice with vim-multiple-cursors
 function! Multiple_cursors_before()
-	if exists(':NeoCompleteLock')==2
-		execute 'NeoCompleteLock'
-	endif
+  if exists(':NeoCompleteLock')==2
+    execute 'NeoCompleteLock'
+  endif
 endfunction
 
 function! Multiple_cursors_after()
-	if exists(':NeoCompleteUnlock')==2
-		execute 'NeoCompleteUnlock'
-	endif
+  if exists(':NeoCompleteUnlock')==2
+    execute 'NeoCompleteUnlock'
+  endif
 endfunction
 " }}}
 
 " Keybindings {{{
 " <Tab> cycles completes common string and cycles through completions
 inoremap <expr><TAB>
-		\ neocomplete#complete_common_string() != '' ?
-		\   neocomplete#complete_common_string() :
-		\ pumvisible() ? "\<C-n>" : "\<Tab>"
+      \ neocomplete#complete_common_string() != '' ?
+      \   neocomplete#complete_common_string() :
+      \ pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 " <CR> inserts completion
 inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
@@ -298,7 +298,7 @@ let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 augroup syntastic
-	autocmd CursorHold * nested update
+  autocmd CursorHold * nested update
 augroup END
 " }}}
 
