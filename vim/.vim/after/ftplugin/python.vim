@@ -17,3 +17,4 @@ let g:neocomplete#force_omni_input_patterns.python =
 let g:syntastic_python_python_exec = '/usr/bin/python3'
 let g:syntastic_python_checkers = ['prospector']
 let g:syntastic_python_prospector_args = "-F --max-line-length 99"
+let b:delimitMate_nesting_quotes = ['"']
