@@ -8,7 +8,7 @@ call plug#begin('~/.vim/plugged')
 " Gui plugins
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
-Plug 'w0ng/vim-hybrid'
+Plug 'flazz/vim-colorschemes'
 Plug 'Yggdroot/indentLine'
 " Add features
 Plug 'Chiel92/vim-autoformat'
