@@ -45,21 +45,43 @@ call plug#end()
 
 " Misc {{{
 set shell=bash
-set history=1000
-set undolevels=10000
-set undofile
-set undodir=$HOME/.vim/undo
-set backspace=indent,eol,start
-set clipboard=unnamedplus
-set mouse=a
-set ttymouse=xterm2
-set lazyredraw
-set ttyfast
 set updatetime=200
 set timeoutlen=1000 ttimeoutlen=100
-set confirm
+set history=1000
+set backspace=indent,eol,start
+set clipboard=unnamedplus
+set lazyredraw
+set ttyfast
+set mouse=a
+set ttymouse=xterm2
+" }}}
+
+" Text display {{{
+set number
+set cursorline
+set showmatch
+" Highlight past 80th column
+execute "set colorcolumn=" . join(range(81,335), ',')
+set spell
+set breakindent
+set linebreak
+set wrap
 set virtualedit=onemore
-let g:plug_threads = 40
+set t_Co=256
+colorscheme hybrid
+
+let g:hybrid_use_Xresources = 1
+" }}}
+
+" Searching/Moving around {{{
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+set scrolloff=5
+
+let g:incsearch#auto_nohlsearch = 1
+let g:incsearch#consistent_n_direction = 1
 
 " Automatically change directory to the file's directory (set autochdir is
 " incompatible with vimfiler)
@@ -71,62 +93,7 @@ augroup END
 augroup open_last_line
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
-" }}}
 
-" User Interface {{{
-set number
-set cursorline
-set showmatch
-set laststatus=2
-set showtabline=2
-set showcmd
-set scrolloff=5
-set wrap
-set linebreak
-" Highlight past 80th column
-execute "set colorcolumn=" . join(range(81,335), ',')
-set wildmenu
-set spell
-set noshowmode
-set shortmess+=c
-let g:gundo_preview_bottom = 1
-
-" Colorscheme {{{
-set t_Co=256
-let g:hybrid_use_Xresources = 1
-colorscheme hybrid
-" }}}
-
-" Tabline/Statusline {{{
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline_section_c = '%{getcwd()}'
-" }}}
-" }}}
-
-" Indentation {{{
-filetype plugin indent on
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set autoindent
-set copyindent
-set smarttab
-set breakindent
-let g:indentLine_char = '┊'
-let g:indentLine_color_term = 102
-" }}}
-
-" Searching {{{
-set ignorecase
-set smartcase
-set hlsearch
-set incsearch
-let g:incsearch#auto_nohlsearch = 1
-let g:incsearch#consistent_n_direction = 1
-
-" incsearch.vim keybindings
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
@@ -138,12 +105,67 @@ map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 " }}}
 
+" Buffers/Tabs/Splits {{{
+set hidden
+set splitbelow
+set splitright
+set laststatus=2
+set showtabline=2
+
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline_section_c = '%{getcwd()}'
+
+nnoremap <silent> <Leader>b :enew<CR>
+nnoremap <silent> <Leader>l :bnext<CR>
+nnoremap <silent> <Leader>h :bprevious<CR>
+nnoremap <silent> <Leader>c :bdelete<CR>
+" Better split navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+" }}}
+
 " Folding {{{
 set foldenable
 set foldlevelstart=10
 set foldnestmax=10
 set foldmethod=indent
 nnoremap <space> za
+" }}}
+
+" Indentation {{{
+filetype plugin indent on
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+set copyindent
+set smarttab
+
+let g:indentLine_char = '┊'
+let g:indentLine_color_term = 102
+" }}}
+
+" Backup/Undo {{{
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupskip=/tmp/*,/private/tmp/*
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set writebackup
+set undolevels=10000
+set undofile
+set undodir=$HOME/.vim/undo
+" }}}
+
+" Command line {{{
+set showcmd
+set wildmenu
+set noshowmode
+set shortmess+=c
+set confirm
 " }}}
 
 " Misc Keybindings  {{{
@@ -160,34 +182,9 @@ nnoremap <Leader>s a<C-x><C-s><C-p>
 
 " Plugins
 nnoremap <Leader>u :GundoToggle<CR>
-cnoremap w! SudoWrite
 nmap ga <Plug>(EasyAlign)
 vmap <Enter> <Plug>(EasyAlign)
 nnoremap Q :Autoformat<CR><CR>
-" }}}
-
-" Buffers/Tabs/Splits {{{
-set hidden
-set splitbelow
-set splitright
-
-nnoremap <silent> <Leader>b :enew<CR>
-nnoremap <silent> <Leader>l :bnext<CR>
-nnoremap <silent> <Leader>h :bprevious<CR>
-nnoremap <silent> <Leader>c :bdelete<CR>
-" Better split navigation
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-" }}}
-
-" Backups {{{
-set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set backupskip=/tmp/*,/private/tmp/*
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set writebackup
 " }}}
 
 " Git {{{
@@ -200,6 +197,11 @@ nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>gl :Glog<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
+" }}}
+
+" Misc plugins {{{
+let g:plug_threads = 40
+let g:gundo_preview_bottom = 1
 " }}}
 
 " DelimitMate {{{
@@ -256,12 +258,15 @@ nnoremap <Leader>g :Unite grep<CR>
 " }}}
 
 " Autocomplete/Snippets {{{
-" Global settings {{{
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#max_list = 30
 let g:neocomplete#auto_completion_start_length = 1
 let g:neocomplete#enable_camel_case = 1
+let g:UltiSnipsJumpForwardTrigger = "<C-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
+let g:UltiSnipsExpandTrigger = "<nop>"
+let g:ulti_expand_or_jump_res = 0
 call neocomplete#custom#source('ultisnips', 'rank', 1000)
 
 " Enable heavy omni completion.
@@ -286,23 +291,8 @@ function! Multiple_cursors_after()
     execute 'NeoCompleteUnlock'
   endif
 endfunction
-" }}}
-
-" Keybindings {{{
-" <Tab> cycles completes common string and cycles through completions
-inoremap <expr><TAB>
-      \ neocomplete#complete_common_string() != '' ?
-      \   neocomplete#complete_common_string() :
-      \ pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-
-let g:UltiSnipsJumpForwardTrigger = "<C-j>"
-let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 
 " <CR> expands snippets and inserts completions
-let g:UltiSnipsExpandTrigger = "<nop>"
-let g:ulti_expand_or_jump_res = 0
-
 function! <SID>ExpandSnippetOrReturn()
   let snippet = UltiSnips#ExpandSnippetOrJump()
   if g:ulti_expand_or_jump_res > 0
@@ -312,14 +302,21 @@ function! <SID>ExpandSnippetOrReturn()
   endif
 endfunction
 
+
+" <Tab> cycles completes common string and cycles through completions
+inoremap <expr><TAB>
+      \ neocomplete#complete_common_string() != '' ?
+      \   neocomplete#complete_common_string() :
+      \ pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 inoremap <expr><CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
-" }}}
 " }}}
 
 " Syntastic {{{
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+
 augroup syntastic
   autocmd CursorHold * nested update
 augroup END
