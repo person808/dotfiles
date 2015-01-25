@@ -29,8 +29,6 @@ URxvt.pasteCommand:           xsel -ob
 URxvt.tabbed.autohide:        true
 URxvt.tabbed.new-button:      false
 URxvt.keysym.Control-t:       perl:tabbedex:new_tab
-URxvt.keysym.Control-Right:   perl:tabbedex:next_tab
-URxvt.keysym.Control-Left:    perl:tabbedex:prev_tab
 
 ! Hybrid Terminal Colors
 
