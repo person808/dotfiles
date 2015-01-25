@@ -56,7 +56,7 @@ set ttymouse=xterm2
 set lazyredraw
 set ttyfast
 set updatetime=200
-set timeoutlen=1000 ttimeoutlen=10
+set timeoutlen=1000 ttimeoutlen=100
 set confirm
 set virtualedit=onemore
 let g:plug_threads = 40
