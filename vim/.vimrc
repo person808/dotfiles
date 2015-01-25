@@ -266,7 +266,6 @@ nnoremap <Leader>y :Unite history/yank<CR>
 nnoremap <Leader>g :Unite grep<CR>
 " }}}
 
-
 " Autocomplete/Snippets {{{
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
