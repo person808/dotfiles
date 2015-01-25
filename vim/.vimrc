@@ -38,7 +38,6 @@ Plug 'SirVer/UltiSnips'
 " Unite
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-outline'
 " Python
 Plug 'davidhalter/jedi-vim'
 " Fish
