@@ -191,8 +191,8 @@ set confirm
 
 " Tags {{{
 set tags=tags;~/.vim/tags/*;$HOME
+let g:easytags_file = '~/.vim/tags/tags'
 let g:easytags_by_filetype = '~/.vim/tags/'
-let g:easytags_dynamic_files = 1
 let g:easytags_updatetime_min = 500
 let g:easytags_async = 1
 let g:easytags_resolver_links = 1
