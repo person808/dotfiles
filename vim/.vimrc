@@ -56,6 +56,25 @@ set mouse=a
 set ttymouse=xterm2
 " }}}
 
+" Misc Keybindings  {{{
+" Built-in functions
+let mapleader=","
+let maplocalleader=",,"
+inoremap jj <Esc>
+nnoremap Y y$
+" k and j don't skip wrapped lines
+nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+" <Leader>s opens spelling corrections
+nnoremap <Leader>s a<C-x><C-s><C-p>
+
+" Plugins
+nnoremap <Leader>u :GundoToggle<CR>
+nmap ga <Plug>(EasyAlign)
+vmap <Enter> <Plug>(EasyAlign)
+nnoremap Q :Autoformat<CR><CR>
+" }}}
+
 " Text display {{{
 set number
 set cursorline
