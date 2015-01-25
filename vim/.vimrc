@@ -9,6 +9,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'flazz/vim-colorschemes'
+Plug 'majutsushi/tagbar'
 Plug 'Yggdroot/indentLine'
 " Add features
 Plug 'Chiel92/vim-autoformat'
@@ -21,6 +22,8 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
+Plug 'xolox/vim-easytags'
+Plug 'xolox/vim-misc'
 " Editing
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
@@ -43,7 +46,7 @@ Plug 'dag/vim-fish'
 call plug#end()
 " }}}
 
-" Misc {{{
+" Misc settings {{{
 set shell=bash
 set updatetime=200
 set timeoutlen=1000 ttimeoutlen=100
@@ -187,23 +190,19 @@ set shortmess+=c
 set confirm
 " }}}
 
-" Misc Keybindings  {{{
-" Built-in functions
-let mapleader=","
-let maplocalleader=",,"
-inoremap jj <Esc>
-nnoremap Y y$
-" k and j don't skip wrapped lines
-nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
-nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
-" <Leader>s opens spelling corrections
-nnoremap <Leader>s a<C-x><C-s><C-p>
+" Tags {{{
+set tags+=~/.vim/tags/*
+let g:easytags_file = '~/.vim/tags/tags'
+let g:easytags_by_filetype = '~/.vim/tags/'
+let g:easytags_updatetime_min = 500
+let g:easytags_async = 1
+let g:easytags_resolver_links = 1
+let g:tagbar_sort = 0
+let g:tagbar_autofocus = 1
+let g:tagbar_autoshowtag = 1
+let g:tagbar_map_togglefold = "<Space>"
 
-" Plugins
-nnoremap <Leader>u :GundoToggle<CR>
-nmap ga <Plug>(EasyAlign)
-vmap <Enter> <Plug>(EasyAlign)
-nnoremap Q :Autoformat<CR><CR>
+nnoremap <Leader>t :TagbarOpenAutoClose<CR>
 " }}}
 
 " Git {{{
@@ -253,14 +252,6 @@ call unite#custom#profile('default', 'context', {
       \ 'prompt_visible': 1,
       \ 'winheight': 10
       \ })
-call unite#custom#profile('source/outline', 'context', {
-      \ 'auto_resize': 0,
-      \ 'prompt_direction': 'top',
-      \ 'prompt_visible': 0,
-      \ 'start_insert': 0,
-      \ 'vertical': 1,
-      \ 'winwidth': 40
-      \ })
 
 if executable('ag')
   let g:unite_source_grep_command = 'ag'
@@ -272,9 +263,9 @@ endif
 
 nnoremap <Leader>f :Unite buffer file_mru file/async file_rec/async<CR>
 nnoremap <Leader>y :Unite history/yank<CR>
-nnoremap <Leader>o :Unite outline<CR>
 nnoremap <Leader>g :Unite grep<CR>
 " }}}
+
 
 " Autocomplete/Snippets {{{
 let g:neocomplete#enable_at_startup = 1
