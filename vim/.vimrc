@@ -310,7 +310,6 @@ function! <SID>ExpandSnippetOrReturn()
   endif
 endfunction
 
-
 " <Tab> cycles completes common string and cycles through completions
 inoremap <expr><TAB>
       \ neocomplete#complete_common_string() != '' ?
