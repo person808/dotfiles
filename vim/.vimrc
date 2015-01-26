@@ -7,9 +7,9 @@ endif
 call plug#begin('~/.vim/plugged')
 " Gui plugins
 Plug 'airblade/vim-gitgutter'
-Plug 'bling/vim-airline'
 Plug 'flazz/vim-colorschemes'
 Plug 'majutsushi/tagbar'
+Plug 'powerline/powerline', {'rtp': 'powerline/bindings/vim'}
 Plug 'Yggdroot/indentLine'
 " Add features
 Plug 'Chiel92/vim-autoformat'
@@ -131,7 +131,6 @@ set hidden
 set splitbelow
 set splitright
 set laststatus=2
-set showtabline=2
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
