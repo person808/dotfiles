@@ -38,6 +38,12 @@ Plug 'SirVer/UltiSnips'
 " Unite
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite.vim'
+" Notes
+Plug 'fmoralesc/vim-pad'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-pandoc/vim-pandoc-after'
+Plug 'dhruvasagar/vim-table-mode'
 " Python
 Plug 'davidhalter/jedi-vim'
 " Fish
@@ -208,6 +214,23 @@ nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>gl :Glog<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
+" }}}
+
+" Notes {{{
+let g:pad#dir = "~/Documents/notes/"
+let g:pad#default_format = "pandoc"
+let g:pad#window_height = 15
+let g:pad#open_in_split = 0
+let g:pad#search_backend = "ag"
+let g:pandoc#formatting#mode = "hA"
+let g:pandoc#formatting#textwidth = 99
+let g:pandoc#folding#fdc = 0
+let g:pandoc#folding#level = 2
+let g:pandoc#folding#mode = "relative"
+let g:pandoc#formatting#smart_autoformat_on_cursormoved = 1
+let g:pandoc#command#autoexec_on_writes = 1
+let g:pandoc#command#autoexec_command = "Pandoc! pdf"
+let g:pandoc#after#modules#enabled = ["ultisnips", "unite", "tablemode"]
 " }}}
 
 " Misc plugins {{{
