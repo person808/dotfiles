@@ -47,7 +47,7 @@ call plug#end()
 
 " Misc settings {{{
 set shell=bash
-set updatetime=200
+set updatetime=500
 set timeoutlen=1000 ttimeoutlen=100
 set history=1000
 set backspace=indent,eol,start
