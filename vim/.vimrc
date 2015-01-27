@@ -94,6 +94,7 @@ set breakindent
 set linebreak
 set wrap
 set virtualedit=onemore
+set concealcursor=nc
 set t_Co=256
 colorscheme hybrid
 
