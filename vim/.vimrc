@@ -38,6 +38,7 @@ Plug 'SirVer/UltiSnips'
 " Unite
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite.vim'
+Plug 'tsukkee/unite-help'
 " Notes
 Plug 'fmoralesc/vim-pad'
 Plug 'vim-pandoc/vim-pandoc'
@@ -274,6 +275,7 @@ endif
 nnoremap <Leader>f :Unite buffer file_mru file/async file_rec/async<CR>
 nnoremap <Leader>y :Unite history/yank<CR>
 nnoremap <Leader>g :Unite grep<CR>
+cabbrev h Unite help
 " }}}
 
 " Autocomplete/Snippets {{{
