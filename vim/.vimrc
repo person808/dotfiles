@@ -349,17 +349,6 @@ inoremap <silent><expr><CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<C
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
-
-function! RunSyntastic()
-  if &filetype =~ 'vimfiler'
-  else
-    update
-  endif
-endfunction
-
-augroup syntastic
-  autocmd CursorHold * call RunSyntastic()
-augroup END
 " }}}
 
 set modelines=1  " Fold .vimrc by markers
