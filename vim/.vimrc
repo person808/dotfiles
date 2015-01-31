@@ -253,7 +253,7 @@ nnoremap <silent> <Leader>e :VimFilerExplorer -auto-cd -toggle -winwidth=30 -par
 " Unite {{{
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#filters#sorter_default#use(['sorter_selecta'])
 call unite#custom#profile('default', 'context', {
       \ 'auto_resize': 1,
       \ 'direction': 'botright',
