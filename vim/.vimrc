@@ -110,12 +110,6 @@ set scrolloff=5
 let g:incsearch#auto_nohlsearch = 1
 let g:incsearch#consistent_n_direction = 1
 
-" Automatically change directory to the file's directory (set autochdir is
-" incompatible with vimfiler)
-augroup change_dir
-  autocmd BufEnter * silent! lcd %:p:h
-augroup END
-
 " Opens files at the last known cursor position
 augroup open_last_line
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
