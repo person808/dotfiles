@@ -38,7 +38,7 @@ Plug 'SirVer/UltiSnips'
 " Unite
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite.vim'
-Plug 'tsukkee/unite-help'
+Plug 'Shougo/unite-help'
 " Notes
 Plug 'fmoralesc/vim-pad'
 Plug 'vim-pandoc/vim-pandoc'
