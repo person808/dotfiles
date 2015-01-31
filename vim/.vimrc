@@ -84,6 +84,11 @@ vmap <Enter> <Plug>(EasyAlign)
 nnoremap Q :Autoformat<CR><CR>
 " }}}
 
+" Misc plugins {{{
+let g:plug_threads = 40
+let g:gundo_preview_bottom = 1
+" }}}
+
 " Text display {{{
 set number
 set cursorline
@@ -226,11 +231,6 @@ let g:pandoc#formatting#smart_autoformat_on_cursormoved = 1
 let g:pandoc#command#autoexec_on_writes = 1
 let g:pandoc#command#autoexec_command = "Pandoc! pdf"
 let g:pandoc#after#modules#enabled = ["ultisnips", "unite", "tablemode"]
-" }}}
-
-" Misc plugins {{{
-let g:plug_threads = 40
-let g:gundo_preview_bottom = 1
 " }}}
 
 " DelimitMate {{{
