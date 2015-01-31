@@ -247,7 +247,7 @@ let g:vimfiler_tree_closed_icon = '▸'
 let g:vimfiler_file_icon = '-'
 let g:vimfiler_marked_file_icon = '*'
 
-nnoremap <silent> <Leader>e :VimFilerExplorer -auto-cd -toggle -winwidth=30 -parent<CR>
+nnoremap <silent> <Leader>e :VimFilerExplorer -toggle -winwidth=30 -parent<CR>
 " }}}
 
 " Unite {{{
