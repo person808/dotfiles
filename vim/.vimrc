@@ -49,6 +49,8 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'davidhalter/jedi-vim'
 " Fish
 Plug 'dag/vim-fish'
+" Vimscript
+Plug 'c9s/vimomni.vim'
 call plug#end()
 " }}}
 
@@ -280,6 +282,7 @@ let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_semantic_triggers = {
       \ 'python': ['re!import\s|from\s'],
+      \ 'vim': ['re!let |set |call |autocmd |if has\(''|command[!]?']
       \ }
 let g:UltiSnipsJumpForwardTrigger = "<C-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
