@@ -31,10 +31,10 @@ Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
 " Autocomplete
-Plug 'Raimondi/delimitMate'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/neocomplete.vim'
 Plug 'SirVer/UltiSnips'
+Plug 'Raimondi/delimitMate'
 " Unite
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite.vim'
@@ -231,12 +231,6 @@ let g:pandoc#formatting#smart_autoformat_on_cursormoved = 1
 let g:pandoc#command#autoexec_on_writes = 1
 let g:pandoc#command#autoexec_command = "Pandoc! pdf"
 let g:pandoc#after#modules#enabled = ["ultisnips", "unite", "tablemode"]
-" }}}
-
-" DelimitMate {{{
-let g:delimitMate_expand_cr = 2
-let g:delimitMate_expand_inside_quotes = 1
-let g:delimitMate_balance_matchpairs = 1
 " }}}
 
 " Vimfiler {{{
