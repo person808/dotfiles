@@ -270,7 +270,7 @@ endif
 
 nnoremap <Leader>f :Unite buffer file_mru file/async file_rec/async<CR>
 nnoremap <Leader>y :Unite history/yank<CR>
-nnoremap <Leader>g :Unite grep<CR>
+nnoremap <Leader>a :Unite grep<CR>
 cabbrev h Unite help
 " }}}
 
