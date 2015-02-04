@@ -51,8 +51,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'davidhalter/jedi-vim'
 " Fish
 Plug 'dag/vim-fish'
-" Vimscript
-Plug 'c9s/vimomni.vim'
 call plug#end()
 " }}}
 
