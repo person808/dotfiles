@@ -9,8 +9,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'flazz/vim-colorschemes'
 Plug 'majutsushi/tagbar'
-Plug 'powerline/powerline', {'rtp': 'powerline/bindings/vim'}
+Plug 'bling/vim-airline'
 Plug 'Yggdroot/indentLine'
+Plug 'reedes/vim-colors-pencil'
 " Add features
 Plug 'Chiel92/vim-autoformat'
 Plug 'haya14busa/incsearch.vim'
@@ -45,6 +46,7 @@ Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-pandoc/vim-pandoc-after'
 Plug 'dhruvasagar/vim-table-mode'
+Plug 'junegunn/goyo.vim'
 " Python
 Plug 'davidhalter/jedi-vim'
 " Fish
