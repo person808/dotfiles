@@ -246,6 +246,8 @@ let g:pandoc#formatting#smart_autoformat_on_cursormoved = 1
 let g:pandoc#command#autoexec_on_writes = 1
 let g:pandoc#command#autoexec_command = "Pandoc! pdf"
 let g:pandoc#after#modules#enabled = ["ultisnips", "unite", "tablemode"]
+let g:goyo_margin_top = 1
+let g:goyo_margin_bottom = 1
 " }}}
 
 " Vimfiler {{{
