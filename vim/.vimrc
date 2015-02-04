@@ -105,6 +105,11 @@ set virtualedit=onemore
 set t_Co=256
 set background=dark
 colorscheme pencil
+if has('gui_running')
+  set guifont=Monaco\ for\ Powerline\ 9
+  set columns=90 lines=45
+  set guioptions=
+endif
 
 let g:pencil_terminal_italics = 1
 let g:pencil_higher_contrast_ui = 1
