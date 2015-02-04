@@ -220,7 +220,6 @@ nnoremap <Leader>gc :Gcommit<CR>
 
 " Notes {{{
 let g:pad#dir = "~/Documents/notes/"
-let g:pad#default_format = "pandoc"
 let g:pad#window_height = 15
 let g:pad#open_in_split = 0
 let g:pad#search_backend = "ag"
