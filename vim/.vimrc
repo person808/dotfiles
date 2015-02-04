@@ -33,7 +33,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
 " Autocomplete
 Plug 'honza/vim-snippets'
-Plug 'Valloric/YouCompleteMe', {'do': './install.sh'}
+Plug 'Shougo/neocomplete.vim'
 Plug 'SirVer/UltiSnips'
 Plug 'Raimondi/delimitMate'
 " Unite
@@ -292,21 +292,47 @@ cabbrev h Unite help
 " }}}
 
 " Autocomplete/Snippets {{{
-let g:ycm_allow_changing_updatetime = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_semantic_triggers = {
-      \ 'python': ['re!import\s|from\s'],
-      \ 'vim': ['re!let |set |call |autocmd |if has\(''|command[!]?']
-      \ }
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#auto_completion_start_length = 1
+let g:neocomplete#enable_camel_case = 1
 let g:UltiSnipsJumpForwardTrigger = "<C-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 let g:UltiSnipsExpandTrigger = "<nop>"
 let g:ulti_expand_or_jump_res = 0
-let g:jedi#completions_enabled = 0
+call neocomplete#custom#source('ultisnips', 'rank', 1000)
 let g:jedi#auto_vim_configuration = 0
+let g:jedi#completions_enabled = 0
+let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#show_call_signatures = 2
+let g:jedi#force_py_version = 3
+let g:jedi#popup_select_first = 0
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+
+" Allow custom omnicomplete
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+
+" Use jedi for neocomplete
+let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
+
+" Play nice with vim-multiple-cursors
+function! Multiple_cursors_before()
+  if exists(':NeoCompleteLock')==2
+    execute 'NeoCompleteLock'
+  endif
+endfunction
+
+function! Multiple_cursors_after()
+  if exists(':NeoCompleteUnlock')==2
+    execute 'NeoCompleteUnlock'
+  endif
+endfunction
 
 " <CR> expands snippets and inserts completions
 function! <SID>ExpandSnippetOrReturn()
@@ -318,6 +344,12 @@ function! <SID>ExpandSnippetOrReturn()
   endif
 endfunction
 
+" <Tab> cycles completes common string and cycles through completions
+inoremap <expr><TAB>
+      \ neocomplete#complete_common_string() != '' ?
+      \   neocomplete#complete_common_string() :
+      \ pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 inoremap <silent><expr><CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 " }}}
 
