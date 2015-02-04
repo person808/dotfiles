@@ -103,9 +103,11 @@ set linebreak
 set wrap
 set virtualedit=onemore
 set t_Co=256
-colorscheme hybrid
+set background=dark
+colorscheme pencil
 
-let g:hybrid_use_Xresources = 1
+let g:pencil_terminal_italics = 1
+let g:pencil_higher_contrast_ui = 1
 " }}}
 
 " Searching/Moving around {{{
@@ -139,6 +141,7 @@ set hidden
 set splitbelow
 set splitright
 set laststatus=2
+set showtabline=2
 
 nnoremap <silent> <Leader>b :enew<CR>
 nnoremap <silent> <Leader>l :bnext<CR>
@@ -149,6 +152,12 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+let g:airline_theme = 'pencil'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline_section_c = ""
 " }}}
 
 " Folding {{{
