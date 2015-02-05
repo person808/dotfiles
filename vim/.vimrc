@@ -292,7 +292,6 @@ cabbrev h Unite help
 " Autocomplete/Snippets {{{
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#auto_completion_start_length = 1
 let g:neocomplete#enable_camel_case = 1
 let g:UltiSnipsJumpForwardTrigger = "<C-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
@@ -306,17 +305,14 @@ let g:jedi#show_call_signatures = 2
 let g:jedi#force_py_version = 3
 let g:jedi#popup_select_first = 0
 
-" Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
 
-" Allow custom omnicomplete
 if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
 endif
 
-" Use jedi for neocomplete
 let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
 
 " Play nice with vim-multiple-cursors
