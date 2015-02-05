@@ -9,8 +9,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'flazz/vim-colorschemes'
+Plug 'gosukiwi/vim-atom-dark'
 Plug 'majutsushi/tagbar'
-Plug 'reedes/vim-colors-pencil'
 Plug 'Yggdroot/indentLine'
 " Add features
 Plug 'Chiel92/vim-autoformat'
@@ -104,15 +104,13 @@ set wrap
 set virtualedit=onemore
 set t_Co=256
 set background=dark
-colorscheme pencil
+colorscheme hybrid
 if has('gui_running')
   set guifont=Monaco\ for\ Powerline\ 9
-  set columns=90 lines=45
+  set columns=100 lines=45
   set guioptions=
+  colorscheme atom-dark
 endif
-
-let g:pencil_terminal_italics = 1
-let g:pencil_higher_contrast_ui = 1
 " }}}
 
 " Searching/Moving around {{{
@@ -158,7 +156,7 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-let g:airline_theme = 'pencil'
+let g:airline_theme = "base16"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
