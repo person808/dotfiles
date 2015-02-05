@@ -146,6 +146,12 @@ set splitright
 set laststatus=2
 set showtabline=2
 
+let g:airline_theme = "base16"
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline_section_c = ""
+
 nnoremap <silent> <Leader>b :enew<CR>
 nnoremap <silent> <Leader>l :bnext<CR>
 nnoremap <silent> <Leader>h :bprevious<CR>
@@ -155,12 +161,6 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
-let g:airline_theme = "base16"
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline_section_c = ""
 " }}}
 
 " Folding {{{
