@@ -7,11 +7,11 @@ endif
 call plug#begin('~/.vim/plugged')
 " Gui plugins
 Plug 'airblade/vim-gitgutter'
+Plug 'bling/vim-airline'
 Plug 'flazz/vim-colorschemes'
 Plug 'majutsushi/tagbar'
-Plug 'bling/vim-airline'
-Plug 'Yggdroot/indentLine'
 Plug 'reedes/vim-colors-pencil'
+Plug 'Yggdroot/indentLine'
 " Add features
 Plug 'Chiel92/vim-autoformat'
 Plug 'haya14busa/incsearch.vim'
@@ -27,26 +27,26 @@ Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 " Editing
 Plug 'junegunn/vim-easy-align'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'sjl/gundo.vim'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
 " Autocomplete
 Plug 'honza/vim-snippets'
+Plug 'Raimondi/delimitMate'
 Plug 'Shougo/neocomplete.vim'
 Plug 'SirVer/UltiSnips'
-Plug 'Raimondi/delimitMate'
 " Unite
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-help'
 " Notes
-Plug 'fmoralesc/vim-pad'
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'vim-pandoc/vim-pandoc-after'
 Plug 'dhruvasagar/vim-table-mode'
+Plug 'fmoralesc/vim-pad'
 Plug 'junegunn/goyo.vim'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-after'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 " Python
 Plug 'davidhalter/jedi-vim'
 " Fish
