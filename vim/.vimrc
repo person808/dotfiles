@@ -84,7 +84,7 @@ nnoremap sp a<C-x><C-s><C-p>
 " Plugins
 nnoremap <Leader>u :GundoToggle<CR>
 nmap ga <Plug>(EasyAlign)
-vmap <Enter> <Plug>(EasyAlign)
+xmap <Enter> <Plug>(EasyAlign)
 nnoremap Q :Autoformat<CR><CR>
 " }}}
 
