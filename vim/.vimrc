@@ -221,8 +221,10 @@ nnoremap <Leader>t :TagbarOpenAutoClose<CR>
 " }}}
 
 " Git {{{
-nmap ghn <Plug>GitGutterNextHunk
-nmap ghp <Plug>GitGutterPreviousHunk
+nmap <silent> ghn <Plug>GitGutterNextHunk
+      \ :call repeat#set("\<Plug>GitGutterNextHunk")<CR>
+nmap <silent> ghp <Plug>GitGutterPreviousHunk
+      \ :call repeat#set("\<Plug>GitGutterPreviousHunk")<CR>
 nmap ghs <Plug>GitGutterStageHunk
 nmap ghr <Plug>GitGutterRevertHunk
 nmap ghv <Plug>GitGutterPreviewHunk
