@@ -15,6 +15,7 @@ Plug 'Yggdroot/indentLine'
 " Add features
 Plug 'Chiel92/vim-autoformat'
 Plug 'haya14busa/incsearch.vim'
+Plug 'rhysd/clever-f.vim'
 Plug 'scrooloose/syntastic'
 Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
@@ -121,7 +122,8 @@ set incsearch
 set scrolloff=5
 
 let g:incsearch#auto_nohlsearch = 1
-let g:incsearch#consistent_n_direction = 1
+let g:clever_f_smart_case = 1
+let g:clever_f_show_prompt = 1
 
 " Opens files at the last known cursor position
 augroup open_last_line
