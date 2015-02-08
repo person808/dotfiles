@@ -74,9 +74,6 @@ let mapleader=","
 let maplocalleader=",,"
 inoremap jj <Esc>
 nnoremap Y y$
-" k and j don't skip wrapped lines
-nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
-nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 " sp opens spelling corrections
 nnoremap sp a<C-x><C-s><C-p>
 
@@ -132,6 +129,9 @@ augroup open_last_line
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
+" k and j don't skip wrapped lines
+nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
