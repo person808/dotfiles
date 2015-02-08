@@ -112,6 +112,7 @@ if has('gui_running')
   set guifont=Monaco\ for\ Powerline\ 9
   set columns=100 lines=45
   set guioptions=
+  set guioptions=Pc
   colorscheme atom-dark
 endif
 " }}}
