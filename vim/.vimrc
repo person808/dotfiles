@@ -1,9 +1,4 @@
 " Plugins {{{
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !wget -nc -q github.com/junegunn/vim-plug/raw/master/plug.vim -P ~/.vim/autoload/
-  autocmd VimEnter * PlugInstall
-endif
-
 call plug#begin('~/.vim/plugged')
 " Gui plugins
 Plug 'airblade/vim-gitgutter'
