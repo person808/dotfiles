@@ -286,7 +286,7 @@ if executable('ag')
   let g:unite_source_grep_recursive_opt = ''
 endif
 
-nnoremap <Leader>f :Unite buffer file_mru file/async file_rec/async<CR>
+nnoremap <Leader>f :Unite buffer file_mru file_rec/async<CR>
 nnoremap <Leader>y :Unite history/yank<CR>
 nnoremap <Leader>a :Unite grep<CR>
 cabbrev h Unite help
