@@ -90,6 +90,7 @@ nnoremap Q :Autoformat<CR><CR>
 
 " Misc plugins {{{
 let g:plug_threads = 40
+let g:gundo_prefer_python3 = 1
 let g:gundo_preview_bottom = 1
 " }}}
 
