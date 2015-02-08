@@ -74,6 +74,7 @@ let mapleader=","
 let maplocalleader=",,"
 inoremap jj <Esc>
 nnoremap Y y$
+nnoremap ; :
 " sp opens spelling corrections
 nnoremap sp a<C-x><C-s><C-p>
 
