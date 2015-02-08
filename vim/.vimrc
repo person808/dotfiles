@@ -44,7 +44,6 @@ Plug 'Shougo/unite-help'
 " Notes
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'fmoralesc/vim-pad'
-Plug 'junegunn/goyo.vim'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-after'
 Plug 'vim-pandoc/vim-pandoc-syntax'
