@@ -60,6 +60,8 @@ set lazyredraw
 set ttyfast
 set mouse=a
 set ttymouse=xterm2
+set wildignore=*.o,*.obj,*~,*.pyc
+set wildignore+=.cache/**
 if has('gui_running')
   let $PATH='/home/kainalu/.dotfiles/bin:/home/kainalu/.local/bin:/usr/local/sbin:/usr/local/sin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl'
 endif
@@ -280,12 +282,13 @@ call unite#custom#profile('default', 'context', {
       \ 'prompt_visible': 1,
       \ 'winheight': 10
       \ })
+call unite#custom#source('file_rec/async', 'ignore_globs', split(&wildignore, ','))
 
 if executable('ag')
   let g:unite_source_grep_command = 'ag'
   let g:unite_source_grep_default_opts =
         \ '-i --line-numbers --nocolor --nogroup --hidden --ignore ' .
-        \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+        \ '.hg --ignore .svn --ignore .git --ignore .bzr --ignore .cache'
   let g:unite_source_grep_recursive_opt = ''
 endif
 
