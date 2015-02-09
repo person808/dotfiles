@@ -346,11 +346,9 @@ function! <SID>ExpandSnippetOrReturn()
   endif
 endfunction
 
-" <Tab> cycles completes common string and cycles through completions
-inoremap <expr><TAB>
-      \ neocomplete#complete_common_string() != '' ?
-      \   neocomplete#complete_common_string() :
-      \ pumvisible() ? "\<C-n>" : "\<Tab>"
+" Keybindings {{{
+" <Tab> cycles through completions
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 inoremap <silent><expr><CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 " }}}
