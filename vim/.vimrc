@@ -126,6 +126,7 @@ let g:clever_f_show_prompt = 1
 
 " Opens files at the last known cursor position
 augroup open_last_line
+  autocmd!
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
