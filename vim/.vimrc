@@ -60,7 +60,9 @@ set lazyredraw
 set ttyfast
 set mouse=a
 set ttymouse=xterm2
-let $PATH='/home/kainalu/.dotfiles/bin:/home/kainalu/.local/bin:/usr/local/sbin:/usr/local/sin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl'
+if has('gui_running')
+  let $PATH='/home/kainalu/.dotfiles/bin:/home/kainalu/.local/bin:/usr/local/sbin:/usr/local/sin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl'
+endif
 " }}}
 
 " Misc Keybindings  {{{
