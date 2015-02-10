@@ -362,6 +362,7 @@ inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 inoremap <silent><expr><CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 " }}}
+" }}}
 
 " Syntastic {{{
 let g:syntastic_aggregate_errors = 1
