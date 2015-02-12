@@ -103,7 +103,9 @@ set wrap
 set virtualedit=onemore
 set t_Co=256
 set background=dark
-colorscheme hybrid
+colorscheme atom-dark-256
+hi CursorLine ctermbg=235
+hi ColorColumn ctermbg=235
 if has('gui_running')
   set guifont=Monaco\ for\ Powerline\ 9
   set columns=100 lines=45
