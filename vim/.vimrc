@@ -350,6 +350,21 @@ function! <SID>ExpandSnippetOrReturn()
   endif
 endfunction
 
+" Allows jedi to complete python 3 modules. This can blow up and cause
+" segfaults for some modules (ex. pyqt4)
+python << EOF
+import subprocess
+other_python = 'python%d' % (22 if sys.version_info.major == 3 else 3,)
+try:
+    other_sys_path = subprocess.check_output(
+    [other_python, '-c', 'import sys; print(sys.path)']).decode('utf-8')
+except OSError:
+    pass
+else:
+    other_sys_path = other_sys_path[2:-3].split("', '")
+    sys.path += other_sys_path
+EOF
+
 " Keybindings {{{
 " <Tab> cycles through completions
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
