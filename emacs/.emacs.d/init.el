@@ -33,7 +33,8 @@
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (setq inhibit-startup-screen t
-	enable-local-eval t)
+	enable-local-eval t
+	vc-follow-symlinks t)
   (defalias 'yes-or-no-p 'y-or-n-p)
   (add-hook 'find-file-hook
 	    (lambda ()
@@ -130,47 +131,6 @@
 	    (global-vim-empty-lines-mode)
 	    (diminish 'vim-empty-lines-mode))))
 
-(defun ido-settings ()
-  "Ido mode settings."
-  (req-package ido
-    :init (ido-mode t)
-    :config (progn
-	      (setq ido-enable-prefix nil
-		    ido-enable-flex-matching t
-		    ido-create-new-buffer 'always
-		    ido-use-filename-at-point 'guess
-		    ido-max-prospects 10
-		    ido-default-file-method 'selected-window
-		    ido-auto-merge-work-directories-length -1
-		    ido-use-faces nil)))
-
-  (req-package ido-vertical-mode
-    :ensure t
-    :init (ido-vertical-mode t))
-
-  (req-package ido-ubiquitous
-    :ensure t
-    :init (setq ido-everywhere t))
-
-  (req-package flx-ido
-    :ensure t
-    :init (flx-ido-mode t))
-
-  (req-package projectile
-    :ensure t
-    :init (projectile-global-mode)
-    :config (progn
-	      (setq projectile-require-project-root nil)
-	      (evil-leader/set-key
-		"f" 'projectile-find-file)))
-
-  (req-package smex
-    :ensure t
-    :init (smex-initialize)
-    :config (progn
-	      (global-set-key (kbd "M-x") 'smex)
-	      (global-set-key (kbd "M-X") 'smex-major-mode-commands))))
-
 (defun autocomplete ()
   "Autocomplete settings."
   (add-hook 'prog-mode-hook 'eldoc-mode)
@@ -212,6 +172,55 @@
 	    (yas-global-mode t)
 	    (diminish 'yas-minor-mode))))
 
+(defun git-settings ()
+  "Settings for using git."
+  (req-package git-gutter
+    :ensure t
+    :init (progn
+	    (global-git-gutter-mode t)
+	    (with-eval-after-load "git-gutter" (diminish 'git-gutter-mode)))))
+
+(defun ido-settings ()
+  "Ido mode settings."
+  (req-package ido
+    :init (ido-mode t)
+    :config (progn
+	      (setq ido-enable-prefix nil
+		    ido-enable-flex-matching t
+		    ido-create-new-buffer 'always
+		    ido-use-filename-at-point 'guess
+		    ido-max-prospects 10
+		    ido-default-file-method 'selected-window
+		    ido-auto-merge-work-directories-length -1
+		    ido-use-faces nil)))
+
+  (req-package ido-vertical-mode
+    :ensure t
+    :init (ido-vertical-mode t))
+
+  (req-package ido-ubiquitous
+    :ensure t
+    :init (setq ido-everywhere t))
+
+  (req-package flx-ido
+    :ensure t
+    :init (flx-ido-mode t))
+
+  (req-package projectile
+    :ensure t
+    :init (projectile-global-mode)
+    :config (progn
+	      (setq projectile-require-project-root nil)
+	      (evil-leader/set-key
+		"f" 'projectile-find-file)))
+
+  (req-package smex
+    :ensure t
+    :init (smex-initialize)
+    :config (progn
+	      (global-set-key (kbd "M-x") 'smex)
+	      (global-set-key (kbd "M-X") 'smex-major-mode-commands))))
+
 (defun language-specific ()
   "Language specific settings."
   (defun python-settings ()
@@ -233,8 +242,9 @@
   (buffers-splits)
   (backup-undo)
   (text-display)
-  (ido-settings)
   (autocomplete)
+  (git-settings)
+  (ido-settings)
   (language-specific)
   (req-package-finish))
 
