@@ -134,6 +134,7 @@
 (defun autocomplete ()
   "Autocomplete settings."
   (add-hook 'prog-mode-hook 'eldoc-mode)
+  (with-eval-after-load "eldoc" (diminish 'eldoc-mode))
 
   (req-package company
     :ensure t
@@ -174,11 +175,24 @@
 
 (defun git-settings ()
   "Settings for using git."
+  (setq vc-handled-backends ())
+
   (req-package git-gutter
     :ensure t
     :init (progn
 	    (global-git-gutter-mode t)
-	    (with-eval-after-load "git-gutter" (diminish 'git-gutter-mode)))))
+	    (git-gutter:linum-setup)
+	    (with-eval-after-load "git-gutter" (diminish 'git-gutter-mode)))
+    :config (progn
+	      (setq git-gutter:modified-sign "~"
+		    git-gutter:deleted-sign "_")
+	      (set-face-attribute 'git-gutter:modified nil
+				  :foreground "yellow")
+
+	      (define-key evil-normal-state-map "ghn" 'git-gutter:next-hunk)
+	      (define-key evil-normal-state-map "ghp" 'git-gutter:previous-hunk)
+	      (define-key evil-normal-state-map "ghs" 'git-gutter:stage-hunk)
+	      (define-key evil-normal-state-map "ghr" 'git-gutter:revert-hunk))))
 
 (defun ido-settings ()
   "Ido mode settings."
