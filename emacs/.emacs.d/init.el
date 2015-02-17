@@ -192,12 +192,24 @@
 	      (define-key evil-normal-state-map "ghn" 'git-gutter:next-hunk)
 	      (define-key evil-normal-state-map "ghp" 'git-gutter:previous-hunk)
 	      (define-key evil-normal-state-map "ghs" 'git-gutter:stage-hunk)
-	      (define-key evil-normal-state-map "ghr" 'git-gutter:revert-hunk))))
+	      (define-key evil-normal-state-map "ghr" 'git-gutter:revert-hunk)))
+
+  (req-package magit
+    :ensure t
+    :config (progn
+	      (evil-leader/set-key
+		"gb" 'magit-blame-mode
+		"gl" 'magit-log
+		"gs" 'magit-status-mode
+		"gc" 'magit-commit))))
 
 (defun ido-settings ()
   "Ido mode settings."
   (req-package ido
-    :init (ido-mode t)
+    :require (recentf)
+    :init (progn
+	    (ido-mode t)
+	    (recentf-mode t))
     :config (progn
 	      (setq ido-enable-prefix nil
 		    ido-enable-flex-matching t
