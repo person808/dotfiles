@@ -218,7 +218,15 @@
 		    ido-max-prospects 10
 		    ido-default-file-method 'selected-window
 		    ido-auto-merge-work-directories-length -1
-		    ido-use-faces nil)))
+		    ido-use-faces nil
+		    recentf-max-saved-items 150)
+
+	      (defun ido-recentf-open ()
+		"Use `ido-completing-read' to find a recent file."
+		(interactive)
+		(if (find-file (ido-completing-read "Find recent file: " recentf-list))
+		    (message "Opening file...")
+		  (message "Aborting")))))
 
   (req-package ido-vertical-mode
     :ensure t
