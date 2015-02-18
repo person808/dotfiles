@@ -59,7 +59,10 @@
 	    (add-hook 'prog-mode-hook 'hs-minor-mode)
 	    (diminish 'hs-minor-mode))
     :config (progn
-	      (define-key evil-normal-state-map (kbd "SPC") 'hs-toggle-hiding))))
+	      (define-key evil-normal-state-map (kbd "SPC") 'hs-toggle-hiding)))
+
+  (req-package smooth-scrolling
+    :ensure t))
 
 (defun misc-keybindings ()
   "Miscellaneous keybindings."
