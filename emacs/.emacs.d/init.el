@@ -193,6 +193,7 @@
 
   (req-package magit
     :ensure t
+    :init (diminish 'magit-auto-revert-mode)
     :config (progn
 	      (evil-leader/set-key
 		"gb" 'magit-blame-mode
@@ -264,7 +265,8 @@
     (req-package anaconda-mode
       :ensure t
       :init (progn
-	      (add-hook 'python-mode-hook 'anaconda-mode))))
+	      (add-hook 'python-mode-hook 'anaconda-mode)
+	      (diminish 'anaconda-mode))))
 
   (python-settings))
 
