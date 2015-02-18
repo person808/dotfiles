@@ -126,13 +126,7 @@
     :init (progn
 	    (smartparens-global-mode t)
 	    (show-smartparens-global-mode t)
-	    (diminish 'smartparens-mode)))
-
-  (req-package vim-empty-lines-mode
-    :ensure t
-    :init (progn
-	    (global-vim-empty-lines-mode)
-	    (diminish 'vim-empty-lines-mode))))
+	    (diminish 'smartparens-mode))))
 
 (defun autocomplete ()
   "Autocomplete settings."
