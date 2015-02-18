@@ -48,18 +48,18 @@
 	    (global-aggressive-indent-mode t)
 	    (diminish 'aggressive-indent-mode)))
 
+  (req-package evil-commentary
+    :ensure t
+    :init (progn
+	    (evil-commentary-mode t)
+	    (diminish 'evil-commentary-mode)))
+
   (req-package hideshow
     :init (progn
 	    (add-hook 'prog-mode-hook 'hs-minor-mode)
 	    (diminish 'hs-minor-mode))
     :config (progn
-	      (define-key evil-normal-state-map (kbd "SPC") 'hs-toggle-hiding)))
-
-  (req-package evil-commentary
-    :ensure t
-    :init (progn
-	    (evil-commentary-mode t)
-	    (diminish 'evil-commentary-mode))))
+	      (define-key evil-normal-state-map (kbd "SPC") 'hs-toggle-hiding))))
 
 (defun misc-keybindings ()
   "Miscellaneous keybindings."
@@ -200,7 +200,7 @@
 	      (evil-leader/set-key
 		"gb" 'magit-blame-mode
 		"gl" 'magit-log
-		"gs" 'magit-status-mode
+		"gs" 'magit-status
 		"gc" 'magit-commit))))
 
 (defun ido-settings ()
@@ -234,11 +234,16 @@
 
   (req-package ido-ubiquitous
     :ensure t
-    :init (setq ido-everywhere t))
+    :init (ido-ubiquitous-mode t))
 
   (req-package flx-ido
     :ensure t
     :init (flx-ido-mode t))
+
+  (req-package ag
+    :ensure t
+    :config (progn
+	      (setq ag-highlight-search t)))
 
   (req-package projectile
     :ensure t
