@@ -158,6 +158,10 @@
 	      (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
 	      (define-key company-active-map (kbd "<backtab>") 'company-select-previous)))
 
+  (req-package company-quickhelp
+    :ensure t
+    :init (company-quickhelp-mode t))
+
   (req-package company-ycmd
     :ensure t
     :require (company)
