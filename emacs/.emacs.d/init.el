@@ -96,11 +96,17 @@
 (defun text-display ()
   "Text display settings."
   (global-linum-mode t)
+  (global-visual-line-mode t)
+  (diminish 'visual-line-mode)
   (setq-default fringe-indicator-alist (assq-delete-all 'truncation fringe-indicator-alist))
   (setq default-frame-alist 
 	'((width . 50)
 	  (height . 20)
 	  (font . "Monaco-9")))
+
+  (req-package adaptive-wrap
+    :ensure t
+    :init (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode))
 
   (req-package atom-dark-theme
     :ensure t
