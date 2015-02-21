@@ -35,10 +35,7 @@
   (setq inhibit-startup-screen t
 	enable-local-eval t
 	vc-follow-symlinks t)
-  (defalias 'yes-or-no-p 'y-or-n-p)
-  (add-hook 'find-file-hook
-	    (lambda ()
-	      (setq default-directory command-line-default-directory))))
+  (defalias 'yes-or-no-p 'y-or-n-p))
 
 (defun misc-plugins ()
   "Miscellaneous plugins."
