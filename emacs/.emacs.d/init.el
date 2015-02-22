@@ -211,62 +211,66 @@
 		"gs" 'magit-status
 		"gc" 'magit-commit))))
 
-(defun ido-settings ()
-  "Ido mode settings."
-  (req-package ido
-    :require (recentf)
+(defun helm-settings ()
+  "Settings for helm."
+  (req-package helm
+    :ensure t
     :init (progn
-	    (ido-mode t)
-	    (recentf-mode t))
+	    (helm-mode t)
+	    (helm-adaptive-mode t)
+	    (helm-autoresize-mode t)
+	    (diminish 'helm-mode))
     :config (progn
-	      (setq ido-enable-prefix nil
-		    ido-enable-flex-matching t
-		    ido-create-new-buffer 'always
-		    ido-use-filename-at-point 'guess
-		    ido-max-prospects 10
-		    ido-default-file-method 'selected-window
-		    ido-auto-merge-work-directories-length -1
-		    ido-use-faces nil
-		    recentf-max-saved-items 150)
+	      (setq helm-recentf-fuzzy-match t
+		    helm-buffers-fuzzy-matching t
+		    helm-locate-fuzzy-match t
+		    helm-M-x-fuzzy-match t
+		    helm-imenu-fuzzy-match t
+		    helm-apropos-fuzzy-match t
+		    helm-lisp-fuzzy-completion t
+		    helm-move-to-line-cycle-in-source t)
+	      (set-face-attribute 'helm-action nil
+				  :underline nil)
+	      (set-face-attribute 'helm-candidate-number nil
+				  :foreground nil
+				  :background nil)
 
-	      (defun ido-recentf-open ()
-		"Use `ido-completing-read' to find a recent file."
-		(interactive)
-		(if (find-file (ido-completing-read "Find recent file: " recentf-list))
-		    (message "Opening file...")
-		  (message "Aborting")))))
+	      (defadvice helm-display-mode-line (after undisplay-header activate)
+		"Avoid help message."
+		(setq header-line-format nil))
 
-  (req-package ido-vertical-mode
-    :ensure t
-    :init (ido-vertical-mode t))
-
-  (req-package ido-ubiquitous
-    :ensure t
-    :init (ido-ubiquitous-mode t))
-
-  (req-package flx-ido
-    :ensure t
-    :init (flx-ido-mode t))
-
-  (req-package ag
-    :ensure t
-    :config (progn
-	      (setq ag-highlight-search t)))
-
-  (req-package projectile
-    :ensure t
-    :init (projectile-global-mode)
-    :config (progn
-	      (setq projectile-require-project-root nil)
+	      (global-set-key (kbd "M-x") 'helm-M-x)
 	      (evil-leader/set-key
-		"f" 'projectile-find-file)))
+		"s" 'helm-semantic-or-imenu
+		"f" 'helm-find)))
 
-  (req-package smex
+  (req-package hydra
     :ensure t
-    :init (smex-initialize)
     :config (progn
-	      (global-set-key (kbd "M-x") 'smex)
-	      (global-set-key (kbd "M-X") 'smex-major-mode-commands))))
+	      (setq hydra-is-helpful nil)
+
+	      (defhydra helm-like-unite (:pre
+					 (set-cursor-color "#96CBFE")
+					 :post
+					 (set-cursor-color "White"))
+		"Vim movement in helm."
+		("?" helm-help "help")
+		("<escape>" keyboard-escape-quit "exit")
+		("<SPC>" helm-toggle-visible-mark "mark")
+		("a" helm-toggle-all-marks "(un)mark all")
+		("/" (lambda ()
+		       (interactive)
+		       (execute-kbd-macro [?\C-s]))
+		 "search")
+		("v" helm-execute-persistent-action)
+		("g" helm-beginning-of-buffer "top")
+		("G" helm-end-of-buffer "bottom")
+		("j" helm-next-line "down")
+		("k" helm-previous-line "up")
+		("i" nil "cancel"))
+
+	      (define-key helm-map (kbd "<escape>") 'helm-like-unite/body)
+	      (key-chord-define helm-map "jj" 'helm-like-unite/body))))
 
 (defun language-specific ()
   "Language specific settings."
@@ -292,7 +296,7 @@
   (text-display)
   (autocomplete)
   (git-settings)
-  (ido-settings)
+  (helm-settings)
   (language-specific)
   (req-package-finish))
 
