@@ -76,7 +76,10 @@
     (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
     (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
     (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
-    (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)))
+    (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
+    (define-key evil-normal-state-map (kbd "C-w q") 'evil-window-delete))
+  (evil-leader/set-key
+    "c" 'kill-this-buffer))
 
 (defun backup-undo ()
   "Backup file and undo settings."
