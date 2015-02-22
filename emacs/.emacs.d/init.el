@@ -110,7 +110,10 @@
 
   (req-package atom-dark-theme
     :ensure t
-    :init (load-theme 'atom-dark t))
+    :init (load-theme 'atom-dark t)
+    :config (progn
+	      (set-face-attribute 'region nil
+				  :background "#403D3D")))
 
   (req-package rainbow-delimiters
     :ensure t
