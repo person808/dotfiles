@@ -35,7 +35,8 @@
   (setq inhibit-startup-screen t
 	enable-local-eval t
 	vc-follow-symlinks t)
-  (defalias 'yes-or-no-p 'y-or-n-p))
+  (defalias 'yes-or-no-p 'y-or-n-p)
+  (add-hook 'before-save-hook 'delete-trailing-whitespace))
 
 (defun misc-plugins ()
   "Miscellaneous plugins."
@@ -99,7 +100,7 @@
   (global-visual-line-mode t)
   (diminish 'visual-line-mode)
   (setq-default fringe-indicator-alist (assq-delete-all 'truncation fringe-indicator-alist))
-  (setq default-frame-alist 
+  (setq default-frame-alist
 	'((width . 50)
 	  (height . 20)
 	  (font . "Monaco-9")))
@@ -149,6 +150,7 @@
 
 	      (defvar company-mode/enable-yas t
 		"Enable yasnippet for all backends.")
+
 	      (defun company-mode/backend-with-yas (backend)
 		(if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
 		    backend
