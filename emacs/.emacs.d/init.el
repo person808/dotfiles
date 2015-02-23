@@ -32,6 +32,7 @@
   (menu-bar-mode -1)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
+  (semantic-mode t)
   (setq inhibit-startup-screen t
 	enable-local-eval t
 	vc-follow-symlinks t)
