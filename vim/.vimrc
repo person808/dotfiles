@@ -124,6 +124,7 @@ set incsearch
 set scrolloff=5
 
 let g:incsearch#auto_nohlsearch = 1
+let g:incsearch#magic = '\v'
 let g:clever_f_smart_case = 1
 let g:clever_f_show_prompt = 1
 
