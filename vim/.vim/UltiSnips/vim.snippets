@@ -1,3 +1,14 @@
 snippet plug "vim-plug plugin definition" b
 Plug '${1:Author}/${2:Plugin}'
 endsnippet
+
+snippet ftplugin "ftplugin format" b
+" Buffer settings
+$1
+" Autocmds
+augroup ${2:name}
+	autocmd $3
+augroup END
+" Plugin settings
+$4
+endsnippet
