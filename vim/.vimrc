@@ -4,7 +4,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'flazz/vim-colorschemes'
-Plug 'gosukiwi/vim-atom-dark'
 Plug 'majutsushi/tagbar'
 Plug 'Yggdroot/indentLine'
 " Add features
@@ -63,9 +62,6 @@ set mouse=a
 set ttymouse=xterm2
 set wildignore=*.o,*.obj,*~,*.pyc
 set wildignore+=.cache/**
-if has('gui_running')
-  let $PATH='/home/kainalu/.dotfiles/bin:/home/kainalu/.local/bin:/usr/local/sbin:/usr/local/sin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl'
-endif
 " }}}
 
 " Misc Keybindings  {{{
@@ -102,18 +98,8 @@ set breakindent
 set linebreak
 set wrap
 set virtualedit=onemore
-set t_Co=256
-set background=dark
-colorscheme atom-dark-256
-hi CursorLine ctermbg=235
-hi ColorColumn ctermbg=235
-if has('gui_running')
-  set guifont=Monaco\ for\ Powerline\ 9
-  set columns=100 lines=45
-  set guioptions=
-  set guioptions=Pc
-  colorscheme atom-dark
-endif
+let g:seoul256_background = 234
+colorscheme seoul256
 " }}}
 
 " Searching/Moving around {{{
@@ -155,7 +141,7 @@ set splitright
 set laststatus=2
 set showtabline=2
 
-let g:airline_theme = "base16"
+let g:airline_theme = "zenburn"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
