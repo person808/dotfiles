@@ -15,7 +15,7 @@ Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
 Plug 'tpope/vim-fugitive'
 " Utility
-Plug 'dag/vim-fish'
+Plug 'kballard/vim-fish'
 Plug 'mitsuhiko/vim-jinja'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-dispatch'
