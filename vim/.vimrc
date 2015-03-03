@@ -47,7 +47,6 @@ Plug 'vim-pandoc/vim-pandoc-after'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 call plug#end()
 " }}}
-
 " Misc settings {{{
 set shell=/usr/bin/bash
 set updatetime=500
@@ -62,7 +61,6 @@ set ttymouse=xterm2
 set wildignore=*.o,*.obj,*~,*.pyc
 set wildignore+=.cache/**
 " }}}
-
 " Misc Keybindings  {{{
 " Built-in functions
 let mapleader=","
@@ -79,13 +77,11 @@ nmap ga <Plug>(EasyAlign)
 xmap <Enter> <Plug>(EasyAlign)
 nnoremap Q :Autoformat<CR><CR>
 " }}}
-
 " Misc plugins {{{
 let g:plug_threads = 40
 let g:gundo_prefer_python3 = 1
 let g:gundo_preview_bottom = 1
 " }}}
-
 " Text display {{{
 set number
 set cursorline
@@ -100,7 +96,6 @@ set virtualedit=onemore
 let g:seoul256_background = 234
 colorscheme seoul256
 " }}}
-
 " Searching/Moving around {{{
 set ignorecase
 set smartcase
@@ -132,7 +127,6 @@ map #  <Plug>(incsearch-nohl-#)
 map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 " }}}
-
 " Buffers/Tabs/Splits {{{
 set hidden
 set splitbelow
@@ -156,7 +150,6 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 " }}}
-
 " Folding {{{
 set foldenable
 set foldlevelstart=10
@@ -164,7 +157,6 @@ set foldnestmax=10
 set foldmethod=indent
 nnoremap <space> za
 " }}}
-
 " Indentation {{{
 filetype plugin indent on
 set tabstop=4
@@ -177,7 +169,6 @@ set smarttab
 let g:indentLine_char = '┊'
 let g:indentLine_color_term = 102
 " }}}
-
 " Backup/Undo {{{
 set backup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -188,7 +179,6 @@ set undolevels=10000
 set undofile
 set undodir=$HOME/.vim/undo
 " }}}
-
 " Command line {{{
 set showcmd
 set wildmenu
@@ -196,7 +186,6 @@ set noshowmode
 set shortmess+=c
 set confirm
 " }}}
-
 " Tags {{{
 set tags=./tags;~/.vim/tags/*;$HOME
 let g:easytags_cmd = '/usr/bin/ctags --fields+=l'
@@ -211,7 +200,6 @@ let g:tagbar_map_togglefold = "<Space>"
 
 nnoremap <Leader>t :TagbarOpenAutoClose<CR>
 " }}}
-
 " Git {{{
 nmap <silent> ghn <Plug>GitGutterNextHunk
       \ :call repeat#set("\<Plug>GitGutterNextHunk")<CR>
@@ -225,7 +213,6 @@ nnoremap <Leader>gl :Glog<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 " }}}
-
 " Notes {{{
 let g:pad#dir = "~/Documents/notes/"
 let g:pad#window_height = 15
@@ -243,7 +230,6 @@ let g:pandoc#after#modules#enabled = ["ultisnips", "unite", "tablemode"]
 let g:goyo_margin_top = 1
 let g:goyo_margin_bottom = 1
 " }}}
-
 " Vimfiler {{{
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_readonly_file_icon = ''
@@ -259,7 +245,6 @@ call vimfiler#custom#profile('default', 'context', {
 nnoremap <silent> <Leader>e :VimFiler<CR>
 nnoremap <silent> <Leader>es :VimFilerSplit<CR>
 " }}}
-
 " Unite {{{
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
@@ -288,7 +273,6 @@ nnoremap <Leader>y :Unite history/yank<CR>
 nnoremap <Leader>a :Unite grep<CR>
 cabbrev h Unite help
 " }}}
-
 " Autocomplete/Snippets {{{
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
@@ -359,7 +343,6 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 inoremap <silent><expr><CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 " }}}
 " }}}
-
 " Syntastic {{{
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 0
