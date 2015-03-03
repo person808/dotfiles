@@ -15,6 +15,8 @@ Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
 Plug 'tpope/vim-fugitive'
 " Utility
+Plug 'dag/vim-fish'
+Plug 'mitsuhiko/vim-jinja'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
@@ -28,6 +30,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
 " Autocomplete
+Plug 'davidhalter/jedi-vim'
 Plug 'honza/vim-snippets'
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/neocomplete.vim'
@@ -42,10 +45,6 @@ Plug 'fmoralesc/vim-pad'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-after'
 Plug 'vim-pandoc/vim-pandoc-syntax'
-" Python
-Plug 'davidhalter/jedi-vim'
-" Fish
-Plug 'dag/vim-fish'
 call plug#end()
 " }}}
 
