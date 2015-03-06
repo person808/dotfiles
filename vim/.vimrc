@@ -8,6 +8,7 @@ Plug 'majutsushi/tagbar'
 Plug 'Yggdroot/indentLine'
 " Add features
 Plug 'Chiel92/vim-autoformat'
+Plug 'gregsexton/gitv'
 Plug 'haya14busa/incsearch.vim'
 Plug 'rhysd/clever-f.vim'
 Plug 'scrooloose/syntastic'
