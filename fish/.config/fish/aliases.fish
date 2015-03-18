@@ -1,5 +1,3 @@
-# Global Aliases
-
 function sudo
     if test "$argv" = !!
         eval command sudo $history[1]
@@ -8,13 +6,13 @@ function sudo
     end
 end
 
-alias ls "ls -CF --group-directories-first --color"
-alias df "df -h"
-alias free "free -mt"
-alias wget "wget -c"
-alias top "htop"
-alias pacin "pacaur -S"
-alias pacup "pacaur -Syu"
-alias pacrem "sudo pacaur -Rns"
-alias pacsearch "pacaur -Ss"
-alias .. "cd .."
+balias ls "ls -CF --group-directories-first --color"
+balias df "df -h"
+balias free "free -mt"
+balias wget "wget -c"
+balias top "htop"
+balias pacin "pacaur -S"
+balias pacup "pacaur -Syu"
+balias pacrem "sudo pacaur -Rns"
+balias pacsearch "pacaur -Ss"
+balias .. "cd .."
