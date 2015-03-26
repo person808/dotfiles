@@ -64,8 +64,7 @@ set wildignore+=.cache/**
 " }}}
 " Misc Keybindings  {{{
 " Built-in functions
-let mapleader=","
-let maplocalleader=",,"
+let mapleader="SPC"
 inoremap jj <Esc>
 nnoremap Y y$
 nnoremap ; :
@@ -156,7 +155,7 @@ set foldenable
 set foldlevelstart=10
 set foldnestmax=10
 set foldmethod=indent
-nnoremap <space> za
+nnoremap <Leader><Space> za
 " }}}
 " Indentation {{{
 filetype plugin indent on
