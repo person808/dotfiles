@@ -64,7 +64,7 @@ set wildignore+=.cache/**
 " }}}
 " Misc Keybindings  {{{
 " Built-in functions
-let mapleader="SPC"
+let mapleader="\<Space>"
 inoremap jj <Esc>
 nnoremap Y y$
 nnoremap ; :
