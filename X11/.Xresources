@@ -26,9 +26,6 @@ URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.keysym.Control-Alt-V:   perl:clipboard:paste_escaped
 URxvt.copyCommand:            xsel -ib
 URxvt.pasteCommand:           xsel -ob
-URxvt.tabbed.autohide:        true
-URxvt.tabbed.new-button:      false
-URxvt.keysym.Control-t:       perl:tabbedex:new_tab
 
 ! seoul256 (dark) theme adapted for URxvt
 ! append the content of this file to your .Xresources
