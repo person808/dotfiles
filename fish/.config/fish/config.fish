@@ -8,7 +8,7 @@ set fish_theme cmorrell.com
 # All built-in plugins can be found at ~/.oh-my-fish/plugins/
 # Custom plugins may be added to ~/.oh-my-fish/custom/plugins/
 # Enable plugins by adding their name separated by a space to the line below.
-set fish_plugins balias theme tmux xdg
+set fish_plugins balias theme xdg
 
 # Path to your custom folder (default path is ~/.oh-my-fish/custom)
 #set fish_custom $HOME/dotfiles/oh-my-fish
@@ -24,7 +24,4 @@ end
 
 set -U fish_greeting ""  # Hide fish greeting
 set -U fish_user_paths ~/.dotfiles/bin ~/.local/bin  # Set PATH
-set -gx EDITOR emacsclient -c -a emacs
-
-# Autostart tmux
-tmux
+set -gx EDITOR emacs
