@@ -265,7 +265,6 @@ endfunction
 inoremap <silent><expr><CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 " }}}
 " Neomake {{{
-let g:neomake_make_modified = 1
 let g:neomake_error_sign = {
       \ 'text': '>>',
       \ 'texthl': 'ErrorMsg',
