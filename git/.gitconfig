@@ -8,6 +8,12 @@
 [alias]
 	co = checkout
 	count = !git shortlog -sn
+	l = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(yellow)%d%C(reset)' --all
+	p = push
+	pl = pull
+	b = branch
+	c = commit
+	s = status
 [color]
 	diff = auto
 	status = auto
