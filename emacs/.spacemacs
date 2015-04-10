@@ -147,12 +147,12 @@ layers configuration."
   (diminish 'visual-line-mode)
 
   ;; Buffers/Splits
-  (defvar *interesting-buffers* '("*eshell*" "*scratch*"))
+  (defvar *interesting-buffers* "\\*\\(eshell\\|scratch\\|cider-repl\.\+\\)\\*")
 
   (defun boring-buffer-p (buffer-name)
     (catch 'found
       (mapc (lambda (regexp)
-              (when (and (not (member buffer-name *interesting-buffers*))
+              (when (and (not (string-match *interesting-buffers* buffer-name))
                          (string-match regexp buffer-name))
                 (throw 'found t)))
             helm-boring-buffer-regexp-list)
