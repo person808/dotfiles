@@ -119,8 +119,8 @@ before layers configuration."
   ;; User initialization goes here
   (setq-default evil-escape-key-sequence "jj"
                 evil-escape-delay 0.2)
-  (add-to-list 'default-frame-alist '(height . 24))
-  (add-to-list 'default-frame-alist '(width . 55))
+  (push '(height . 24) default-frame-alist)
+  (push '(width . 55) default-frame-alist)
   )
 
 (defun dotspacemacs/config ()
@@ -203,9 +203,9 @@ layers configuration."
         helm-move-to-line-cycle-in-source t
         helm-display-header-line nil
         helm-for-files-preferred-list '(helm-source-buffers-list helm-source-recentf helm-source-file-cache helm-source-findutils))
-  (add-to-list 'helm-completing-read-handlers-alist '(cd . ido))
-  (add-to-list 'helm-completing-read-handlers-alist '(dired . ido))
-  (add-to-list 'helm-boring-buffer-regexp-list '"\\*")
+  (push '(cd . ido) helm-completing-read-handlers-alist)
+  (push '(dired . ido) helm-completing-read-handlers-alist)
+  (push '"\\*" helm-boring-buffer-regexp-list)
 
   (defvar helm-source-header-default-background (face-attribute 'helm-source-header :background))
   (defvar helm-source-header-default-foreground (face-attribute 'helm-source-header :foreground))
