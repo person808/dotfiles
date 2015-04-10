@@ -129,7 +129,8 @@ before layers configuration."
 layers configuration."
   ;; Misc settings
   (setq powerline-default-separator 'bar
-        hs-isearch-open t)
+        hs-isearch-open t
+        vc-follow-symlinks t)
 
   ;; Misc keybindings
   (setq evil-escape-excluded-major-modes '(help-mode))
