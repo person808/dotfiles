@@ -14,10 +14,10 @@
                                                         auto-completion-enable-company-help-tooltip t)
                                        clojure
                                        colors
-                                       evil-commentary
                                        (evil-snipe :variables
                                                    evil-snipe-enable-alternate-f-and-t-behaviors t)
                                        (git :variables
+                                            git-enable-github-support t
                                             git-gutter-use-fringe nil)
                                        markdown
                                        python
@@ -127,6 +127,7 @@ before layers configuration."
    dotspacemacs-mode-line-unicode-symbols t
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
+   ;; point when it reaches the top or bottom of the screen.
    dotspacemacs-smooth-scrolling t
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    dotspacemacs-smartparens-strict-mode t
@@ -148,28 +149,57 @@ before layers configuration."
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
-  ;; Misc settings
-  (setq powerline-default-separator 'bar
-        hs-isearch-open t
-        vc-follow-symlinks t)
-
-  ;; Misc keybindings
-  (setq evil-escape-excluded-major-modes '(help-mode))
-  (define-key evil-normal-state-map (kbd ";") 'evil-ex)
-  (define-key evil-motion-state-map (kbd ";") 'evil-ex)
-  (define-key evil-normal-state-map (kbd "SPC SPC") 'hs-toggle-hiding)
-
-  ;; Text display/editing
+  ;; Modes
   (aggressive-indent-global-mode t)
   (blink-cursor-mode t)
+  (helm-mode t)
+  (helm-autoresize-mode t)
   (add-hook 'prog-mode-hook 'visual-line-mode)
   (add-hook 'prog-mode-hook 'linum-mode)
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (diminish 'visual-line-mode)
 
-  ;; Buffers/Splits
+  ;; Settings
+  (setq evil-escape-excluded-major-modes '(help-mode)
+        hs-isearch-open t
+        powerline-default-separator 'bar
+        vc-follow-symlinks t
+        ;; Backup/Undo
+        undo-tree-auto-save-history t
+        undo-tree-history-directory-alist
+        `(("." . ,(concat spacemacs-cache-directory "undo")))
+        ;; Helm
+        helm-recentf-fuzzy-match t
+        helm-buffers-fuzzy-matching t
+        helm-locate-fuzzy-match t
+        helm-M-x-fuzzy-match t
+        helm-semantic-fuzzy-match t
+        helm-imenu-fuzzy-match t
+        helm-apropos-fuzzy-match t
+        helm-lisp-fuzzy-completion t
+        helm-move-to-line-cycle-in-source t
+        helm-display-header-line nil
+        helm-for-files-preferred-list '(helm-source-buffers-list helm-source-recentf helm-source-file-cache helm-source-findutils)
+        ;; Autocomplete
+        company-quickhelp-max-lines 40
+        company-idle-delay 0.15
+        ;; Flycheck
+        flycheck-flake8-maximum-line-length 99
+        flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled))
+  ;; Buffers
   (defvar *interesting-buffers* "\\*\\(eshell\\|scratch\\|cider-repl\.\+\\)\\*")
+  ;; Backups/Undo
+  (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
+    (make-directory (concat spacemacs-cache-directory "undo")))
+  ;; Helm
+  (defvar helm-source-header-default-background (face-attribute 'helm-source-header :background))
+  (defvar helm-source-header-default-foreground (face-attribute 'helm-source-header :foreground))
+  (defvar helm-source-header-default-box (face-attribute 'helm-source-header :box))
+  (push '(cd . ido) helm-completing-read-handlers-alist)
+  (push '(dired . ido) helm-completing-read-handlers-alist)
+  (push '"\\*" helm-boring-buffer-regexp-list)
 
+  ;; Functions
+  ;; Buffers
   (defun boring-buffer-p (buffer-name)
     (catch 'found
       (mapc (lambda (regexp)
@@ -191,48 +221,7 @@ layers configuration."
     (while (boring-buffer-p (buffer-name (current-buffer)))
       (previous-buffer)))
 
-  (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
-  (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
-  (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
-  (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
-  (define-key evil-motion-state-map (kbd "C-j") 'evil-window-down)
-  (define-key evil-motion-state-map (kbd "C-k") 'evil-window-up)
-  (define-key evil-motion-state-map (kbd "C-h") 'evil-window-left)
-  (define-key evil-motion-state-map (kbd "C-l") 'evil-window-right)
-  (define-key evil-normal-state-map (kbd "H") 'previous-useful-buffer)
-  (define-key evil-normal-state-map (kbd "L") 'next-useful-buffer)
-  (define-key evil-motion-state-map (kbd "H") 'previous-useful-buffer)
-  (define-key evil-motion-state-map (kbd "L") 'next-useful-buffer)
-
-  ;; Backups/Undo
-  (setq undo-tree-auto-save-history t
-        undo-tree-history-directory-alist
-        `(("." . ,(concat spacemacs-cache-directory "undo"))))
-  (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
-    (make-directory (concat spacemacs-cache-directory "undo")))
-
-  ;; Helm settings
-  (helm-mode t)
-  (helm-autoresize-mode t)
-  (setq helm-recentf-fuzzy-match t
-        helm-buffers-fuzzy-matching t
-        helm-locate-fuzzy-match t
-        helm-M-x-fuzzy-match t
-        helm-semantic-fuzzy-match t
-        helm-imenu-fuzzy-match t
-        helm-apropos-fuzzy-match t
-        helm-lisp-fuzzy-completion t
-        helm-move-to-line-cycle-in-source t
-        helm-display-header-line nil
-        helm-for-files-preferred-list '(helm-source-buffers-list helm-source-recentf helm-source-file-cache helm-source-findutils))
-  (push '(cd . ido) helm-completing-read-handlers-alist)
-  (push '(dired . ido) helm-completing-read-handlers-alist)
-  (push '"\\*" helm-boring-buffer-regexp-list)
-
-  (defvar helm-source-header-default-background (face-attribute 'helm-source-header :background))
-  (defvar helm-source-header-default-foreground (face-attribute 'helm-source-header :foreground))
-  (defvar helm-source-header-default-box (face-attribute 'helm-source-header :box))
-
+  ;; Helm
   (defun helm-toggle-header-line ()
     "Hide header line in helm if there is more than 1 source."
     (if (> (length helm-sources) 1)
@@ -246,22 +235,38 @@ layers configuration."
                           :background (face-attribute 'helm-selection :background)
                           :box nil
                           :height 0.1)))
-  (add-hook 'helm-before-initialize-hook 'helm-toggle-header-line)
 
+  ;; Keybindings
+  ;; Misc
+  (define-key evil-normal-state-map (kbd ";") 'evil-ex)
+  (define-key evil-motion-state-map (kbd ";") 'evil-ex)
+  (define-key evil-normal-state-map (kbd "SPC SPC") 'hs-toggle-hiding)
+  (define-key evil-normal-state-map (kbd "gc") 'evilnc-comment-operator)
+  ;; Buffers/Windows/Splits
+  (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+  (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+  (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+  (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
+  (define-key evil-motion-state-map (kbd "C-j") 'evil-window-down)
+  (define-key evil-motion-state-map (kbd "C-k") 'evil-window-up)
+  (define-key evil-motion-state-map (kbd "C-h") 'evil-window-left)
+  (define-key evil-motion-state-map (kbd "C-l") 'evil-window-right)
+  (define-key evil-normal-state-map (kbd "H") 'previous-useful-buffer)
+  (define-key evil-normal-state-map (kbd "L") 'next-useful-buffer)
+  (define-key evil-motion-state-map (kbd "H") 'previous-useful-buffer)
+  (define-key evil-motion-state-map (kbd "L") 'next-useful-buffer)
+  ;; Helm
   (evil-leader/set-key
-    "hf" 'helm-for-files)
-
+    "ff" 'helm-for-files)
   ;; Autocomplete
-  (setq company-quickhelp-max-lines 40
-        company-idle-delay 0.15)
   (with-eval-after-load 'company
     (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
     (define-key company-active-map [tab] 'company-complete-common-or-cycle)
     (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle))
 
-  ;; Flycheck
-  (setq flycheck-flake8-maximum-line-length 99)
-  (setq flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled))
+  ;; Hooks
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  (add-hook 'helm-before-initialize-hook 'helm-toggle-header-line)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
