@@ -12,18 +12,21 @@
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers '((auto-completion :variables
                                                         auto-completion-enable-company-help-tooltip t)
+                                       c-c++
                                        clojure
                                        colors
+                                       deft
+                                       evil-commentary
                                        (evil-snipe :variables
                                                    evil-snipe-enable-alternate-f-and-t-behaviors t)
                                        (git :variables
                                             git-enable-github-support t
                                             git-gutter-use-fringe nil)
                                        markdown
+                                       org
                                        python
                                        shell-scripts
-                                       syntax-checking
-                                       themes-megapack)
+                                       syntax-checking)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(ace-jump-mode
                                     ag
@@ -131,8 +134,14 @@ before layers configuration."
    dotspacemacs-smooth-scrolling t
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    dotspacemacs-smartparens-strict-mode t
+   ;; Select a scope to highlight delimiters. Possible value is `all',
+   ;; `current' or `nil'. Default is `all'
+   dotspacemacs-highlight-delimiters 'current
    ;; If non nil advises quit functions to keep server open when quitting.
    dotspacemacs-persistent-server nil
+   ;; List of search tool executable names. Spacemacs uses the first installed
+   ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
+   dotspacemacs-search-tools '("ag" "pt" "ack" "grep")
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now.
@@ -147,16 +156,20 @@ before layers configuration."
 
 (defun dotspacemacs/config ()
   "Configuration function.
- This function is called at the very end of Spacemacs initialization after
-layers configuration."
+   This function is called at the very end of Spacemacs initialization after
+   layers configuration."
   ;; Modes
   (aggressive-indent-global-mode t)
   (blink-cursor-mode t)
-  (helm-mode t)
-  (helm-autoresize-mode t)
+  (global-company-mode t)
+  (with-eval-after-load 'helm
+    (helm-mode t)
+    (helm-autoresize-mode t))
   (add-hook 'prog-mode-hook 'visual-line-mode)
   (add-hook 'prog-mode-hook 'linum-mode)
   (diminish 'visual-line-mode)
+  (with-eval-after-load 'highlight-parentheses
+    (diminish 'highlight-parentheses-mode))
 
   ;; Settings
   (setq evil-escape-excluded-major-modes '(help-mode)
@@ -181,46 +194,30 @@ layers configuration."
         helm-for-files-preferred-list '(helm-source-buffers-list helm-source-recentf helm-source-file-cache helm-source-findutils)
         ;; Autocomplete
         company-quickhelp-max-lines 40
-        company-idle-delay 0.15
         ;; Flycheck
         flycheck-flake8-maximum-line-length 99
-        flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled))
-  ;; Buffers
-  (defvar *interesting-buffers* "\\*\\(eshell\\|scratch\\|cider-repl\.\+\\)\\*")
+        flycheck-check-syntax-automatically '(save new-line mode-enabled)
+        ;; Org
+        org-bullets-bullet-list '("•" "⚪" "⬥" "⬦")
+        ;; Notes
+        deft-directory "~/Documents/notes"
+        deft-extension "md"
+        deft-text-mode 'markdown-mode)
+  ;; Autocomplete
+  (push 'initials completion-styles)
   ;; Backups/Undo
   (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
     (make-directory (concat spacemacs-cache-directory "undo")))
+  (add-hook 'kill-emacs-hook 'recentf-cleanup)
   ;; Helm
-  (defvar helm-source-header-default-background (face-attribute 'helm-source-header :background))
-  (defvar helm-source-header-default-foreground (face-attribute 'helm-source-header :foreground))
-  (defvar helm-source-header-default-box (face-attribute 'helm-source-header :box))
-  (push '(cd . ido) helm-completing-read-handlers-alist)
-  (push '(dired . ido) helm-completing-read-handlers-alist)
-  (push '"\\*" helm-boring-buffer-regexp-list)
+  (with-eval-after-load 'helm
+    (defvar helm-source-header-default-background (face-attribute 'helm-source-header :background))
+    (defvar helm-source-header-default-foreground (face-attribute 'helm-source-header :foreground))
+    (defvar helm-source-header-default-box (face-attribute 'helm-source-header :box))
+    (push '(cd . ido) helm-completing-read-handlers-alist)
+    (push '(dired . ido) helm-completing-read-handlers-alist))
 
   ;; Functions
-  ;; Buffers
-  (defun boring-buffer-p (buffer-name)
-    (catch 'found
-      (mapc (lambda (regexp)
-              (when (and (not (string-match *interesting-buffers* buffer-name))
-                         (string-match regexp buffer-name))
-                (throw 'found t)))
-            helm-boring-buffer-regexp-list)
-      nil))
-
-  (defun next-useful-buffer ()
-    (interactive)
-    (next-buffer)
-    (while (boring-buffer-p (buffer-name (current-buffer)))
-      (next-buffer)))
-
-  (defun previous-useful-buffer ()
-    (interactive)
-    (previous-buffer)
-    (while (boring-buffer-p (buffer-name (current-buffer)))
-      (previous-buffer)))
-
   ;; Helm
   (defun helm-toggle-header-line ()
     "Hide header line in helm if there is more than 1 source."
@@ -241,7 +238,6 @@ layers configuration."
   (define-key evil-normal-state-map (kbd ";") 'evil-ex)
   (define-key evil-motion-state-map (kbd ";") 'evil-ex)
   (define-key evil-normal-state-map (kbd "SPC SPC") 'hs-toggle-hiding)
-  (define-key evil-normal-state-map (kbd "gc") 'evilnc-comment-operator)
   ;; Buffers/Windows/Splits
   (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
   (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
@@ -251,10 +247,10 @@ layers configuration."
   (define-key evil-motion-state-map (kbd "C-k") 'evil-window-up)
   (define-key evil-motion-state-map (kbd "C-h") 'evil-window-left)
   (define-key evil-motion-state-map (kbd "C-l") 'evil-window-right)
-  (define-key evil-normal-state-map (kbd "H") 'previous-useful-buffer)
-  (define-key evil-normal-state-map (kbd "L") 'next-useful-buffer)
-  (define-key evil-motion-state-map (kbd "H") 'previous-useful-buffer)
-  (define-key evil-motion-state-map (kbd "L") 'next-useful-buffer)
+  (define-key evil-normal-state-map (kbd "H") 'spacemacs/previous-useful-buffer)
+  (define-key evil-normal-state-map (kbd "L") 'spacemacs/next-useful-buffer)
+  (define-key evil-motion-state-map (kbd "H") 'spacemacs/previous-useful-buffer)
+  (define-key evil-motion-state-map (kbd "L") 'spacemacs/next-useful-buffer)
   ;; Helm
   (evil-leader/set-key
     "ff" 'helm-for-files)
