@@ -22,9 +22,11 @@
                                        (git :variables
                                             git-enable-github-support t
                                             git-gutter-use-fringe nil)
+                                       gtags
                                        markdown
                                        org
                                        python
+                                       semantic
                                        shell-scripts
                                        syntax-checking)
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -180,6 +182,9 @@ before layers configuration."
         undo-tree-auto-save-history t
         undo-tree-history-directory-alist
         `(("." . ,(concat spacemacs-cache-directory "undo")))
+        ;; Git
+        git-gutter:modified-sign "~"
+        git-gutter:deleted-sign "_"
         ;; Helm
         helm-recentf-fuzzy-match t
         helm-buffers-fuzzy-matching t
@@ -208,7 +213,6 @@ before layers configuration."
   ;; Backups/Undo
   (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
     (make-directory (concat spacemacs-cache-directory "undo")))
-  (add-hook 'kill-emacs-hook 'recentf-cleanup)
   ;; Helm
   (with-eval-after-load 'helm
     (defvar helm-source-header-default-background (face-attribute 'helm-source-header :background))
@@ -263,6 +267,7 @@ before layers configuration."
   ;; Hooks
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'helm-before-initialize-hook 'helm-toggle-header-line)
+  (add-hook 'kill-emacs-hook 'recentf-cleanup)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
