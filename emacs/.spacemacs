@@ -208,6 +208,8 @@ before layers configuration."
         deft-directory "~/Documents/notes"
         deft-extension "md"
         deft-text-mode 'markdown-mode)
+  ;; Git
+  (set-face-foreground 'git-gutter:modified "yellow")
   ;; Autocomplete
   (push 'initials completion-styles)
   ;; Backups/Undo
