@@ -241,22 +241,17 @@ before layers configuration."
 
   ;; Keybindings
   ;; Misc
-  (define-key evil-normal-state-map (kbd ";") 'evil-ex)
-  (define-key evil-motion-state-map (kbd ";") 'evil-ex)
-  (define-key evil-normal-state-map (kbd "SPC SPC") 'hs-toggle-hiding)
+  (bind-keys :map (evil-normal-state-map evil-motion-state-map)
+             (";" . evil-ex))
+  (bind-key "SPC SPC" 'hs-toggle-hiding evil-normal-state-map)
   ;; Buffers/Windows/Splits
-  (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
-  (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
-  (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
-  (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
-  (define-key evil-motion-state-map (kbd "C-j") 'evil-window-down)
-  (define-key evil-motion-state-map (kbd "C-k") 'evil-window-up)
-  (define-key evil-motion-state-map (kbd "C-h") 'evil-window-left)
-  (define-key evil-motion-state-map (kbd "C-l") 'evil-window-right)
-  (define-key evil-normal-state-map (kbd "H") 'spacemacs/previous-useful-buffer)
-  (define-key evil-normal-state-map (kbd "L") 'spacemacs/next-useful-buffer)
-  (define-key evil-motion-state-map (kbd "H") 'spacemacs/previous-useful-buffer)
-  (define-key evil-motion-state-map (kbd "L") 'spacemacs/next-useful-buffer)
+  (bind-keys :map (evil-normal-state-map evil-motion-state-map)
+             ("C-j" . evil-window-down)
+             ("C-k" . evil-window-up)
+             ("C-h" . evil-window-left)
+             ("C-l" . evil-window-right)
+             ("H" . spacemacs/previous-useful-buffer)
+             ("L" . spacemacs/next-useful-buffer))
   ;; Helm
   (evil-leader/set-key
     "ff" 'helm-for-files)
