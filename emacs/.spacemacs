@@ -1,4 +1,4 @@
-;; -*- mode: dotspacemacs -*-
+;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -28,7 +28,13 @@
                                        python
                                        semantic
                                        shell-scripts
-                                       syntax-checking)
+                                       syntax-checking
+                                       vim-empty-lines)
+   ;; List of additional packages that will be installed wihout being
+   ;; wrapped in a layer. If you need some configuration for these
+   ;; packages then consider to create a layer, you can also put the
+   ;; configuration in `dotspacemacs/config'.
+   dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(ace-jump-mode
                                     ag
@@ -40,7 +46,6 @@
                                     google-translate
                                     helm-swoop
                                     neotree
-                                    vi-tilde-fringe
                                     wdired)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -186,17 +191,9 @@ before layers configuration."
         git-gutter:modified-sign "~"
         git-gutter:deleted-sign "_"
         ;; Helm
-        helm-recentf-fuzzy-match t
-        helm-buffers-fuzzy-matching t
-        helm-locate-fuzzy-match t
-        helm-M-x-fuzzy-match t
-        helm-semantic-fuzzy-match t
-        helm-imenu-fuzzy-match t
-        helm-apropos-fuzzy-match t
-        helm-lisp-fuzzy-completion t
-        helm-move-to-line-cycle-in-source t
         helm-display-header-line nil
         helm-for-files-preferred-list '(helm-source-buffers-list helm-source-recentf helm-source-file-cache helm-source-findutils)
+        helm-move-to-line-cycle-in-source t
         ;; Autocomplete
         company-quickhelp-max-lines 40
         ;; Flycheck
@@ -253,13 +250,19 @@ before layers configuration."
              ("H" . spacemacs/previous-useful-buffer)
              ("L" . spacemacs/next-useful-buffer))
   ;; Helm
+  (with-eval-after-load 'helm
+    (bind-keys :map helm-map
+               ("<tab>" . helm-select-action)
+               ("TAB" . helm-select-action)
+               ("C-z" . helm-execute-persistent-action)))
   (evil-leader/set-key
     "ff" 'helm-for-files)
   ;; Autocomplete
   (with-eval-after-load 'company
-    (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
-    (define-key company-active-map [tab] 'company-complete-common-or-cycle)
-    (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle))
+    (bind-keys :map company-active-map
+               ("<backtab>" . company-select-previous)
+               ("[tab]" . company-complete-common-or-cycle)
+               ("TAB" . company-complete-common-or-cycle)))
 
   ;; Hooks
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
