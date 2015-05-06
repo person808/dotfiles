@@ -11,7 +11,7 @@
    ;; List of configuration layers to load. If it is the symbol `all'instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers '((auto-completion :variables
-                                                        auto-completion-enable-company-help-tooltip t)
+                                                        auto-completion-enable-help-tooltip t)
                                        c-c++
                                        clojure
                                        colors
@@ -28,8 +28,7 @@
                                        python
                                        semantic
                                        shell-scripts
-                                       syntax-checking
-                                       vim-empty-lines)
+                                       syntax-checking)
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
@@ -42,10 +41,10 @@
                                     evil-indent-textobject
                                     evil-org
                                     evil-search-highlight-persist
-                                    evil-tutor
                                     google-translate
                                     helm-swoop
                                     neotree
+                                    vi-tilde-fringe
                                     wdired)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -240,6 +239,9 @@ before layers configuration."
   ;; Misc
   (bind-keys :map (evil-normal-state-map evil-motion-state-map)
              (";" . evil-ex))
+  (bind-keys :map (evil-normal-state-map evil-visual-state-map)
+             ("j" . evil-next-visual-line)
+             ("k" . evil-previous-visual-line))
   (bind-key "SPC SPC" 'hs-toggle-hiding evil-normal-state-map)
   ;; Buffers/Windows/Splits
   (bind-keys :map (evil-normal-state-map evil-motion-state-map)
@@ -259,10 +261,7 @@ before layers configuration."
     "ff" 'helm-for-files)
   ;; Autocomplete
   (with-eval-after-load 'company
-    (bind-keys :map company-active-map
-               ("<backtab>" . company-select-previous)
-               ("[tab]" . company-complete-common-or-cycle)
-               ("TAB" . company-complete-common-or-cycle)))
+    (bind-key "<backtab>" 'company-select-previous company-active-map))
 
   ;; Hooks
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
