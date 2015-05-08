@@ -225,9 +225,9 @@ if executable('ag')
   let g:unite_source_grep_recursive_opt = ''
 endif
 
-nnoremap <Leader>sf :Unite buffer file_mru file_rec/neovim<CR>
+nnoremap <Leader>ff :Unite buffer file_mru file_rec/neovim<CR>
 nnoremap <Leader>sy :Unite history/yank<CR>
-nnoremap <Leader>sa :Unite grep<CR>
+nnoremap <Leader>/ :Unite grep<CR>
 nnoremap <Leader>sl :Unite outline<CR>
 " }}}
 " Autocomplete/Snippets {{{
