@@ -11,11 +11,13 @@
    ;; List of configuration layers to load. If it is the symbol `all'instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers '((auto-completion :variables
+                                                        auto-completion-enable-sort-by-usage t
                                                         auto-completion-enable-help-tooltip t)
                                        c-c++
                                        clojure
                                        colors
                                        deft
+                                       emacs-lisp
                                        evil-commentary
                                        (evil-snipe :variables
                                                    evil-snipe-enable-alternate-f-and-t-behaviors t)
@@ -33,7 +35,7 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(macrostep)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(ace-jump-mode
                                     ag
@@ -164,7 +166,7 @@ before layers configuration."
   "Configuration function.
    This function is called at the very end of Spacemacs initialization after
    layers configuration."
-  ;; Modes
+  ;; Modes and packages
   (aggressive-indent-global-mode t)
   (blink-cursor-mode t)
   (global-company-mode t)
@@ -176,9 +178,26 @@ before layers configuration."
   (diminish 'visual-line-mode)
   (with-eval-after-load 'highlight-parentheses
     (diminish 'highlight-parentheses-mode))
+  (use-package macrostep
+    :defer t
+    :mode ("\\*.el\\'" . emacs-lisp-mode)
+    :init
+    (progn
+      (spacemacs|define-micro-state macrostep
+        :doc "[e] expand [c] collapse [j/k] next/previous [q] quit"
+        :disable-evil-leader t
+        :persistent t
+        :use-minibuffer t
+        :evil-leader-for-mode (emacs-lisp-mode . "mrm")
+        :bindings
+        ("e" macrostep-expand)
+        ("c" macrostep-collapse)
+        ("j" macrostep-next-macro)
+        ("k" macrostep-prev-macro)
+        ("q" macrostep-collapse-all :exit t))))
 
   ;; Settings
-  (setq evil-escape-excluded-major-modes '(help-mode)
+  (setq evil-escape-excluded-major-modes '(help-mode magit-status-mode magit-log-mode magit-commit-mode)
         hs-isearch-open t
         powerline-default-separator 'bar
         vc-follow-symlinks t
@@ -190,7 +209,6 @@ before layers configuration."
         git-gutter:modified-sign "~"
         git-gutter:deleted-sign "_"
         ;; Helm
-        helm-display-header-line nil
         helm-for-files-preferred-list '(helm-source-buffers-list helm-source-recentf helm-source-file-cache helm-source-findutils)
         helm-move-to-line-cycle-in-source t
         ;; Autocomplete
