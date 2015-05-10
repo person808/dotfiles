@@ -35,7 +35,7 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(macrostep)
+   dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(ace-jump-mode
                                     ag
@@ -178,23 +178,6 @@ before layers configuration."
   (diminish 'visual-line-mode)
   (with-eval-after-load 'highlight-parentheses
     (diminish 'highlight-parentheses-mode))
-  (use-package macrostep
-    :defer t
-    :mode ("\\*.el\\'" . emacs-lisp-mode)
-    :init
-    (progn
-      (spacemacs|define-micro-state macrostep
-        :doc "[e] expand [c] collapse [n/N] next/previous [q] quit"
-        :disable-evil-leader t
-        :persistent t
-        :use-minibuffer t
-        :evil-leader-for-mode (emacs-lisp-mode . "mdm")
-        :bindings
-        ("e" macrostep-expand)
-        ("c" macrostep-collapse)
-        ("n" macrostep-next-macro)
-        ("N" macrostep-prev-macro)
-        ("q" macrostep-collapse-all :exit t))))
 
   ;; Settings
   (setq evil-escape-excluded-major-modes '(help-mode magit-status-mode magit-log-mode magit-commit-mode)
