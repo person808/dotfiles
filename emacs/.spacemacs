@@ -184,16 +184,16 @@ before layers configuration."
     :init
     (progn
       (spacemacs|define-micro-state macrostep
-        :doc "[e] expand [c] collapse [j/k] next/previous [q] quit"
+        :doc "[e] expand [c] collapse [n/N] next/previous [q] quit"
         :disable-evil-leader t
         :persistent t
         :use-minibuffer t
-        :evil-leader-for-mode (emacs-lisp-mode . "mrm")
+        :evil-leader-for-mode (emacs-lisp-mode . "mdm")
         :bindings
         ("e" macrostep-expand)
         ("c" macrostep-collapse)
-        ("j" macrostep-next-macro)
-        ("k" macrostep-prev-macro)
+        ("n" macrostep-next-macro)
+        ("N" macrostep-prev-macro)
         ("q" macrostep-collapse-all :exit t))))
 
   ;; Settings
