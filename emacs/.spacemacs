@@ -29,8 +29,11 @@
                                        org
                                        python
                                        semantic
+                                       (shell :variables
+                                              shell-default-shell eshell)
                                        shell-scripts
-                                       syntax-checking)
+                                       syntax-checking
+                                       vim-empty-lines)
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
@@ -41,12 +44,10 @@
                                     ag
                                     evil-exchange
                                     evil-indent-textobject
-                                    evil-org
                                     evil-search-highlight-persist
                                     google-translate
                                     helm-swoop
                                     neotree
-                                    vi-tilde-fringe
                                     wdired)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -98,7 +99,7 @@ before layers configuration."
    dotspacemacs-emacs-leader-key "M-m"
    ;; Major mode leader key is a shortcut key which is the equivalent of
    ;; pressing `<leader> m`. Set it to `nil` to disable it.
-   dotspacemacs-major-mode-leader-key nil
+   dotspacemacs-major-mode-leader-key ","
    ;; Major mode leader key accessible in `emacs state' and `insert state'
    dotspacemacs-major-mode-emacs-leader-key "C-M-m"
    ;; The command key used for Evil commands (ex-commands) and
@@ -180,7 +181,11 @@ before layers configuration."
     (diminish 'highlight-parentheses-mode))
 
   ;; Settings
-  (setq evil-escape-excluded-major-modes '(help-mode magit-status-mode magit-log-mode magit-commit-mode)
+  (setq evil-escape-excluded-major-modes '(help-mode
+                                           magit-status-mode
+                                           magit-log-mode
+                                           magit-commit-mode
+                                           dired-mode)
         hs-isearch-open t
         powerline-default-separator 'bar
         vc-follow-symlinks t
@@ -236,6 +241,12 @@ before layers configuration."
                           :box nil
                           :height 0.1)))
 
+  (defun autocomplete-show-snippets ()
+    "Show snippets in autocomplete popup."
+    (let ((backend (car company-backends)))
+      (unless (listp backend)
+        (setcar company-backends `(,backend :with company-yasnippet)))))
+
   ;; Keybindings
   ;; Misc
   (bind-keys :map (evil-normal-state-map evil-motion-state-map)
@@ -260,11 +271,17 @@ before layers configuration."
                ("C-z" . helm-execute-persistent-action)))
   (evil-leader/set-key
     "ff" 'helm-for-files)
+  ;; Git
+  (bind-keys :map evil-normal-state-map
+             ("ghn" . git-gutter:next-hunk)
+             ("ghp" . git-gutter:previous-hunk)
+             ("ghv" . git-gutter:popup-hunk))
   ;; Autocomplete
   (with-eval-after-load 'company
     (bind-key "<backtab>" 'company-select-previous company-active-map))
 
   ;; Hooks
+  (add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'helm-before-initialize-hook 'helm-toggle-header-line)
   (add-hook 'kill-emacs-hook 'recentf-cleanup)
