@@ -2,7 +2,7 @@
 call plug#begin('~/.nvim/plugged')
 " Gui plugins
 Plug 'airblade/vim-gitgutter'
-Plug 'luckydev/150colors'
+Plug 'flazz/vim-colorschemes'
 Plug 'bling/vim-airline'
 " Add features
 Plug 'benekastah/neomake'
@@ -39,11 +39,9 @@ call plug#end()
 set updatetime=500
 set timeoutlen=1000 ttimeoutlen=100
 set history=1000
-set backspace=indent,eol,start
 set clipboard+=unnamedplus
 set lazyredraw
 set mouse=a
-set ttymouse=xterm2
 set wildignore=*.o,*.obj,*~,*.pyc
 set wildignore+=.cache/**,.config/**,.local/**,.gem/**,.m2/**
 " }}}
@@ -71,10 +69,10 @@ set spell
 set breakindent
 set linebreak
 set wrap
-set virtualedit=onemore
+set background=dark
 let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-colorscheme atom-dark
+colorscheme gruvbox
 " }}}
 " Searching/Moving around {{{
 set ignorecase
@@ -85,7 +83,6 @@ set scrolloff=5
 
 let g:incsearch#auto_nohlsearch = 1
 let g:clever_f_smart_case = 1
-let g:clever_f_show_prompt = 1
 
 " Opens files at the last known cursor position
 augroup open_last_line
@@ -118,14 +115,15 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_section_c = ""
 
-nnoremap <silent> <Leader>b :enew<CR>
+nnoremap <silent> <Leader>bn :bnew<CR>
 nnoremap <silent> L :bnext<CR>
 nnoremap <silent> H :bprevious<CR>
-nnoremap <silent> <Leader>d :bdelete<CR>
+nnoremap <silent> <Leader>bd :bdelete<CR>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+nnoremap <silent> <Leader>wc :close<CR>
 " }}}
 " Folding {{{
 set foldenable
@@ -154,22 +152,28 @@ set undofile
 set undodir=$HOME/.nvim/undo
 " }}}
 " Command line {{{
-set showcmd
-set wildmenu
+set confirm
 set noshowmode
 set shortmess+=c
-set confirm
+set showcmd
+set wildmode=longest,full
 " }}}
 " Terminal {{{
 tnoremap <Esc> <C-\><C-n>
 tnoremap jj <C-\><C-n>
+augroup terminal
+  autocmd!
+  autocmd TermOpen * setlocal nospell
+  autocmd TermOpen * setlocal shell=fish
+augroup END
 " }}}
 " Tags {{{
-set tags=./tags;~/.nvim/tags/*;$HOME
+set tags=./.tags
 let g:easytags_cmd = '/usr/bin/ctags --fields+=l'
 let g:easytags_by_filetype = '~/.nvim/tags/'
 let g:easytags_updatetime_min = 500
 let g:easytags_async = 1
+let g:easytags_dynamic_files = 2
 let g:easytags_resolver_links = 1
 " }}}
 " Git {{{
