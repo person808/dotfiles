@@ -13,10 +13,8 @@
    dotspacemacs-configuration-layers '((auto-completion :variables
                                                         auto-completion-enable-sort-by-usage t
                                                         auto-completion-enable-help-tooltip t)
-                                       c-c++
                                        clojure
                                        colors
-                                       deft
                                        emacs-lisp
                                        evil-commentary
                                        (evil-snipe :variables
@@ -32,8 +30,7 @@
                                        (shell :variables
                                               shell-default-shell eshell)
                                        shell-scripts
-                                       syntax-checking
-                                       vim-empty-lines)
+                                       syntax-checking)
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
@@ -41,14 +38,16 @@
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(ace-jump-mode
-                                    ag
                                     evil-exchange
                                     evil-indent-textobject
+                                    evil-lisp-state
                                     evil-search-highlight-persist
+                                    evil-surround
+                                    fancy-battery
                                     google-translate
                                     helm-swoop
                                     neotree
-                                    wdired)
+                                    vi-tilde-fringe)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
@@ -82,7 +81,6 @@ before layers configuration."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(darktooth
-                         soothe
                          gotham)
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -245,7 +243,7 @@ before layers configuration."
     "Show snippets in autocomplete popup."
     (let ((backend (car company-backends)))
       (unless (listp backend)
-        (setcar company-backends `(,backend :with company-yasnippet)))))
+        (setcar company-backends `(,backend :with company-yasnippet company-files)))))
 
   ;; Keybindings
   ;; Misc
