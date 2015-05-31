@@ -175,12 +175,7 @@ before layers configuration."
     (diminish 'highlight-parentheses-mode))
 
   ;; Settings
-  (setq evil-escape-excluded-major-modes '(help-mode
-                                           magit-status-mode
-                                           magit-log-mode
-                                           magit-commit-mode
-                                           dired-mode)
-        hs-isearch-open t
+  (setq hs-isearch-open t
         powerline-default-separator 'bar
         vc-follow-symlinks t
         ;; Backup/Undo
@@ -199,11 +194,7 @@ before layers configuration."
         flycheck-flake8-maximum-line-length 99
         flycheck-check-syntax-automatically '(save new-line mode-enabled)
         ;; Org
-        org-bullets-bullet-list '("•" "⚪" "⬥" "⬦")
-        ;; Notes
-        deft-directory "~/Documents/notes"
-        deft-extension "md"
-        deft-text-mode 'markdown-mode)
+        org-bullets-bullet-list '("•" "⚪" "⬥" "⬦"))
   ;; Git
   (set-face-foreground 'git-gutter:modified "yellow")
   ;; Autocomplete
