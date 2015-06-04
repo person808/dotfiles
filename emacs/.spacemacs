@@ -28,7 +28,7 @@
                                        python
                                        semantic
                                        (shell :variables
-                                              shell-default-shell eshell)
+                                              shell-default-shell 'eshell)
                                        shell-scripts
                                        syntax-checking)
    ;; List of additional packages that will be installed wihout being
@@ -101,7 +101,10 @@ before layers configuration."
    ;; By default the command key is `:' so ex-commands are executed like in Vim
    ;; with `:' and Emacs commands are executed with `<leader> :'.
    dotspacemacs-command-key ":"
-   ;; If non nil the paste micro-state is enabled. While enabled pressing `p`
+   ;; If non nil then `ido' replaces `helm' for some commands. For now only
+   ;; `find-files' (SPC f f) is replaced.
+   dotspacemacs-use-ido nil
+   ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content.
    dotspacemacs-enable-paste-micro-state t
    ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
@@ -204,28 +207,10 @@ before layers configuration."
     (make-directory (concat spacemacs-cache-directory "undo")))
   ;; Helm
   (with-eval-after-load 'helm
-    (defvar helm-source-header-default-background (face-attribute 'helm-source-header :background))
-    (defvar helm-source-header-default-foreground (face-attribute 'helm-source-header :foreground))
-    (defvar helm-source-header-default-box (face-attribute 'helm-source-header :box))
     (push '(cd . ido) helm-completing-read-handlers-alist)
     (push '(dired . ido) helm-completing-read-handlers-alist))
 
   ;; Functions
-  ;; Helm
-  (defun helm-toggle-header-line ()
-    "Hide header line in helm if there is more than 1 source."
-    (if (> (length helm-sources) 1)
-        (set-face-attribute 'helm-source-header nil
-                            :foreground helm-source-header-default-foreground
-                            :background helm-source-header-default-background
-                            :box helm-source-header-default-box
-                            :height 1.0)
-      (set-face-attribute 'helm-source-header nil
-                          :foreground (face-attribute 'helm-selection :background)
-                          :background (face-attribute 'helm-selection :background)
-                          :box nil
-                          :height 0.1)))
-
   (defun autocomplete-show-snippets ()
     "Show snippets in autocomplete popup."
     (let ((backend (car company-backends)))
@@ -268,7 +253,6 @@ before layers configuration."
   ;; Hooks
   (add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
-  (add-hook 'helm-before-initialize-hook 'helm-toggle-header-line)
   (add-hook 'kill-emacs-hook 'recentf-cleanup)
   )
 
