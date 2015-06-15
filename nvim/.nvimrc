@@ -47,7 +47,7 @@ set wildignore+=.cache/**,.config/**,.local/**,.gem/**,.m2/**
 " }}}
 " Misc Keybindings {{{
 let mapleader="\<Space>"
-inoremap jj <Esc>
+inoremap fj <Esc>
 nnoremap Y y$
 nnoremap ; :
 nnoremap sp a<C-x><C-s><C-p>
