@@ -19,18 +19,18 @@
                                        evil-commentary
                                        (evil-snipe :variables
                                                    evil-snipe-enable-alternate-f-and-t-behaviors t)
-                                       (git :variables
-                                            git-enable-github-support t
-                                            git-gutter-use-fringe nil)
+                                       git
                                        gtags
                                        markdown
                                        org
-                                       python
+                                       (python :variables
+                                               python-enable-yapf-format-on-save t)
                                        semantic
                                        (shell :variables
                                               shell-default-shell 'eshell)
                                        shell-scripts
-                                       syntax-checking)
+                                       syntax-checking
+                                       version-control)
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
@@ -142,7 +142,7 @@ before layers configuration."
    dotspacemacs-smartparens-strict-mode nil
    ;; Select a scope to highlight delimiters. Possible value is `all',
    ;; `current' or `nil'. Default is `all'
-   dotspacemacs-highlight-delimiters 'current
+   dotspacemacs-highlight-delimiters 'all
    ;; If non nil advises quit functions to keep server open when quitting.
    dotspacemacs-persistent-server nil
    ;; List of search tool executable names. Spacemacs uses the first installed
@@ -172,7 +172,6 @@ before layers configuration."
     (helm-mode t)
     (helm-autoresize-mode t))
   (add-hook 'prog-mode-hook 'visual-line-mode)
-  (add-hook 'prog-mode-hook 'linum-mode)
   (diminish 'visual-line-mode)
   (with-eval-after-load 'highlight-parentheses
     (diminish 'highlight-parentheses-mode))
@@ -186,8 +185,7 @@ before layers configuration."
         undo-tree-history-directory-alist
         `(("." . ,(concat spacemacs-cache-directory "undo")))
         ;; Git
-        git-gutter:modified-sign "~"
-        git-gutter:deleted-sign "_"
+        diff-hl-side 'left
         ;; Helm
         helm-for-files-preferred-list '(helm-source-buffers-list helm-source-recentf helm-source-file-cache helm-source-findutils)
         helm-move-to-line-cycle-in-source t
@@ -198,8 +196,6 @@ before layers configuration."
         flycheck-check-syntax-automatically '(save new-line mode-enabled)
         ;; Org
         org-bullets-bullet-list '("•" "⚪" "⬥" "⬦"))
-  ;; Git
-  (set-face-foreground 'git-gutter:modified "yellow")
   ;; Autocomplete
   (push 'initials completion-styles)
   ;; Backups/Undo
@@ -243,9 +239,9 @@ before layers configuration."
     "ff" 'helm-for-files)
   ;; Git
   (bind-keys :map evil-normal-state-map
-             ("ghn" . git-gutter:next-hunk)
-             ("ghp" . git-gutter:previous-hunk)
-             ("ghv" . git-gutter:popup-hunk))
+             ("ghn" . diff-hl-next-hunk)
+             ("ghp" . diff-hl-previous-hunk)
+             ("ghv" . diff-hl-diff-goto-hunk))
   ;; Autocomplete
   (with-eval-after-load 'company
     (bind-key "<backtab>" 'company-select-previous company-active-map))
@@ -254,6 +250,7 @@ before layers configuration."
   (add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'kill-emacs-hook 'recentf-cleanup)
+  (remove-hook 'diff-mode-hook 'whitespace-mode)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
