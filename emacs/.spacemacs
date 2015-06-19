@@ -102,6 +102,11 @@ before layers configuration."
    ;; By default the command key is `:' so ex-commands are executed like in Vim
    ;; with `:' and Emacs commands are executed with `<leader> :'.
    dotspacemacs-command-key ":"
+   ;; Location where to auto-save files. Possible values are `original' to
+   ;; auto-save the file in-place, `cache' to auto-save the file to another
+   ;; file stored in the cache directory and `nil' to disable auto-saving.
+   ;; Default value is `cache'.
+   dotspacemacs-auto-save-file-location 'original
    ;; If non nil then `ido' replaces `helm' for some commands. For now only
    ;; `find-files' (SPC f f) is replaced.
    dotspacemacs-use-ido nil
@@ -174,8 +179,6 @@ before layers configuration."
     (helm-autoresize-mode t))
   (add-hook 'prog-mode-hook 'visual-line-mode)
   (diminish 'visual-line-mode)
-  (with-eval-after-load 'highlight-parentheses
-    (diminish 'highlight-parentheses-mode))
 
   ;; Settings
   (setq hs-isearch-open t
@@ -197,58 +200,39 @@ before layers configuration."
         flycheck-check-syntax-automatically '(save new-line mode-enabled)
         ;; Org
         org-bullets-bullet-list '("•" "⚪" "⬥" "⬦"))
-  ;; Autocomplete
-  (push 'initials completion-styles)
   ;; Backups/Undo
   (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
     (make-directory (concat spacemacs-cache-directory "undo")))
-  ;; Helm
-  (with-eval-after-load 'helm
-    (push '(cd . ido) helm-completing-read-handlers-alist)
-    (push '(dired . ido) helm-completing-read-handlers-alist))
-
-  ;; Functions
-  (defun autocomplete-show-snippets ()
-    "Show snippets in autocomplete popup."
-    (let ((backend (car company-backends)))
-      (unless (listp backend)
-        (setcar company-backends `(,backend :with company-yasnippet company-files)))))
 
   ;; Keybindings
-  ;; Misc
-  (bind-keys :map (evil-normal-state-map evil-motion-state-map)
-             (";" . evil-ex))
-  (bind-keys :map (evil-normal-state-map evil-visual-state-map)
-             ("j" . evil-next-visual-line)
-             ("k" . evil-previous-visual-line))
-  (bind-key "SPC SPC" 'hs-toggle-hiding evil-normal-state-map)
+  (dolist (map '(evil-normal-state-map evil-motion-state-map evil-visual-state-map))
+    (define-key evil-normal-state-map (kbd ";") 'evil-ex)
+    (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+    (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+    (define-key evil-normal-state-map (kbd "SPC SPC") 'hs-toggle-hiding))
   ;; Buffers/Windows/Splits
-  (bind-keys :map (evil-normal-state-map evil-motion-state-map)
-             ("C-j" . evil-window-down)
-             ("C-k" . evil-window-up)
-             ("C-h" . evil-window-left)
-             ("C-l" . evil-window-right)
-             ("H" . spacemacs/previous-useful-buffer)
-             ("L" . spacemacs/next-useful-buffer))
+  (dolist (map '(evil-normal-state-map evil-motion-state-map))
+    (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+    (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+    (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+    (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
+    (define-key evil-normal-state-map (kbd "H") 'spacemacs/previous-useful-buffer)
+    (define-key evil-normal-state-map (kbd "L") 'spacemacs/next-useful-buffer))
   ;; Helm
   (with-eval-after-load 'helm
-    (bind-keys :map helm-map
-               ("<tab>" . helm-select-action)
-               ("TAB" . helm-select-action)
-               ("C-z" . helm-execute-persistent-action)))
+    (define-key helm-map ("<tab>" . helm-select-action))
+    (define-key helm-map ("TAB" . helm-select-action))
+    (define-key helm-map ("C-z" . helm-execute-persistent-action)))
   (evil-leader/set-key
     "ff" 'helm-for-files)
   ;; Git
-  (bind-keys :map evil-normal-state-map
-             ("ghn" . diff-hl-next-hunk)
-             ("ghp" . diff-hl-previous-hunk)
-             ("ghv" . diff-hl-diff-goto-hunk))
+  (define-key evil-normal-state-map (kbd "g h n") 'diff-hl-next-hunk)
+  (define-key evil-normal-state-map (kbd "g h p") 'diff-hl-previous-hunk)
+  (define-key evil-normal-state-map (kbd "g h v") 'diff-hl-diff-goto-hunk)
   ;; Autocomplete
-  (with-eval-after-load 'company
-    (bind-key "<backtab>" 'company-select-previous company-active-map))
+  (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
 
   ;; Hooks
-  (add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'kill-emacs-hook 'recentf-cleanup)
   (remove-hook 'diff-mode-hook 'whitespace-mode)
