@@ -220,9 +220,9 @@ before layers configuration."
     (define-key evil-normal-state-map (kbd "L") 'spacemacs/next-useful-buffer))
   ;; Helm
   (with-eval-after-load 'helm
-    (define-key helm-map ("<tab>" . helm-select-action))
-    (define-key helm-map ("TAB" . helm-select-action))
-    (define-key helm-map ("C-z" . helm-execute-persistent-action)))
+    (define-key helm-map (kbd "<tab>") 'helm-select-action)
+    (define-key helm-map (kbd "TAB") 'helm-select-action)
+    (define-key helm-map (kbd "C-z") 'helm-execute-persistent-action))
   (evil-leader/set-key
     "ff" 'helm-for-files)
   ;; Git
