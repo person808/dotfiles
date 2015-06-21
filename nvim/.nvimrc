@@ -41,7 +41,6 @@ set timeoutlen=1000 ttimeoutlen=100
 set history=1000
 set clipboard+=unnamedplus
 set lazyredraw
-set mouse=a
 set wildignore=*.o,*.obj,*~,*.pyc
 set wildignore+=.cache/**,.config/**,.local/**,.gem/**,.m2/**
 " }}}
@@ -77,8 +76,6 @@ colorscheme gruvbox
 " Searching/Moving around {{{
 set ignorecase
 set smartcase
-set hlsearch
-set incsearch
 set scrolloff=5
 
 let g:incsearch#auto_nohlsearch = 1
@@ -137,7 +134,6 @@ filetype plugin indent on
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set autoindent
 set copyindent
 set smarttab
 " }}}
@@ -160,7 +156,7 @@ set wildmode=longest,full
 " }}}
 " Terminal {{{
 tnoremap <Esc> <C-\><C-n>
-tnoremap jj <C-\><C-n>
+tnoremap fj <C-\><C-n>
 augroup terminal
   autocmd!
   autocmd TermOpen * setlocal nospell
@@ -168,7 +164,6 @@ augroup terminal
 augroup END
 " }}}
 " Tags {{{
-set tags=./.tags
 let g:easytags_cmd = '/usr/bin/ctags --fields+=l'
 let g:easytags_by_filetype = '~/.nvim/tags/'
 let g:easytags_updatetime_min = 500
