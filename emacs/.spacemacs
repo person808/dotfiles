@@ -43,7 +43,6 @@
                                     evil-search-highlight-persist
                                     fancy-battery
                                     google-translate
-                                    helm-swoop
                                     neotree
                                     vi-tilde-fringe)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -101,7 +100,7 @@ before layers configuration."
    ;; Emacs commands (M-x).
    ;; By default the command key is `:' so ex-commands are executed like in Vim
    ;; with `:' and Emacs commands are executed with `<leader> :'.
-   dotspacemacs-command-key ":"
+   dotspacemacs-command-key ";"
    ;; Location where to auto-save files. Possible values are `original' to
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
@@ -206,7 +205,6 @@ before layers configuration."
 
   ;; Keybindings
   (dolist (map '(evil-normal-state-map evil-motion-state-map evil-visual-state-map))
-    (define-key evil-normal-state-map (kbd ";") 'evil-ex)
     (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
     (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
     (define-key evil-normal-state-map (kbd "SPC SPC") 'hs-toggle-hiding))
