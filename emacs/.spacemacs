@@ -190,6 +190,7 @@ before layers configuration."
         ;; Git
         diff-hl-side 'left
         ;; Helm
+        helm-echo-input-in-header-line nil
         helm-for-files-preferred-list '(helm-source-buffers-list helm-source-recentf helm-source-file-cache helm-source-findutils)
         helm-move-to-line-cycle-in-source t
         ;; Autocomplete
