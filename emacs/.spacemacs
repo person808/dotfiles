@@ -11,6 +11,7 @@
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers '((auto-completion :variables
+                                                        auto-completion-enable-snippets-in-popup t
                                                         auto-completion-enable-sort-by-usage t
                                                         auto-completion-enable-help-tooltip t)
                                        clojure
