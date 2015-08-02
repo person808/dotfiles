@@ -6,7 +6,7 @@
   "Configuration Layers declaration."
   (setq-default
    ;; List of additional paths where to look for configuration layers.
-   ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
+   ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
@@ -45,6 +45,7 @@
                                     fancy-battery
                                     google-translate
                                     neotree
+                                    org-bullets
                                     vi-tilde-fringe)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -199,6 +200,8 @@ before layers configuration."
         ;; Flycheck
         flycheck-flake8-maximum-line-length 99
         flycheck-check-syntax-automatically '(save new-line mode-enabled)
+        ;; Powerline
+        spacemacs-mode-line-minor-modesp nil
         ;; Org
         org-bullets-bullet-list '("•" "⚪" "⬥" "⬦"))
   ;; Backups/Undo
