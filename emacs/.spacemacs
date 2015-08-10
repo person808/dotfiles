@@ -22,7 +22,6 @@
                                                    evil-snipe-enable-alternate-f-and-t-behaviors t)
                                        git
                                        gtags
-                                       markdown
                                        org
                                        (python :variables
                                                python-enable-yapf-format-on-save t)
@@ -182,8 +181,8 @@ before layers configuration."
   (diminish 'visual-line-mode)
 
   ;; Settings
-  (setq hs-isearch-open t
-        powerline-default-separator 'bar
+  (setq evil-move-beyond-eol nil
+        hs-isearch-open t
         vc-follow-symlinks t
         ;; Backup/Undo
         undo-tree-auto-save-history t
@@ -201,9 +200,8 @@ before layers configuration."
         flycheck-flake8-maximum-line-length 99
         flycheck-check-syntax-automatically '(save new-line mode-enabled)
         ;; Powerline
-        spacemacs-mode-line-minor-modesp nil
-        ;; Org
-        org-bullets-bullet-list '("•" "⚪" "⬥" "⬦"))
+        powerline-default-separator 'bar
+        spacemacs-mode-line-minor-modesp nil)
   ;; Backups/Undo
   (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
     (make-directory (concat spacemacs-cache-directory "undo")))
@@ -213,6 +211,7 @@ before layers configuration."
     (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
     (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
     (define-key evil-normal-state-map (kbd "SPC SPC") 'hs-toggle-hiding))
+  (which-key-add-key-based-replacements "SPC SPC" "toggle fold")
   ;; Buffers/Windows/Splits
   (dolist (map '(evil-normal-state-map evil-motion-state-map))
     (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
