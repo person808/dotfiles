@@ -29,6 +29,7 @@
                                        (shell :variables
                                               shell-default-shell 'eshell)
                                        shell-scripts
+                                       spell-checking
                                        syntax-checking
                                        version-control)
    ;; List of additional packages that will be installed wihout being
@@ -37,9 +38,7 @@
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(ace-jump-mode
-                                    evil-exchange
-                                    evil-indent-textobject
+   dotspacemacs-excluded-packages '(evil-exchange
                                     evil-search-highlight-persist
                                     fancy-battery
                                     google-translate
@@ -58,8 +57,10 @@ before layers configuration."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
-   ;; Either `vim' or `emacs'. Evil is always enabled but if the variable
-   ;; is `emacs' then the `holy-mode' is enabled at startup.
+   ;; One of `vim', `emacs' or `hybrid'. Evil is always enabled but if the
+   ;; variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
+   ;; uses emacs key bindings for vim's insert mode, but otherwise leaves evil
+   ;; unchanged.
    dotspacemacs-editing-style 'vim
    ;; If non nil output loading progress in `*Messages*' buffer.
    dotspacemacs-verbose-loading nil
