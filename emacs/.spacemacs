@@ -109,7 +109,8 @@ before layers configuration."
    ;; Default value is `cache'.
    dotspacemacs-auto-save-file-location 'original
    ;; If non nil then `ido' replaces `helm' for some commands. For now only
-   ;; `find-files' (SPC f f) is replaced.
+   ;; `find-files' (SPC f f), `find-spacemacs-file' (SPC f e s), and
+   ;; `find-contrib-file' (SPC f e c) are replaced.
    dotspacemacs-use-ido nil
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content.
@@ -150,7 +151,7 @@ before layers configuration."
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one).
-   dotspacemacs-highlight-delimiters 'all
+   dotspacemacs-highlight-delimiters 'nil
    ;; If non nil advises quit functions to keep server open when quitting.
    dotspacemacs-persistent-server nil
    ;; List of search tool executable names. Spacemacs uses the first installed
@@ -179,12 +180,14 @@ before layers configuration."
   (with-eval-after-load 'helm
     (helm-mode t)
     (helm-autoresize-mode t))
+  (rainbow-delimiters-mode t)
   (add-hook 'prog-mode-hook 'visual-line-mode)
   (diminish 'visual-line-mode)
 
   ;; Settings
   (setq evil-move-beyond-eol nil
         hs-isearch-open t
+        sp-show-pair-from-inside t
         vc-follow-symlinks t
         ;; Backup/Undo
         undo-tree-auto-save-history t
