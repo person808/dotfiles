@@ -213,32 +213,33 @@ before layers configuration."
     (make-directory (concat spacemacs-cache-directory "undo")))
 
   ;; Keybindings
-  (dolist (map '(evil-normal-state-map evil-motion-state-map evil-visual-state-map))
-    (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
-    (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
-    (define-key evil-normal-state-map (kbd "SPC SPC") 'hs-toggle-hiding))
+  (bind-keys :map (evil-normal-state-map evil-motion-state-map evil-visual-state-map)
+             ("j" . evil-next-visual-line)
+             ("k" . evil-previous-visual-line)
+             ("SPC SPC" . hs-toggle-hiding))
   (which-key-add-key-based-replacements "SPC SPC" "toggle fold")
-  ;; Buffers/Windows/Splits
-  (dolist (map '(evil-normal-state-map evil-motion-state-map))
-    (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
-    (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
-    (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
-    (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
-    (define-key evil-normal-state-map (kbd "H") 'spacemacs/previous-useful-buffer)
-    (define-key evil-normal-state-map (kbd "L") 'spacemacs/next-useful-buffer))
+  (bind-keys :map (evil-normal-state-map evil-motion-state-map)
+             ("C-j" . evil-window-down)
+             ("C-k" . evil-window-up)
+             ("C-h" . evil-window-left)
+             ("C-l" . evil-window-right)
+             ("H" . spacemacs/previous-useful-buffer)
+             ("L" . spacemacs/next-useful-buffer))
   ;; Helm
   (with-eval-after-load 'helm
-    (define-key helm-map (kbd "<tab>") 'helm-select-action)
-    (define-key helm-map (kbd "TAB") 'helm-select-action)
-    (define-key helm-map (kbd "C-z") 'helm-execute-persistent-action))
+    (bind-keys :map helm-map
+               ("<tab>" . helm-select-action)
+               ("TAB" . helm-select-action)
+               ("C-z" . helm-execute-persistent-action)))
   (evil-leader/set-key
     "ff" 'helm-for-files)
   ;; Git
-  (define-key evil-normal-state-map (kbd "g h n") 'diff-hl-next-hunk)
-  (define-key evil-normal-state-map (kbd "g h p") 'diff-hl-previous-hunk)
-  (define-key evil-normal-state-map (kbd "g h v") 'diff-hl-diff-goto-hunk)
+  (bind-keys :map evil-normal-state-map
+             ("g h n" . diff-hl-next-hunk)
+             ("g h p" . diff-hl-previous-hunk)
+             ("g h v" . diff-hl-diff-goto-hunk))
   ;; Autocomplete
-  (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
+  (bind-key "<backtab>" 'company-select-previous company-active-map)
 
   ;; Hooks
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
