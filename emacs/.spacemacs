@@ -3,7 +3,9 @@
 ;; It must be stored in your home directory.
 
 (defun dotspacemacs/layers ()
-  "Configuration Layers declaration."
+  "Configuration Layers declaration.
+You should not put any user code in this function besides modifying the variable
+values."
   (setq-default
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
@@ -22,6 +24,7 @@
                                                    evil-snipe-enable-alternate-f-and-t-behaviors t)
                                        git
                                        gtags
+                                       html
                                        org
                                        (python :variables
                                                python-enable-yapf-format-on-save t)
@@ -53,7 +56,9 @@
 (defun dotspacemacs/init ()
   "Initialization function.
 This function is called at the very startup of Spacemacs initialization
-before layers configuration."
+before layers configuration.
+You should not put any user code in there besides modifying the variable
+values."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
@@ -112,6 +117,8 @@ before layers configuration."
    ;; `find-files' (SPC f f), `find-spacemacs-file' (SPC f e s), and
    ;; `find-contrib-file' (SPC f e c) are replaced.
    dotspacemacs-use-ido nil
+   ;; If non nil, `helm' will try to miminimize the space it uses."
+   dotspacemacs-helm-resize t
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content.
    dotspacemacs-enable-paste-micro-state t
@@ -161,25 +168,26 @@ before layers configuration."
    ;; specified with an installed package.
    ;; Not used for now.
    dotspacemacs-default-package-repository nil
-   )
-  ;; User initialization goes here
+   ))
+
+(defun dotspacemacs/user-init ()
+  "Initialization function for user code.
+It is called immediately after `dotspacemacs/init'.  You are free to put any
+user code."
   (setq-default evil-escape-key-sequence "fj"
                 evil-escape-delay 0.2)
   (push '(height . 24) default-frame-alist)
   (push '(width . 55) default-frame-alist)
   )
 
-(defun dotspacemacs/config ()
-  "Configuration function.
-   This function is called at the very end of Spacemacs initialization after
-   layers configuration."
+(defun dotspacemacs/user-config ()
+  "Configuration function for user code.
+ This function is called at the very end of Spacemacs initialization after
+layers configuration. You are free to put any user code."
   ;; Modes and packages
   (aggressive-indent-global-mode t)
   (blink-cursor-mode t)
   (global-company-mode t)
-  (with-eval-after-load 'helm
-    (helm-mode t)
-    (helm-autoresize-mode t))
   (rainbow-delimiters-mode t)
   (add-hook 'prog-mode-hook 'visual-line-mode)
   (diminish 'visual-line-mode)
