@@ -7,6 +7,10 @@
 You should not put any user code in this function besides modifying the variable
 values."
   (setq-default
+   ;; Base distribution to use. This is a layer contained in the directory
+   ;; `!distribution'. For now available distributions are `spacemacs-core'
+   ;; or `spacemacs'. (default 'spacemacs)
+   dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
@@ -23,8 +27,8 @@ values."
                                        (evil-snipe :variables
                                                    evil-snipe-enable-alternate-f-and-t-behaviors t)
                                        git
-                                       gtags
                                        html
+                                       javascript
                                        org
                                        (python :variables
                                                python-enable-yapf-format-on-save t)
@@ -204,7 +208,6 @@ layers configuration. You are free to put any user code."
   ;; Modes and packages
   (aggressive-indent-global-mode t)
   (blink-cursor-mode t)
-  (global-company-mode t)
   (rainbow-delimiters-mode t)
   (add-hook 'prog-mode-hook 'visual-line-mode)
   (diminish 'visual-line-mode)
