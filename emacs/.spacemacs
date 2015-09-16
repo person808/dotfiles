@@ -9,7 +9,7 @@ values."
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
    ;; `!distribution'. For now available distributions are `spacemacs-core'
-   ;; or `spacemacs'. (default 'spacemacs)
+   ;; or `spacemacs'. (default 'spacemacs-core)
    dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
@@ -177,7 +177,7 @@ values."
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
-   dotspacemacs-highlight-delimiters 'all
+   dotspacemacs-highlight-delimiters 'any
    ;; If non nil advises quit functions to keep server open when quitting.
    ;; (default nil)
    dotspacemacs-persistent-server nil
@@ -208,7 +208,6 @@ layers configuration. You are free to put any user code."
   ;; Modes and packages
   (aggressive-indent-global-mode t)
   (blink-cursor-mode t)
-  (rainbow-delimiters-mode t)
   (add-hook 'prog-mode-hook 'visual-line-mode)
   (diminish 'visual-line-mode)
 
@@ -239,6 +238,10 @@ layers configuration. You are free to put any user code."
   ;; Backups/Undo
   (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
     (make-directory (concat spacemacs-cache-directory "undo")))
+
+  ;; Faces
+  (set-face-attribute 'company-tooltip-annotation nil
+                      :foreground "IndianRed2")
 
   ;; Keybindings
   (bind-keys :map (evil-normal-state-map evil-motion-state-map evil-visual-state-map)
