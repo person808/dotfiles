@@ -9,7 +9,7 @@ values."
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
    ;; `+distribution'. For now available distributions are `spacemacs-base'
-   ;; or `spacemacs'. (default 'spacemacs-base)
+   ;; or `spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
@@ -32,6 +32,9 @@ values."
                                        org
                                        (python :variables
                                                python-enable-yapf-format-on-save t)
+                                       (ruby :variables
+                                             ruby-version-manager 'rvm)
+                                       ruby-on-rails
                                        semantic
                                        (shell :variables
                                               shell-default-shell 'eshell)
@@ -247,8 +250,8 @@ layers configuration. You are free to put any user code."
   ;; Keybindings
   (bind-keys :map (evil-normal-state-map evil-motion-state-map evil-visual-state-map)
              ("j" . evil-next-visual-line)
-             ("k" . evil-previous-visual-line)
-             ("SPC SPC" . hs-toggle-hiding))
+             ("k" . evil-previous-visual-line))
+  (evil-leader/set-key "SPC" 'hs-toggle-hiding)
   (which-key-add-key-based-replacements "SPC SPC" "toggle fold")
   (bind-keys :map (evil-normal-state-map evil-motion-state-map)
              ("C-j" . evil-window-down)

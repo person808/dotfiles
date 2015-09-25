@@ -5,7 +5,7 @@ end
 
 set -U fish_greeting ""  # Hide fish greeting
 set -U fish_user_paths ~/.dotfiles/bin ~/.local/bin  # Set PATH
-set -gx EDITOR emacs
+set -gx EDITOR nvim
 set -gx BROWSER google-chrome-stable
 
 rvm default
