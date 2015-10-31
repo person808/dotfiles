@@ -145,7 +145,7 @@ set directory=~/.nvim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set writebackup
 set undolevels=10000
 set undofile
-set undodir=$HOME/.nvim/undo
+set undodir=$HOME/.config/nvim/undo
 " }}}
 " Command line {{{
 set confirm
@@ -165,7 +165,7 @@ augroup END
 " }}}
 " Tags {{{
 let g:easytags_cmd = '/usr/bin/ctags --fields+=l'
-let g:easytags_by_filetype = '~/.nvim/tags/'
+let g:easytags_by_filetype = '~/.config/nvim/tags/'
 let g:easytags_updatetime_min = 500
 let g:easytags_async = 1
 let g:easytags_dynamic_files = 2
