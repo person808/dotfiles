@@ -1,5 +1,5 @@
 " Plugins {{{
-call plug#begin('~/.nvim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 " Gui plugins
 Plug 'airblade/vim-gitgutter'
 Plug 'flazz/vim-colorschemes'
