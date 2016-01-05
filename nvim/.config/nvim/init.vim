@@ -32,7 +32,7 @@ Plug 'tpope/vim-sleuth'
 " Autocomplete
 Plug 'honza/vim-snippets'
 Plug 'SirVer/UltiSnips'
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --omnisharp-completer --gocode-completer'}
+Plug 'Valloric/YouCompleteMe', {'do': 'python2 install.py --clang-completer --omnisharp-completer --gocode-completer'}
 call plug#end()
 " }}}
 " Misc settings {{{

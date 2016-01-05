@@ -20,9 +20,9 @@ values."
                                                         auto-completion-enable-snippets-in-popup t
                                                         auto-completion-enable-sort-by-usage t
                                                         auto-completion-enable-help-tooltip t)
-                                       clojure
                                        colors
                                        emacs-lisp
+                                       evil-commentary
                                        (evil-snipe :variables
                                                    evil-snipe-enable-alternate-f-and-t-behaviors t)
                                        git
@@ -38,9 +38,9 @@ values."
                                        (shell :variables
                                               shell-default-shell 'eshell)
                                        shell-scripts
-                                       spell-checking
                                        syntax-checking
-                                       version-control)
+                                       (version-control :variables
+                                                        version-control-diff-tool 'diff-hl))
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
@@ -71,8 +71,15 @@ values."
    ;; If non nil ELPA repositories are contacted via HTTPS whenever it's
    ;; possible. Set it to nil if you have no way to use HTTPS in your
    ;; environment, otherwise it is strongly recommended to let it set to t.
+   ;; This variable has no effect if Emacs is launched with the parameter
+   ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
    dotspacemacs-elpa-https t
+   ;; Maximum allowed time in seconds to contact an ELPA repository.
+   dotspacemacs-elpa-timeout 5
+   ;; If non nil then spacemacs will check for updates at startup
+   ;; when the current branch is not `develop'. (default t)
+   dotspacemacs-check-for-update t
    ;; One of `vim', `emacs' or `hybrid'. Evil is always enabled but if the
    ;; variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
    ;; uses emacs key bindings for vim's insert mode, but otherwise leaves evil
@@ -120,6 +127,14 @@ values."
    ;; Major mode leader key accessible in `emacs state' and `insert state'.
    ;; (default "C-M-m)
    dotspacemacs-major-mode-emacs-leader-key "C-M-m"
+   ;; These variables control whether separate commands are bound in the GUI to
+   ;; the key pairs C-i, TAB and C-m, RET.
+   ;; Setting it to a non-nil value, allows for separate commands under <C-i>
+   ;; and TAB or <C-m> and RET.
+   ;; In the terminal, these pairs are generally indistinguishable, so this only
+   ;; works in the GUI. (default nil)
+   dotspacemacs-distinguish-gui-tab nil
+   ;; (Not implemented) dotspacemacs-distinguish-gui-ret nil
    ;; The command key used for Evil commands (ex-commands) and
    ;; Emacs commands (M-x).
    ;; By default the command key is `:' so ex-commands are executed like in Vim
@@ -223,8 +238,9 @@ values."
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
-It is called immediately after `dotspacemacs/init'.  You are free to put any
-user code."
+It is called immediately after `dotspacemacs/init'.  You are free to put almost any
+user code here.  The exception is org related code, which should be placed in
+`dotspacemacs/user-config'."
   (setq-default evil-escape-key-sequence "fj"
                 evil-escape-delay 0.2
                 org-directory "")
@@ -253,7 +269,6 @@ layers configuration. You are free to put any user code."
         `(("." . ,(concat spacemacs-cache-directory "undo")))
         ;; Git
         diff-hl-side 'left
-        magit-push-always-verify nil
         ;; Helm
         helm-echo-input-in-header-line nil
         helm-for-files-preferred-list '(helm-source-buffers-list helm-source-recentf helm-source-file-cache helm-source-findutils)
@@ -278,7 +293,7 @@ layers configuration. You are free to put any user code."
   (bind-keys :map (evil-normal-state-map evil-motion-state-map evil-visual-state-map)
              ("j" . evil-next-visual-line)
              ("k" . evil-previous-visual-line))
-  (evil-leader/set-key "SPC" 'hs-toggle-hiding)
+  (spacemacs/set-leader-keys "SPC" 'hs-toggle-hiding)
   (which-key-add-key-based-replacements "SPC SPC" "toggle fold")
   (bind-keys :map (evil-normal-state-map evil-motion-state-map)
              ("C-j" . evil-window-down)
@@ -292,9 +307,9 @@ layers configuration. You are free to put any user code."
     (bind-keys :map helm-map
                ("<tab>" . helm-select-action)
                ("TAB" . helm-select-action)
-               ("C-z" . helm-execute-persistent-action)))
-  (evil-leader/set-key
-    "ff" 'helm-for-files)
+               ("C-z" . helm-execute-persistent-action))
+    (spacemacs/set-leader-keys
+      "ff" 'helm-for-files))
   ;; Git
   (bind-keys :map evil-normal-state-map
              ("g h n" . diff-hl-next-hunk)
@@ -304,7 +319,6 @@ layers configuration. You are free to put any user code."
   (bind-key "<backtab>" 'company-select-previous company-active-map)
 
   ;; Hooks
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'kill-emacs-hook 'recentf-cleanup)
   (remove-hook 'diff-mode-hook 'whitespace-mode)
   )
