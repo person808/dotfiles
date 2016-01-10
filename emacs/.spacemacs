@@ -22,7 +22,6 @@ values."
                                                         auto-completion-enable-help-tooltip t)
                                        colors
                                        emacs-lisp
-                                       evil-commentary
                                        (evil-snipe :variables
                                                    evil-snipe-enable-alternate-f-and-t-behaviors t)
                                        git
@@ -38,12 +37,13 @@ values."
                                        (shell :variables
                                               shell-default-shell 'eshell)
                                        shell-scripts
+                                       spacemacs-ivy
                                        syntax-checking
                                        (version-control :variables
                                                         version-control-diff-tool 'diff-hl))
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
-   ;; packages then consider to create a layer, you can also put the
+   ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -127,6 +127,9 @@ values."
    ;; Major mode leader key accessible in `emacs state' and `insert state'.
    ;; (default "C-M-m)
    dotspacemacs-major-mode-emacs-leader-key "C-M-m"
+   ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
+   ;; (default "SPC")
+   dotspacemacs-emacs-command-key ";"
    ;; These variables control whether separate commands are bound in the GUI to
    ;; the key pairs C-i, TAB and C-m, RET.
    ;; Setting it to a non-nil value, allows for separate commands under <C-i>
@@ -135,11 +138,6 @@ values."
    ;; works in the GUI. (default nil)
    dotspacemacs-distinguish-gui-tab nil
    ;; (Not implemented) dotspacemacs-distinguish-gui-ret nil
-   ;; The command key used for Evil commands (ex-commands) and
-   ;; Emacs commands (M-x).
-   ;; By default the command key is `:' so ex-commands are executed like in Vim
-   ;; with `:' and Emacs commands are executed with `<leader> :'.
-   dotspacemacs-command-key ";"
    ;; If non nil `Y' is remapped to `y$'. (default t)
    dotspacemacs-remap-Y-to-y$ t
    ;; Name of the default layout (default "Default")
@@ -230,9 +228,11 @@ values."
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
    dotspacemacs-default-package-repository nil
-   ;; Delete whitespace while saving buffer. Possible values are `all',
-   ;; `trailing', `changed' or `nil'. Default is `changed' (cleanup whitespace
-   ;; on changed lines) (default 'changed)
+   ;; Delete whitespace while saving buffer. Possible values are `all'
+   ;; to aggressively delete empty line and long sequences of whitespace,
+   ;; `trailing' to delete only the whitespace at end of lines, `changed'to
+   ;; delete only whitespace for changed lines or `nil' to disable cleanup.
+   ;; (default nil)
    dotspacemacs-whitespace-cleanup 'changed
    ))
 
@@ -269,10 +269,6 @@ layers configuration. You are free to put any user code."
         `(("." . ,(concat spacemacs-cache-directory "undo")))
         ;; Git
         diff-hl-side 'left
-        ;; Helm
-        helm-echo-input-in-header-line nil
-        helm-for-files-preferred-list '(helm-source-buffers-list helm-source-recentf helm-source-file-cache helm-source-findutils)
-        helm-move-to-line-cycle-in-source t
         ;; Autocomplete
         company-quickhelp-max-lines 40
         ;; Flycheck
@@ -281,20 +277,15 @@ layers configuration. You are free to put any user code."
         ;; Powerline
         powerline-default-separator 'bar
         spaceline-minor-modes-p nil)
-  ;; Backups/Undo
+
   (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
     (make-directory (concat spacemacs-cache-directory "undo")))
-
-  ;; Faces
-  (set-face-attribute 'company-tooltip-annotation nil
-                      :foreground "IndianRed2")
 
   ;; Keybindings
   (bind-keys :map (evil-normal-state-map evil-motion-state-map evil-visual-state-map)
              ("j" . evil-next-visual-line)
-             ("k" . evil-previous-visual-line))
-  (spacemacs/set-leader-keys "SPC" 'hs-toggle-hiding)
-  (which-key-add-key-based-replacements "SPC SPC" "toggle fold")
+             ("k" . evil-previous-visual-line)
+             (";" . evil-ex))
   (bind-keys :map (evil-normal-state-map evil-motion-state-map)
              ("C-j" . evil-window-down)
              ("C-k" . evil-window-up)
@@ -302,23 +293,30 @@ layers configuration. You are free to put any user code."
              ("C-l" . evil-window-right)
              ("H" . spacemacs/previous-useful-buffer)
              ("L" . spacemacs/next-useful-buffer))
-  ;; Helm
-  (with-eval-after-load 'helm
-    (bind-keys :map helm-map
-               ("<tab>" . helm-select-action)
-               ("TAB" . helm-select-action)
-               ("C-z" . helm-execute-persistent-action))
-    (spacemacs/set-leader-keys
-      "ff" 'helm-for-files))
-  ;; Git
   (bind-keys :map evil-normal-state-map
              ("g h n" . diff-hl-next-hunk)
              ("g h p" . diff-hl-previous-hunk)
              ("g h v" . diff-hl-diff-goto-hunk))
-  ;; Autocomplete
   (bind-key "<backtab>" 'company-select-previous company-active-map)
+  (spacemacs/set-leader-keys
+    "SPC" 'hs-toggle-hiding)
+  (which-key-add-key-based-replacements "SPC SPC" "toggle fold")
 
-  ;; Hooks
+  (when (configuration-layer/layer-usedp 'spacemacs-helm)
+    (with-eval-after-load 'helm
+      (setq helm-echo-input-in-header-line nil
+            helm-for-files-preferred-list '(helm-source-buffers-list helm-source-recentf helm-source-file-cache helm-source-findutils)
+            helm-move-to-line-cycle-in-source t)
+      (bind-keys :map helm-map
+                 ("<tab>" . helm-select-action)
+                 ("TAB" . helm-select-action)
+                 ("C-z" . helm-execute-persistent-action))
+      (spacemacs/set-leader-keys
+        "ff" 'helm-for-files)))
+
+  (when (configuration-layer/layer-usedp 'spacemacs-ivy)
+    (spacemacs/set-leader-keys ";" 'counsel-M-x))
+
   (add-hook 'kill-emacs-hook 'recentf-cleanup)
   (remove-hook 'diff-mode-hook 'whitespace-mode)
   )
