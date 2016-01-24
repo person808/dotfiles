@@ -1,47 +1,51 @@
 " Plugins {{{
 call plug#begin('~/.config/nvim/plugged')
-" Gui plugins
-Plug 'airblade/vim-gitgutter'
-Plug 'flazz/vim-colorschemes'
-Plug 'bling/vim-airline'
-" Add features
 Plug 'benekastah/neomake'
+Plug 'bling/vim-airline'
 Plug 'Chiel92/vim-autoformat'
-Plug 'haya14busa/incsearch.vim'
-Plug 'rhysd/clever-f.vim'
-Plug 'Shougo/vimproc.vim', {'do': 'make'}
-Plug 'tpope/vim-fugitive'
-" Utility
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-repeat'
-Plug 'ludovicchabant/vim-gutentags'
-" Language support
-Plug 'kballard/vim-fish', {'for': 'fish'}
-Plug 'sheerun/vim-polyglot'
-" Editing
-Plug 'Raimondi/delimitMate'
-Plug 'sjl/gundo.vim'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-sleuth'
-" Autocomplete
 Plug 'davidhalter/jedi-vim', {'for': 'python'}
+Plug 'flazz/vim-colorschemes'
 Plug 'honza/vim-snippets'
+Plug 'junegunn/gv.vim', {'on': 'GV'}
+Plug 'junegunn/vim-oblique'
+Plug 'junegunn/vim-pseudocl'
+Plug 'kballard/vim-fish', {'for': 'fish'}
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'mhinz/vim-grepper'
+Plug 'mhinz/vim-signify'
+Plug 'Raimondi/delimitMate'
+Plug 'rhysd/clever-f.vim'
+Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/UltiSnips'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/echodoc'
 Plug 'Shougo/neco-syntax'
 Plug 'Shougo/neco-vim', {'for': 'vim'}
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
+Plug 'sjl/gundo.vim', {'on': ['GundoHide', 'GundoShow', 'GundoToggle']}
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-surround'
 call plug#end()
 " }}}
 " Misc settings {{{
+set autochdir
 set updatetime=500
 set timeoutlen=1000 ttimeoutlen=100
 set history=1000
 set clipboard+=unnamedplus
 set lazyredraw
 set wildignore=*.o,*.obj,*~,*.pyc
-set wildignore+=.cache/**,.config/**,.local/**,.gem/**,.m2/**
+set wildignore+=.cache/**,.local/**,.gem/**,.m2/**
+
+augroup whitespace
+  autocmd!
+  autocmd BufWritePre * :%s/\s\+$//e  " Strip trailing whitespace
+augroup END
 " }}}
 " Misc Keybindings {{{
 let mapleader="\<Space>"
@@ -86,15 +90,9 @@ augroup END
 
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
+nmap gs <Plug>(GrepperOperator)
+xmap gs <Plug>(GrepperOperator)
+nnoremap <Leader>/ :Grepper<CR>
 " }}}
 " Buffers/Tabs/Splits {{{
 set hidden
@@ -165,22 +163,20 @@ let g:gutentags_cache_dir = "~/.config/nvim/tags/"
 let g:gutentags_resolve_symlinks = 1
 " }}}
 " Git {{{
-nmap <silent> ghn <Plug>GitGutterNextHunk
-      \ :call repeat#set("\<Plug>GitGutterNextHunk")<CR>
-nmap <silent> ghp <Plug>GitGutterPreviousHunk
-      \ :call repeat#set("\<Plug>GitGutterPreviousHunk")<CR>
-nmap ghs <Plug>GitGutterStageHunk
-nmap ghr <Plug>GitGutterRevertHunk
-nmap ghv <Plug>GitGutterPreviewHunk
+nmap <leader>gj <Plug>(signify-next-hunk)
+nmap <leader>gk <Plug>(signify-prev-hunk)
 nnoremap <Leader>gb :Gblame<CR>
-nnoremap <Leader>gl :Glog<CR>
+nnoremap <Leader>gl :GV<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 " }}}
 " Autocomplete/Snippets {{{
-let g:UltiSnipsExpandTrigger = "<nop>"
-let g:ulti_expand_or_jump_res = 0
 let g:deoplete#enable_at_startup = 1
+let g:echodoc_enable_at_startup = 1
+let g:UltiSnipsExpandTrigger = "<nop>"
+let g:UltiSnipsJumpForwardTrigger = "<Tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
+let g:ulti_expand_or_jump_res = 0
 
 " <CR> expands snippets and inserts completions
 function! <SID>ExpandSnippetOrReturn()
@@ -188,7 +184,7 @@ function! <SID>ExpandSnippetOrReturn()
   if g:ulti_expand_or_jump_res > 0
     return snippet
   else
-    return "\<CR>"
+    return deoplete#mappings#close_popup()
   endif
 endfunction
 
