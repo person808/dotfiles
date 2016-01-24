@@ -9,19 +9,14 @@ Plug 'benekastah/neomake'
 Plug 'Chiel92/vim-autoformat'
 Plug 'haya14busa/incsearch.vim'
 Plug 'rhysd/clever-f.vim'
-Plug 'Shougo/neomru.vim'
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-outline'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
-Plug 'Shougo/vimfiler.vim'
 Plug 'tpope/vim-fugitive'
 " Utility
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
-Plug 'xolox/vim-easytags'
-Plug 'xolox/vim-misc'
+Plug 'ludovicchabant/vim-gutentags'
 " Language support
-Plug 'kballard/vim-fish'
+Plug 'kballard/vim-fish', {'for': 'fish'}
 Plug 'sheerun/vim-polyglot'
 " Editing
 Plug 'Raimondi/delimitMate'
@@ -30,9 +25,13 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
 " Autocomplete
+Plug 'davidhalter/jedi-vim', {'for': 'python'}
 Plug 'honza/vim-snippets'
 Plug 'SirVer/UltiSnips'
-Plug 'Valloric/YouCompleteMe', {'do': 'python2 install.py --clang-completer --omnisharp-completer --gocode-completer'}
+Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/echodoc'
+Plug 'Shougo/neco-syntax'
+Plug 'Shougo/neco-vim', {'for': 'vim'}
 call plug#end()
 " }}}
 " Misc settings {{{
@@ -55,7 +54,6 @@ nnoremap Q :Autoformat<CR><CR>
 " }}}
 " Misc plugins {{{
 let g:plug_threads = 40
-let g:gundo_prefer_python3 = 1
 let g:gundo_preview_bottom = 1
 " }}}
 " Text display {{{
@@ -70,7 +68,6 @@ set linebreak
 set wrap
 set background=dark
 let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 colorscheme gruvbox
 " }}}
 " Searching/Moving around {{{
@@ -164,12 +161,8 @@ augroup terminal
 augroup END
 " }}}
 " Tags {{{
-let g:easytags_cmd = '/usr/bin/ctags --fields+=l'
-let g:easytags_by_filetype = '~/.config/nvim/tags/'
-let g:easytags_updatetime_min = 500
-let g:easytags_async = 1
-let g:easytags_dynamic_files = 2
-let g:easytags_resolver_links = 1
+let g:gutentags_cache_dir = "~/.config/nvim/tags/"
+let g:gutentags_resolve_symlinks = 1
 " }}}
 " Git {{{
 nmap <silent> ghn <Plug>GitGutterNextHunk
@@ -184,72 +177,10 @@ nnoremap <Leader>gl :Glog<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 " }}}
-" Vimfiler {{{
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_readonly_file_icon = ''
-let g:vimfiler_tree_leaf_icon = ' '
-let g:vimfiler_tree_opened_icon = '▾'
-let g:vimfiler_tree_closed_icon = '▸'
-let g:vimfiler_file_icon = '-'
-let g:vimfiler_marked_file_icon = '*'
-call vimfiler#custom#profile('default', 'context', {
-      \ 'safe': 0
-      \ })
-
-nnoremap <silent> <Leader>e :VimFiler<CR>
-nnoremap <silent> <Leader>es :VimFilerSplit<CR>
-" }}}
-" Unite {{{
-let g:unite_source_history_yank_enable = 1
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#profile('default', 'context', {
-      \ 'auto_resize': 1,
-      \ 'direction': 'botright',
-      \ 'smartcase': 1,
-      \ 'start_insert': 1,
-      \ 'prompt': '>>> ',
-      \ 'prompt_visible': 1,
-      \ 'winheight': 20
-      \ })
-call unite#custom#source('file_rec/neovim', 'ignore_globs', split(&wildignore, ','))
-call unite#custom#source('outline', 'sorters', ['sorter_rank', 'sorter_reverse'])
-call unite#custom#source('file_mru', 'ignore_pattern', '/usr/local/share/nvim/runtime/doc')
-
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts =
-        \ '-i --line-numbers --nocolor --nogroup --hidden --ignore ' .
-        \ '.hg --ignore .svn --ignore .git --ignore .bzr --ignore .cache'
-  let g:unite_source_grep_recursive_opt = ''
-endif
-
-nnoremap <Leader>ff :Unite buffer file_mru file_rec/neovim<CR>
-nnoremap <Leader>sy :Unite history/yank<CR>
-nnoremap <Leader>/ :Unite grep<CR>
-nnoremap <Leader>sl :Unite outline<CR>
-" }}}
 " Autocomplete/Snippets {{{
 let g:UltiSnipsExpandTrigger = "<nop>"
 let g:ulti_expand_or_jump_res = 0
-let g:ycm_allow_changing_updatetime = 0
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_semantic_triggers =  {
-    \ 'c' : ['->', '.'],
-    \ 'cpp,objcpp' : ['->', '.', '::'],
-    \ 'erlang' : [':'],
-    \ 'lua' : ['.', ':'],
-    \ 'objc' : ['->', '.'],
-    \ 'ocaml' : ['.', '#'],
-    \ 'perl' : ['->'],
-    \ 'php' : ['->', '::'],
-    \ 'python': ['from ', 'import ', '.'],
-    \ 'ruby' : ['.', '::'],
-    \ 'vim' : ['re![_a-zA-Z]+[_\w]*\.'],
-    \ 'cs,java,javascript,d,perl6,scala,vb,elixir,go' : ['.']
-    \ }
+let g:deoplete#enable_at_startup = 1
 
 " <CR> expands snippets and inserts completions
 function! <SID>ExpandSnippetOrReturn()
@@ -261,6 +192,8 @@ function! <SID>ExpandSnippetOrReturn()
   endif
 endfunction
 
+inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <silent><expr><CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 " }}}
 " Neomake {{{
@@ -275,7 +208,6 @@ let g:neomake_warning_sign = {
 
 augroup Neomake
   autocmd!
-  autocmd CursorHoldI * Neomake
   autocmd BufWritePost * Neomake
 augroup END
 " }}}
