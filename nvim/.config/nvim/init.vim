@@ -52,14 +52,13 @@ let mapleader="\<Space>"
 inoremap fj <Esc>
 nnoremap Y y$
 nnoremap ; :
-nnoremap <Leader>sp a<C-x><C-s><C-p>
-nnoremap <Leader>u :GundoToggle<CR>
-nnoremap Q :Autoformat<CR><CR>
 nnoremap <Leader>fed :e $MYVIMRC<CR>
 " }}}
 " Misc plugins {{{
 let g:plug_threads = 40
 let g:gundo_preview_bottom = 1
+nnoremap <Leader>u :GundoToggle<CR>
+nnoremap Q :Autoformat<CR><CR>
 " }}}
 " Text display {{{
 set number
@@ -122,12 +121,6 @@ set splitbelow
 set splitright
 set laststatus=2
 set showtabline=2
-
-let g:airline_theme = "zenburn"
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline_section_c = ""
 
 nnoremap <silent> <Leader>bn :bnew<CR>
 nnoremap <silent> L :bnext<CR>
@@ -230,6 +223,13 @@ augroup Neomake
   autocmd!
   autocmd BufWritePost * Neomake
 augroup END
+" }}}
+" Statusline {{{
+let g:airline_theme = "zenburn"
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline_section_c = ""
 " }}}
 
 set modelines=1  " Fold .vimrc by markers
