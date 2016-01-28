@@ -1,2 +1,6 @@
 " Buffer settings
-setlocal omnifunc=javascriptcomplete#CompleteJS
+setlocal omnifunc=tern#Complete
+setlocal keywordprg=:TernDoc
+" Plugin settings
+let g:tern_show_argument_hints = 1
+let g:tern_show_signature_in_pum = 1

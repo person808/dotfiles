@@ -9,12 +9,12 @@ Plug 'honza/vim-snippets'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
 Plug 'junegunn/vim-oblique'
 Plug 'junegunn/vim-pseudocl'
+Plug 'justinmk/vim-sneak'
 Plug 'kballard/vim-fish', {'for': 'fish'}
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'mhinz/vim-grepper'
+Plug 'mhinz/vim-grepper', {'on': 'Grepper'}
 Plug 'mhinz/vim-signify'
 Plug 'Raimondi/delimitMate'
-Plug 'rhysd/clever-f.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/UltiSnips'
 Plug 'Shougo/deoplete.nvim'
@@ -23,6 +23,7 @@ Plug 'Shougo/neco-syntax'
 Plug 'Shougo/neco-vim', {'for': 'vim'}
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'sjl/gundo.vim', {'on': ['GundoHide', 'GundoShow', 'GundoToggle']}
+Plug 'ternjs/tern_for_vim', {'do': 'npm install', 'for': 'javascript'}
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
@@ -52,9 +53,10 @@ let mapleader="\<Space>"
 inoremap fj <Esc>
 nnoremap Y y$
 nnoremap ; :
-nnoremap sp a<C-x><C-s><C-p>
+nnoremap <Leader>sp a<C-x><C-s><C-p>
 nnoremap <Leader>u :GundoToggle<CR>
 nnoremap Q :Autoformat<CR><CR>
+nnoremap <Leader>fed :e $MYVIMRC<CR>
 " }}}
 " Misc plugins {{{
 let g:plug_threads = 40
@@ -79,8 +81,8 @@ set ignorecase
 set smartcase
 set scrolloff=5
 
-let g:incsearch#auto_nohlsearch = 1
-let g:clever_f_smart_case = 1
+let g:sneak#s_next = 1
+let g:sneak#use_ic_scs = 1
 
 " Opens files at the last known cursor position
 augroup open_last_line
@@ -93,6 +95,18 @@ nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 nmap gs <Plug>(GrepperOperator)
 xmap gs <Plug>(GrepperOperator)
 nnoremap <Leader>/ :Grepper<CR>
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+xmap t <Plug>Sneak_t
+xmap T <Plug>Sneak_T
+omap t <Plug>Sneak_t
+omap T <Plug>Sneak_T
 " }}}
 " Buffers/Tabs/Splits {{{
 set hidden
@@ -130,7 +144,9 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set copyindent
-set smarttab
+
+xnoremap < <gv
+xnoremap > >gv
 " }}}
 " Backup/Undo {{{
 set backup
