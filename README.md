@@ -9,31 +9,17 @@ Run this:
 ```sh
 git clone https://github.com/person808/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-stow *
+stow <topic-folder>
 ```
 
-This will use `stow` to symlink files to the appropriate directory.
-Everything is configured and tweaked within `~/.dotfiles`.
-
-## Topics
-
-Everything's built around topic areas. If you're adding a new area to your
-forked dotfiles — say, "Java" — you can simply add a `java` directory and put
-files in there.
+This will use `stow` to symlink files to the appropriate directory.  Everything
+is configured and tweaked within `~/.dotfiles`.
 
 ## Files
 
 There's a few special files in the hierarchy.
 
-- **bin/**: Anything in `bin/` will get added to your `$PATH` and be made
+- **bin/**: Anything in `bin/` will get added to `$fish_user_paths` and be made
   available everywhere.
 
-- **ranger/**: Settings for the CLI file manager `ranger`.
-
-- **X11/**: Generic settings for window managers and `urxvt`. 
-	- URxvt settings require `urxvt-tabbedex` from the AUR.
-
-## Thanks
-
-Inspired by [holman/dotfiles](https://github.com/holman/dotfiles) and this
-[blog post](http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html)
+- **arch/**: Arch Linux specific PKGBUILDS.

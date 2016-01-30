@@ -1,0 +1,12 @@
+post_install() {
+    update-desktop-database -q
+}
+
+post_upgrade() {
+    post_install $1
+}
+
+post_remove() {
+    rm ~/.local/share/applications/st-terminal.desktop
+    post_install $1
+}

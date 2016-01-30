@@ -1,0 +1,74 @@
+# Maintainer: mar77i <mysatyre at gmail dot com>
+# Past Maintainer: Gaetan Bisson <bisson@archlinux.org>
+# Contributor: Scytrin dai Kinthra <scytrin@gmail.com>
+
+pkgname=st-git
+_pkgname=st
+pkgver=20160130.6e70bb9
+pkgrel=1
+pkgdesc='Simple virtual terminal emulator for X'
+url='http://git.suckless.org/st/'
+arch=('i686' 'x86_64')
+license=('MIT')
+depends=('libxft')
+makedepends=('ncurses' 'libxext' 'git')
+source=('git://git.suckless.org/st'
+	config.h
+	st-terminal.desktop
+	st-git-20151217-scrollback.diff
+	st-git-20151106-scrollback-mouse.diff)
+sha1sums=('SKIP'
+          '5d7e52557cac302a20121b988aafb7ff15ce0df1'
+          'eba86b92fde5bce9a7e1d294516226f7cce35846'
+          '699cbe0457bd38bdf3e05a322167f6c1142dddf2'
+          '3702331d1b1a4a0c67e7271f5afbc708ef79cdfe')
+
+provides=("${_pkgname}")
+conflicts=("${_pkgname}")
+
+pkgver() {
+	cd "${srcdir}/${_pkgname}"
+	git log -1 --format='%cd.%h' --date=short | tr -d -
+}
+
+prepare() {
+	local file
+	cd "${srcdir}/${_pkgname}"
+	sed \
+		-e '/char font/s/= .*/= "Fixed:pixelsize=13:style=SemiCondensed";/' \
+		-e '/char worddelimiters/s/= .*/= " '"'"'`\\\"()[]{}<>|";/' \
+		-e '/int defaultcs/s/= .*/= 1;/' \
+		-i config.def.h
+	sed \
+		-e 's/CPPFLAGS =/CPPFLAGS +=/g' \
+		-e 's/CFLAGS =/CFLAGS +=/g' \
+		-e 's/LDFLAGS =/LDFLAGS +=/g' \
+		-e 's/_BSD_SOURCE/_DEFAULT_SOURCE/' \
+		-i config.mk
+	sed '/@tic/d' -i Makefile
+	for file in "${source[@]}"; do
+		if [[ "$file" == "config.h" ]]; then
+			# add config.h if present in source array
+			# Note: this supersedes the above sed to config.def.h
+			cp "$srcdir/$file" .
+			continue
+		elif [[ "$file" == *.diff ]]; then
+			# add all patches present in source array
+			cp "$srcdir/$file" .
+			patch -Np1 <"$srcdir/$file"
+		fi
+	done
+}
+
+build() {
+	cd "${srcdir}/${_pkgname}"
+	make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
+	cp "${srcdir}/st-terminal.desktop" ~/.local/share/applications/
+}
+
+package() {
+	cd "${srcdir}/${_pkgname}"
+	make PREFIX=/usr DESTDIR="${pkgdir}" install
+	install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+	install -Dm644 README "${pkgdir}/usr/share/doc/${pkgname}/README"
+}
