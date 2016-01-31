@@ -39,8 +39,8 @@ set timeoutlen=1000 ttimeoutlen=100
 set history=1000
 set clipboard+=unnamedplus
 set lazyredraw
-set wildignore=*.o,*.obj,*~,*.pyc
-set wildignore+=.cache/**,.local/**,.gem/**,.m2/**
+set wildignore=*.o,*.obj,*~,*.pyc,*.png,*.svg,*.jpg
+set wildignore+=.cache/**,.local/**,.gem/**,.m2/**,.gradle/**
 
 augroup whitespace
   autocmd!
