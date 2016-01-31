@@ -3,8 +3,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'benekastah/neomake'
 Plug 'bling/vim-airline'
 Plug 'Chiel92/vim-autoformat'
-Plug 'davidhalter/jedi-vim', {'for': 'python'}
-Plug 'flazz/vim-colorschemes'
+Plug 'fs111/pydoc.vim', {'for': 'python'}
 Plug 'haya14busa/incsearch.vim'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
@@ -17,10 +16,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/UltiSnips'
 Plug 'Shougo/deoplete.nvim'
-Plug 'Shougo/echodoc'
 Plug 'Shougo/neco-syntax'
 Plug 'Shougo/neco-vim', {'for': 'vim'}
-Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'sjl/gundo.vim', {'on': ['GundoHide', 'GundoShow', 'GundoToggle']}
 Plug 'ternjs/tern_for_vim', {'do': 'npm install', 'for': 'javascript'}
 Plug 'terryma/vim-multiple-cursors'
@@ -30,6 +27,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
+Plug 'zchee/deoplete-jedi', {'for': 'python'}
 call plug#end()
 " }}}
 " Misc settings {{{
@@ -204,6 +202,11 @@ function! <SID>ExpandSnippetOrReturn()
     return deoplete#mappings#close_popup()
   endif
 endfunction
+
+augroup Autocomplete
+  autocmd!
+  autocmd InsertLeave * pclose
+augroup END
 
 inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
