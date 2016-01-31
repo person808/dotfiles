@@ -1,7 +1,6 @@
 " Plugins {{{
 call plug#begin('~/.config/nvim/plugged')
 Plug 'benekastah/neomake'
-Plug 'bling/vim-airline'
 Plug 'Chiel92/vim-autoformat'
 Plug 'fs111/pydoc.vim', {'for': 'python'}
 Plug 'haya14busa/incsearch.vim'
@@ -12,6 +11,8 @@ Plug 'kballard/vim-fish', {'for': 'fish'}
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mhinz/vim-grepper', {'on': 'Grepper'}
 Plug 'mhinz/vim-signify'
+" Plug 'morhetz/gruvbox'
+Plug 'ianks/gruvbox'
 Plug 'Raimondi/delimitMate'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/UltiSnips'
@@ -27,6 +28,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
 Plug 'zchee/deoplete-jedi', {'for': 'python'}
 call plug#end()
 " }}}
@@ -228,7 +230,7 @@ augroup Neomake
 augroup END
 " }}}
 " Statusline {{{
-let g:airline_theme = "zenburn"
+let g:airline_theme = "gruvbox"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
