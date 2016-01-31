@@ -172,7 +172,6 @@ tnoremap fj <C-\><C-n>
 augroup terminal
   autocmd!
   autocmd TermOpen * setlocal nospell
-  autocmd TermOpen * setlocal shell=fish
 augroup END
 " }}}
 " Tags {{{
