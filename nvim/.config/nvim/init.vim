@@ -5,7 +5,8 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'fs111/pydoc.vim', {'for': 'python'}
 Plug 'haya14busa/incsearch.vim'
 Plug 'honza/vim-snippets'
-Plug 'junegunn/gv.vim', {'on': 'GV'}
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'kballard/vim-fish', {'for': 'fish'}
 Plug 'ludovicchabant/vim-gutentags'
@@ -182,7 +183,7 @@ let g:gutentags_resolve_symlinks = 1
 nmap <leader>gj <Plug>(signify-next-hunk)
 nmap <leader>gk <Plug>(signify-prev-hunk)
 nnoremap <Leader>gb :Gblame<CR>
-nnoremap <Leader>gl :GV<CR>
+nnoremap <Leader>gl :Commits<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 " }}}
@@ -212,6 +213,22 @@ augroup END
 inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <silent><expr><CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
+" }}}
+" FZF {{{
+let g:fzf_commits_log_options =
+      \"--graph --format=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset) %C(white)%s%C(reset)
+      \%C(yellow)%d%C(reset)'"
+
+augroup FZF
+  autocmd!
+  autocmd User FzfStatusLine AirlineRefresh
+augroup END
+
+nnoremap <Leader>bb :Buffers<CR>
+nnoremap <Leader>fr :History<CR>
+nnoremap <Leader>is :Snippets<CR>
+nnoremap <Leader>sj :BTags<CR>
+nnoremap <Leader>sJ :Tags<CR>
 " }}}
 " Neomake {{{
 let g:neomake_error_sign = {
