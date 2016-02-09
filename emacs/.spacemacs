@@ -21,7 +21,6 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers '((auto-completion :variables
                                                         auto-completion-enable-snippets-in-popup t
-                                                        auto-completion-enable-sort-by-usage t
                                                         auto-completion-enable-help-tooltip t)
                                        colors
                                        emacs-lisp
@@ -43,7 +42,7 @@ values."
                                        spacemacs-ivy
                                        syntax-checking
                                        (version-control :variables
-                                                        version-control-diff-tool 'diff-hl))
+                                                        version-control-diff-tool 'git-gutter))
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
@@ -53,6 +52,7 @@ values."
    dotspacemacs-excluded-packages '(evil-exchange
                                     evil-search-highlight-persist
                                     fancy-battery
+                                    git-gutter-fringe
                                     google-translate
                                     neotree
                                     org-bullets
@@ -109,14 +109,15 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(monokai
+   dotspacemacs-themes '(gruvbox
+                         monokai
                          darktooth
                          gotham)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Monaco"
+   dotspacemacs-default-font '("Fira Code"
                                :size 24
                                :weight normal
                                :width normal
@@ -134,7 +135,7 @@ values."
    dotspacemacs-major-mode-emacs-leader-key "C-M-m"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
    ;; (default "SPC")
-   dotspacemacs-emacs-command-key ";"
+   dotspacemacs-emacs-command-key "SPC"
    ;; These variables control whether separate commands are bound in the GUI to
    ;; the key pairs C-i, TAB and C-m, RET.
    ;; Setting it to a non-nil value, allows for separate commands under <C-i>
@@ -250,11 +251,10 @@ values."
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put almost any
-user code here.  The exception is org related code, which should be placed in
+user code here. The exception is org related code, which should be placed in
 `dotspacemacs/user-config'."
   (setq-default evil-escape-key-sequence "fj"
-                evil-escape-delay 0.2
-                org-directory "")
+                evil-escape-delay 0.2)
   (push '(height . 24) default-frame-alist)
   (push '(width . 55) default-frame-alist)
   )
@@ -273,22 +273,25 @@ layers configuration. You are free to put any user code."
   (setq evil-move-beyond-eol nil
         hs-isearch-open t
         sp-show-pair-from-inside t
+        x-gtk-use-system-tooltips nil
         vc-follow-symlinks t
         ;; Backup/Undo
         undo-tree-auto-save-history t
         undo-tree-history-directory-alist
         `(("." . ,(concat spacemacs-cache-directory "undo")))
         ;; Git
-        diff-hl-side 'left
+        git-gutter:modified-sign "!"
         ;; Autocomplete
+        company-auto-complete t
+        company-tooltip-align-annotations t
         company-quickhelp-max-lines 40
         ;; Flycheck
         flycheck-flake8-maximum-line-length 99
-        flycheck-check-syntax-automatically '(save new-line mode-enabled)
+        flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled)
         ;; Powerline
-        powerline-default-separator 'bar
         spaceline-minor-modes-p nil)
-
+  (spacemacs|do-after-display-system-init
+   (setq powerline-default-separator 'arrow))
   (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
     (make-directory (concat spacemacs-cache-directory "undo")))
 
@@ -309,9 +312,6 @@ layers configuration. You are free to put any user code."
              ("g h p" . diff-hl-previous-hunk)
              ("g h v" . diff-hl-diff-goto-hunk))
   (bind-key "<backtab>" 'company-select-previous company-active-map)
-  (spacemacs/set-leader-keys
-    "SPC" 'hs-toggle-hiding)
-  (which-key-add-key-based-replacements "SPC SPC" "toggle fold")
 
   (when (configuration-layer/layer-usedp 'spacemacs-helm)
     (with-eval-after-load 'helm
@@ -324,9 +324,6 @@ layers configuration. You are free to put any user code."
                  ("C-z" . helm-execute-persistent-action))
       (spacemacs/set-leader-keys
         "ff" 'helm-for-files)))
-
-  (when (configuration-layer/layer-usedp 'spacemacs-ivy)
-    (spacemacs/set-leader-keys ";" 'counsel-M-x))
 
   (remove-hook 'diff-mode-hook 'whitespace-mode)
   )
