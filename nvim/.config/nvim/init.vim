@@ -1,7 +1,7 @@
 " Plugins {{{
 call plug#begin('~/.config/nvim/plugged')
+Plug 'airblade/vim-rooter'
 Plug 'benekastah/neomake'
-Plug 'Chiel92/vim-autoformat'
 Plug 'fs111/pydoc.vim', {'for': 'python'}
 Plug 'haya14busa/incsearch.vim'
 Plug 'honza/vim-snippets'
@@ -16,11 +16,12 @@ Plug 'mhinz/vim-signify'
 Plug 'ianks/gruvbox'
 Plug 'Raimondi/delimitMate'
 Plug 'sheerun/vim-polyglot'
+Plug 'simnalamburt/vim-mundo', {'on': ['MundoShow', 'MundoHide', 'MundoToggle']}
 Plug 'SirVer/UltiSnips'
+Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neco-syntax'
 Plug 'Shougo/neco-vim', {'for': 'vim'}
-Plug 'sjl/gundo.vim', {'on': ['GundoHide', 'GundoShow', 'GundoToggle']}
 Plug 'ternjs/tern_for_vim', {'do': 'npm install', 'for': 'javascript'}
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
@@ -34,7 +35,6 @@ Plug 'zchee/deoplete-jedi', {'for': 'python'}
 call plug#end()
 " }}}
 " Misc settings {{{
-set autochdir
 set updatetime=500
 set timeoutlen=1000 ttimeoutlen=100
 set history=1000
@@ -57,9 +57,12 @@ nnoremap <Leader>fed :e $MYVIMRC<CR>
 " }}}
 " Misc plugins {{{
 let g:plug_threads = 40
-let g:gundo_preview_bottom = 1
-nnoremap <Leader>u :GundoToggle<CR>
-nnoremap Q :Autoformat<CR><CR>
+let g:delimitMate_expand_cr = 1
+let g:delimitMate_jump_expansion = 1
+let g:mundo_preview_bottom = 1
+let g:mundo_width = 30
+let g:mundo_verbose_graph = 0
+nnoremap <Leader>u :MundoToggle<CR>
 " }}}
 " Text display {{{
 set number
@@ -188,8 +191,8 @@ nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 " }}}
 " Autocomplete/Snippets {{{
+set completeopt-=preview
 let g:deoplete#enable_at_startup = 1
-let g:echodoc_enable_at_startup = 1
 let g:UltiSnipsExpandTrigger = "<nop>"
 let g:UltiSnipsJumpForwardTrigger = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
@@ -207,7 +210,7 @@ endfunction
 
 augroup Autocomplete
   autocmd!
-  autocmd InsertLeave * pclose
+  autocmd CompleteDone,InsertLeave * pclose
 augroup END
 
 inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
