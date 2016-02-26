@@ -227,7 +227,17 @@ augroup FZF
   autocmd User FzfStatusLine AirlineRefresh
 augroup END
 
+function! SmartFiles()
+  execute "GitFiles"
+  if v:shell_error
+    execute "Files"
+  endif
+endfunction
+
+command! SmartFiles call SmartFiles()
+
 nnoremap <Leader>bb :Buffers<CR>
+nnoremap <Leader>ff :SmartFiles<CR>
 nnoremap <Leader>fr :History<CR>
 nnoremap <Leader>is :Snippets<CR>
 nnoremap <Leader>sj :BTags<CR>
