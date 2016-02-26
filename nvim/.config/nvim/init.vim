@@ -2,6 +2,7 @@
 call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-rooter'
 Plug 'benekastah/neomake'
+Plug 'bling/vim-bufferline'
 Plug 'fs111/pydoc.vim', {'for': 'python'}
 Plug 'haya14busa/incsearch.vim'
 Plug 'honza/vim-snippets'
@@ -124,7 +125,6 @@ set hidden
 set splitbelow
 set splitright
 set laststatus=2
-set showtabline=2
 
 nnoremap <silent> <Leader>bn :bnew<CR>
 nnoremap <silent> L :bnext<CR>
@@ -251,9 +251,21 @@ augroup END
 " Statusline {{{
 let g:airline_theme = "gruvbox"
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline_section_c = ""
+let g:airline_mode_map = {
+      \'__': '-',
+      \'n': 'N',
+      \'i': 'I',
+      \'R': 'R',
+      \'c': 'C',
+      \'v': 'V',
+      \'V': 'V',
+      \'': 'V',
+      \'s': 'S',
+      \'S': 'S',
+      \'': 'S',
+      \}
+let g:bufferline_echo = 0
+let g:bufferline_show_bufnr = 0
 " }}}
 
 set modelines=1  " Fold .vimrc by markers
