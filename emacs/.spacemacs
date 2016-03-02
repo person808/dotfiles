@@ -47,7 +47,9 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '((gruvbox-dark-theme :location (recipe
+                                                                     :fetcher github
+                                                                     :repo "d125q/gruvbox-dark-emacs")))
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(evil-exchange
                                     evil-search-highlight-persist
@@ -109,10 +111,9 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(gruvbox
+   dotspacemacs-themes '(gruvbox-dark
                          monokai
-                         darktooth
-                         gotham)
+                         darktooth)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -225,6 +226,10 @@ values."
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
+   ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
+   ;; over any automatically added closing parenthesis, bracket, quote, etc…
+   ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
+   dotspacemacs-smart-closing-parenthesis t
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
@@ -265,7 +270,7 @@ This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
   ;; Modes and packages
   (aggressive-indent-global-mode t)
-  (blink-cursor-mode t)
+  (rainbow-mode t)
   (add-hook 'prog-mode-hook 'visual-line-mode)
   (diminish 'visual-line-mode)
 
@@ -282,7 +287,6 @@ layers configuration. You are free to put any user code."
         ;; Git
         git-gutter:modified-sign "!"
         ;; Autocomplete
-        company-auto-complete t
         company-tooltip-align-annotations t
         company-quickhelp-max-lines 40
         ;; Flycheck
@@ -296,21 +300,17 @@ layers configuration. You are free to put any user code."
     (make-directory (concat spacemacs-cache-directory "undo")))
 
   ;; Keybindings
-  (bind-keys :map (evil-normal-state-map evil-motion-state-map evil-visual-state-map)
-             ("j" . evil-next-visual-line)
-             ("k" . evil-previous-visual-line)
-             (";" . evil-ex))
-  (bind-keys :map (evil-normal-state-map evil-motion-state-map)
-             ("C-j" . evil-window-down)
-             ("C-k" . evil-window-up)
-             ("C-h" . evil-window-left)
-             ("C-l" . evil-window-right)
-             ("H" . spacemacs/previous-useful-buffer)
-             ("L" . spacemacs/next-useful-buffer))
-  (bind-keys :map evil-normal-state-map
-             ("g h n" . diff-hl-next-hunk)
-             ("g h p" . diff-hl-previous-hunk)
-             ("g h v" . diff-hl-diff-goto-hunk))
+  (dolist (map '(evil-normal-state-map evil-motion-state-map evil-visual-state-map))
+    (bind-keys :map (eval map)
+               ("j" . evil-next-visual-line)
+               ("k" . evil-previous-visual-line)
+               (";" . evil-ex)
+               ("C-j" . evil-window-down)
+               ("C-k" . evil-window-up)
+               ("C-h" . evil-window-left)
+               ("C-l" . evil-window-right)
+               ("H" . spacemacs/previous-useful-buffer)
+               ("L" . spacemacs/next-useful-buffer)))
   (bind-key "<backtab>" 'company-select-previous company-active-map)
 
   (when (configuration-layer/layer-usedp 'spacemacs-helm)
