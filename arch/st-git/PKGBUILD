@@ -4,7 +4,7 @@
 
 pkgname=st-git
 _pkgname=st
-pkgver=20160201.6d636be
+pkgver=20160221.4fdba86
 pkgrel=1
 pkgdesc='Simple virtual terminal emulator for X'
 url='http://git.suckless.org/st/'
@@ -16,12 +16,14 @@ source=('git://git.suckless.org/st'
 	config.h
 	st-terminal.desktop
 	st-git-20151217-scrollback.diff
-	st-git-20151106-scrollback-mouse.diff)
+	st-git-20151106-scrollback-mouse.diff
+	st-git-20160203-scrollback-mouse-altscreen.diff)
 sha1sums=('SKIP'
           '5d7e52557cac302a20121b988aafb7ff15ce0df1'
           'eba86b92fde5bce9a7e1d294516226f7cce35846'
           '699cbe0457bd38bdf3e05a322167f6c1142dddf2'
-          '3702331d1b1a4a0c67e7271f5afbc708ef79cdfe')
+          '3702331d1b1a4a0c67e7271f5afbc708ef79cdfe'
+          '9f4873d777b76905485210f318ec4ba24393448d')
 
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
