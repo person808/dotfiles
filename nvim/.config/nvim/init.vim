@@ -69,9 +69,6 @@ nnoremap <Leader>u :MundoToggle<CR>
 set number
 set cursorline
 set showmatch
-" Highlight past 80th column
-execute "set colorcolumn=" . join(range(81,335), ',')
-set spell
 set breakindent
 set linebreak
 set wrap
@@ -164,14 +161,13 @@ set undofile
 set undodir=$HOME/.config/nvim/undo
 " }}}
 " Command line {{{
-set confirm
 set noshowmode
 set shortmess+=c
 set showcmd
 set wildmode=longest,full
 " }}}
 " Terminal {{{
-tnoremap <Esc> <C-\><C-n>
+tnoremap <Esc><Esc> <C-\><C-n>
 tnoremap fj <C-\><C-n>
 augroup terminal
   autocmd!
@@ -191,7 +187,6 @@ nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 " }}}
 " Autocomplete/Snippets {{{
-set completeopt-=preview
 let g:deoplete#enable_at_startup = 1
 let g:UltiSnipsExpandTrigger = "<nop>"
 let g:UltiSnipsJumpForwardTrigger = "<Tab>"
