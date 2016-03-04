@@ -131,7 +131,7 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-nnoremap <silent> <Leader>wc :close<CR>
+nnoremap <silent> <Leader>wd :close<CR>
 " }}}
 " Folding {{{
 set foldenable
@@ -169,6 +169,7 @@ set wildmode=longest,full
 " Terminal {{{
 tnoremap <Esc><Esc> <C-\><C-n>
 tnoremap fj <C-\><C-n>
+nnoremap <Leader>' :terminal<CR>
 augroup terminal
   autocmd!
   autocmd TermOpen * setlocal nospell
@@ -193,6 +194,12 @@ let g:UltiSnipsJumpForwardTrigger = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 let g:ulti_expand_or_jump_res = 0
 
+if !exists('g:context_filetype#same_filetypes')
+  let g:context_filetype#same_filetypes = {}
+endif
+let g:context_filetype#same_filetypes.html = 'xhtml,css,stylus,less'
+let g:context_filetype#same_filetypes.css = 'scss'
+
 " <CR> expands snippets and inserts completions
 function! <SID>ExpandSnippetOrReturn()
   let snippet = UltiSnips#ExpandSnippetOrJump()
@@ -216,11 +223,6 @@ inoremap <silent><expr><CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<C
 let g:fzf_commits_log_options =
       \"--graph --format=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset) %C(white)%s%C(reset)
       \%C(yellow)%d%C(reset)'"
-
-augroup FZF
-  autocmd!
-  autocmd User FzfStatusLine AirlineRefresh
-augroup END
 
 function! SmartFiles()
   execute "GitFiles"
