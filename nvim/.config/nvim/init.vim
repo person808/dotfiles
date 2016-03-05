@@ -54,7 +54,7 @@ let mapleader="\<Space>"
 inoremap fj <Esc>
 nnoremap Y y$
 nnoremap ; :
-nnoremap <Leader>fed :e $MYVIMRC<CR>
+nnoremap <Leader>fed :e <C-r>=resolve(expand($MYVIMRC))<CR><CR>
 " }}}
 " Misc plugins {{{
 let g:plug_threads = 40
@@ -232,6 +232,11 @@ function! SmartFiles()
 endfunction
 
 command! SmartFiles call SmartFiles()
+
+augroup FZF
+  autocmd!
+  autocmd FileType fzf tnoremap fj <C-c>
+augroup END
 
 nnoremap <Leader>bb :Buffers<CR>
 nnoremap <Leader>ff :SmartFiles<CR>
