@@ -6,8 +6,10 @@ end
 function fish_title; end
 
 set -U fish_greeting ""  # Hide fish greeting
-set -U fish_user_paths ~/.dotfiles/bin ~/.local/bin  # Set PATH
+set -Ux fish_user_paths ~/.dotfiles/bin ~/.local/bin  # Set PATH
 set -gx EDITOR nvim
 set -gx BROWSER google-chrome-stable
+set -gx FZF_DEFAULT_COMMAND \
+	"ag --follow --nocolor --nogroup --hidden -g '' --path-to-agignore ~/.agignore"
 
 rvm default

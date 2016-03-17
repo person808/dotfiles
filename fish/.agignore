@@ -1,0 +1,12 @@
+.local/**
+.git/**
+.cache/**
+*.jar
+*.jpg
+*.png
+*.*~
+*.o
+*.obj
+*.pyc
+*.png
+*.svg
