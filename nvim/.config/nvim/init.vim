@@ -141,7 +141,6 @@ set foldmethod=indent
 nnoremap <Leader><Space> za
 " }}}
 " Indentation {{{
-filetype plugin indent on
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
@@ -225,9 +224,9 @@ let g:fzf_commits_log_options =
       \%C(yellow)%d%C(reset)'"
 
 function! SmartFiles()
-  execute "GitFiles"
+  silent execute "GitFiles"
   if v:shell_error
-    execute "Files"
+    silent execute "Files"
   endif
 endfunction
 
@@ -258,6 +257,7 @@ let g:neomake_warning_sign = {
 augroup Neomake
   autocmd!
   autocmd BufWritePost * Neomake
+  autocmd InsertLeave * Neomake
 augroup END
 " }}}
 " Statusline {{{
