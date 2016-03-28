@@ -3,6 +3,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-rooter'
 Plug 'benekastah/neomake'
 Plug 'bling/vim-bufferline'
+Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
 Plug 'fs111/pydoc.vim', {'for': 'python'}
 Plug 'haya14busa/incsearch.vim'
 Plug 'honza/vim-snippets'
@@ -188,10 +189,15 @@ nnoremap <Leader>gc :Gcommit<CR>
 " }}}
 " Autocomplete/Snippets {{{
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#file#enable_buffer_path = 1
 let g:UltiSnipsExpandTrigger = "<nop>"
 let g:UltiSnipsJumpForwardTrigger = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 let g:ulti_expand_or_jump_res = 0
+
+if !exists('g:deoplete#omni#functions')
+  let g:deoplete#omni#functions = {}
+endif
 
 if !exists('g:context_filetype#same_filetypes')
   let g:context_filetype#same_filetypes = {}
