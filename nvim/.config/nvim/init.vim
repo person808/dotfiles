@@ -58,7 +58,7 @@ nnoremap ; :
 nnoremap <Leader>fed :e <C-r>=resolve(expand($MYVIMRC))<CR><CR>
 " }}}
 " Misc plugins {{{
-let g:plug_threads = 40
+let g:plug_threads = 20
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_jump_expansion = 1
 let g:mundo_preview_bottom = 1
@@ -74,7 +74,7 @@ set breakindent
 set linebreak
 set wrap
 set background=dark
-let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+set termguicolors
 colorscheme gruvbox
 " }}}
 " Searching/Moving around {{{
