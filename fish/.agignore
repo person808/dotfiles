@@ -1,6 +1,7 @@
 .local/**
 .git/**
 .cache/**
+.npm/**
 *.jar
 *.jpg
 *.png

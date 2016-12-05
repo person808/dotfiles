@@ -1,7 +1,6 @@
 " Plugins {{{
 call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-rooter'
-Plug 'benekastah/neomake'
 Plug 'bling/vim-bufferline'
 Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
 Plug 'fs111/pydoc.vim', {'for': 'python'}
@@ -22,6 +21,7 @@ Plug 'simnalamburt/vim-mundo', {'on': ['MundoShow', 'MundoHide', 'MundoToggle']}
 Plug 'SirVer/UltiSnips'
 Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/neco-syntax'
 Plug 'Shougo/neco-vim', {'for': 'vim'}
 Plug 'ternjs/tern_for_vim', {'do': 'npm install', 'for': 'javascript'}
@@ -33,6 +33,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
+Plug 'w0rp/ale'
 Plug 'zchee/deoplete-jedi', {'for': 'python'}
 call plug#end()
 " }}}
@@ -64,6 +65,7 @@ let g:delimitMate_jump_expansion = 1
 let g:mundo_preview_bottom = 1
 let g:mundo_width = 30
 let g:mundo_verbose_graph = 0
+let g:rooter_resolve_links = 1
 nnoremap <Leader>u :MundoToggle<CR>
 " }}}
 " Text display {{{
@@ -78,6 +80,7 @@ set termguicolors
 colorscheme gruvbox
 " }}}
 " Searching/Moving around {{{
+set inccommand=nosplit
 set ignorecase
 set smartcase
 set scrolloff=5
@@ -188,8 +191,10 @@ nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 " }}}
 " Autocomplete/Snippets {{{
+set completeopt-=previewe
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
+let g:echodoc_enable_at_startup = 1
 let g:UltiSnipsExpandTrigger = "<nop>"
 let g:UltiSnipsJumpForwardTrigger = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
@@ -250,21 +255,9 @@ nnoremap <Leader>is :Snippets<CR>
 nnoremap <Leader>sj :BTags<CR>
 nnoremap <Leader>sJ :Tags<CR>
 " }}}
-" Neomake {{{
-let g:neomake_error_sign = {
-      \ 'text': '>>',
-      \ 'texthl': 'ErrorMsg',
-      \ }
-let g:neomake_warning_sign = {
-      \ 'text': '>>',
-      \ 'texthl': 'WarningMsg',
-      \ }
-
-augroup Neomake
-  autocmd!
-  autocmd BufWritePost * Neomake
-  autocmd InsertLeave * Neomake
-augroup END
+" Linting {{{
+let g:ale_sign_warning = ">>"
+highlight link ALEWarningSign Question
 " }}}
 " Statusline {{{
 let g:airline_theme = "gruvbox"
