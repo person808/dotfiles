@@ -4,10 +4,10 @@ Plug 'airblade/vim-rooter'
 Plug 'bling/vim-bufferline'
 Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
 Plug 'fs111/pydoc.vim', {'for': 'python'}
-Plug 'haya14busa/incsearch.vim'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-slash'
 Plug 'justinmk/vim-sneak'
 Plug 'kballard/vim-fish', {'for': 'fish'}
 Plug 'ludovicchabant/vim-gutentags'
@@ -85,7 +85,6 @@ set ignorecase
 set smartcase
 set scrolloff=5
 
-let g:incsearch#auto_nohlsearch = 1
 let g:sneak#s_next = 1
 let g:sneak#use_ic_scs = 1
 
@@ -100,14 +99,6 @@ nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 nmap gs <Plug>(GrepperOperator)
 xmap gs <Plug>(GrepperOperator)
 nnoremap <Leader>/ :Grepper<CR>
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
 nmap f <Plug>Sneak_f
 nmap F <Plug>Sneak_F
 xmap f <Plug>Sneak_f
@@ -191,7 +182,7 @@ nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 " }}}
 " Autocomplete/Snippets {{{
-set completeopt-=previewe
+set completeopt-=preview
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
 let g:echodoc_enable_at_startup = 1
