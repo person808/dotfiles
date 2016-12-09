@@ -194,6 +194,10 @@ let g:ulti_expand_or_jump_res = 0
 if !exists('g:deoplete#omni#functions')
   let g:deoplete#omni#functions = {}
 endif
+let g:deoplete#omni#functions.css = 'csscomplete#CompleteCSS'
+let g:deoplete#omni#functions.html = 'htmlcomplete#CompleteTags'
+let g:deoplete#omni#functions.javascript = 'tern#Complete'
+let g:deoplete#omni#functions.markdown = 'htmlcomplete#CompleteTags'
 
 if !exists('g:context_filetype#same_filetypes')
   let g:context_filetype#same_filetypes = {}
@@ -210,11 +214,6 @@ function! <SID>ExpandSnippetOrReturn()
     return deoplete#mappings#close_popup()
   endif
 endfunction
-
-augroup Autocomplete
-  autocmd!
-  autocmd CompleteDone,InsertLeave * pclose
-augroup END
 
 inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"

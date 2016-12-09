@@ -1,5 +1,4 @@
 " Buffer settings
-setlocal omnifunc=tern#Complete
 setlocal keywordprg=:TernDoc
 setlocal equalprg=js-beautify
 " Plugin settings
