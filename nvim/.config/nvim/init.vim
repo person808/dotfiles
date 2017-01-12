@@ -11,11 +11,13 @@ Plug 'junegunn/vim-slash'
 Plug 'justinmk/vim-sneak'
 Plug 'kballard/vim-fish', {'for': 'fish'}
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'metakirby5/codi.vim'
 Plug 'mhinz/vim-grepper', {'on': 'Grepper'}
 Plug 'mhinz/vim-signify'
 " Plug 'morhetz/gruvbox'
 Plug 'ianks/gruvbox'
 Plug 'Raimondi/delimitMate'
+Plug 'sbdchd/neoformat'
 Plug 'sheerun/vim-polyglot'
 Plug 'simnalamburt/vim-mundo', {'on': ['MundoShow', 'MundoHide', 'MundoToggle']}
 Plug 'SirVer/UltiSnips'
