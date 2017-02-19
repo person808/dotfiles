@@ -176,6 +176,7 @@ let g:gutentags_cache_dir = "~/.config/nvim/tags/"
 let g:gutentags_resolve_symlinks = 1
 " }}}
 " Git {{{
+let g:signify_realtime = 1
 nmap <leader>gj <Plug>(signify-next-hunk)
 nmap <leader>gk <Plug>(signify-prev-hunk)
 nnoremap <Leader>gb :Gblame<CR>
