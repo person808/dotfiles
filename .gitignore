@@ -2,3 +2,4 @@ arch/st-git/pkg/*
 arch/st-git/src/*
 arch/st-git/st/*
 arch/st-git/*.pkg.tar
+.DS_Store

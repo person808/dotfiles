@@ -1,9 +1,9 @@
 " Plugins {{{
 call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-rooter'
+Plug 'altercation/vim-colors-solarized'
 Plug 'bling/vim-bufferline'
-Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
-Plug 'fs111/pydoc.vim', {'for': 'python'}
+Plug 'cohama/lexima.vim'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -11,22 +11,13 @@ Plug 'junegunn/vim-slash'
 Plug 'justinmk/vim-sneak'
 Plug 'kballard/vim-fish', {'for': 'fish'}
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'metakirby5/codi.vim'
 Plug 'mhinz/vim-grepper', {'on': 'Grepper'}
 Plug 'mhinz/vim-signify'
-" Plug 'morhetz/gruvbox'
-Plug 'ianks/gruvbox'
-Plug 'Raimondi/delimitMate'
-Plug 'sbdchd/neoformat'
+Plug 'morhetz/gruvbox'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
 Plug 'simnalamburt/vim-mundo', {'on': ['MundoShow', 'MundoHide', 'MundoToggle']}
 Plug 'SirVer/UltiSnips'
-Plug 'Shougo/context_filetype.vim'
-Plug 'Shougo/deoplete.nvim'
-Plug 'Shougo/echodoc.vim'
-Plug 'Shougo/neco-syntax'
-Plug 'Shougo/neco-vim', {'for': 'vim'}
-Plug 'ternjs/tern_for_vim', {'do': 'npm install', 'for': 'javascript'}
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
@@ -35,18 +26,18 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
-Plug 'w0rp/ale'
-Plug 'zchee/deoplete-jedi', {'for': 'python'}
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 " }}}
 " Misc settings {{{
-set updatetime=500
+set updatetime=300
 set timeoutlen=1000 ttimeoutlen=100
 set history=1000
 set clipboard+=unnamedplus
 set lazyredraw
 set wildignore=*.o,*.obj,*~,*.pyc,*.png,*.svg,*.jpg
 set wildignore+=.cache/**,.local/**,.gem/**,.m2/**,.gradle/**
+set mouse=a
 
 augroup whitespace
   autocmd!
@@ -62,8 +53,6 @@ nnoremap <Leader>fed :e <C-r>=resolve(expand($MYVIMRC))<CR><CR>
 " }}}
 " Misc plugins {{{
 let g:plug_threads = 20
-let g:delimitMate_expand_cr = 1
-let g:delimitMate_jump_expansion = 1
 let g:mundo_preview_bottom = 1
 let g:mundo_width = 30
 let g:mundo_verbose_graph = 0
@@ -77,7 +66,7 @@ set showmatch
 set breakindent
 set linebreak
 set wrap
-set background=dark
+set background=light
 set termguicolors
 colorscheme gruvbox
 " }}}
@@ -185,28 +174,27 @@ nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 " }}}
 " Autocomplete/Snippets {{{
-set completeopt-=preview
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#file#enable_buffer_path = 1
-let g:echodoc_enable_at_startup = 1
 let g:UltiSnipsExpandTrigger = "<nop>"
 let g:UltiSnipsJumpForwardTrigger = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 let g:ulti_expand_or_jump_res = 0
 
-if !exists('g:deoplete#omni#functions')
-  let g:deoplete#omni#functions = {}
-endif
-let g:deoplete#omni#functions.css = 'csscomplete#CompleteCSS'
-let g:deoplete#omni#functions.html = 'htmlcomplete#CompleteTags'
-let g:deoplete#omni#functions.javascript = 'tern#Complete'
-let g:deoplete#omni#functions.markdown = 'htmlcomplete#CompleteTags'
+autocmd CursorHold * silent call CocActionAsync('highlight')
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-if !exists('g:context_filetype#same_filetypes')
-  let g:context_filetype#same_filetypes = {}
-endif
-let g:context_filetype#same_filetypes.html = 'xhtml,css,stylus,less'
-let g:context_filetype#same_filetypes.css = 'scss'
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 
 " <CR> expands snippets and inserts completions
 function! <SID>ExpandSnippetOrReturn()
@@ -214,9 +202,20 @@ function! <SID>ExpandSnippetOrReturn()
   if g:ulti_expand_or_jump_res > 0
     return snippet
   else
-    return deoplete#mappings#close_popup()
+    return coc#_select_confirm()
   endif
 endfunction
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -248,10 +247,6 @@ nnoremap <Leader>is :Snippets<CR>
 nnoremap <Leader>sj :BTags<CR>
 nnoremap <Leader>sJ :Tags<CR>
 " }}}
-" Linting {{{
-let g:ale_sign_warning = ">>"
-highlight link ALEWarningSign Question
-" }}}
 " Statusline {{{
 let g:airline_theme = "gruvbox"
 let g:airline_powerline_fonts = 1
@@ -270,6 +265,7 @@ let g:airline_mode_map = {
       \}
 let g:bufferline_echo = 0
 let g:bufferline_show_bufnr = 0
+let g:airline#extensions#coc#enabled=1
 " }}}
 
 set modelines=1  " Fold .vimrc by markers

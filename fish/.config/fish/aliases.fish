@@ -6,7 +6,7 @@ function sudo
     end
 end
 
-alias ls "ls -CF --group-directories-first --color"
+#alias ls "ls -CF --group-directories-first --color"
 alias df "df -h"
 alias free "free -mt"
 alias wget "wget -c"
