@@ -39,10 +39,12 @@ set wildignore=*.o,*.obj,*~,*.pyc,*.png,*.svg,*.jpg
 set wildignore+=.cache/**,.local/**,.gem/**,.m2/**,.gradle/**
 set mouse=a
 
-augroup whitespace
-  autocmd!
-  autocmd BufWritePre * :%s/\s\+$//e  " Strip trailing whitespace
-augroup END
+function! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfunction
+command! TrimWhitespace call TrimWhitespace()
 " }}}
 " Misc Keybindings {{{
 let mapleader="\<Space>"
@@ -53,6 +55,7 @@ nnoremap <Leader>fed :e <C-r>=resolve(expand($MYVIMRC))<CR><CR>
 " }}}
 " Misc plugins {{{
 let g:plug_threads = 20
+let g:delimitMate_jump_expansion = 1
 let g:mundo_preview_bottom = 1
 let g:mundo_width = 30
 let g:mundo_verbose_graph = 0
@@ -177,15 +180,14 @@ nnoremap <Leader>gc :Gcommit<CR>
 let g:UltiSnipsExpandTrigger = "<nop>"
 let g:UltiSnipsJumpForwardTrigger = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
-let g:ulti_expand_or_jump_res = 0
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
 " Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
 " use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OR   :call CocAction('runCommand', 'editor.action.organizeImport')
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -195,16 +197,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-
-" <CR> expands snippets and inserts completions
-function! <SID>ExpandSnippetOrReturn()
-  let snippet = UltiSnips#ExpandSnippetOrJump()
-  if g:ulti_expand_or_jump_res > 0
-    return snippet
-  else
-    return coc#_select_confirm()
-  endif
-endfunction
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -219,7 +211,7 @@ nmap <silent> gr <Plug>(coc-references)
 
 inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <silent><expr><CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 " }}}
 " FZF {{{
 let g:fzf_commits_log_options =
