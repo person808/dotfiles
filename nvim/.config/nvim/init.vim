@@ -2,7 +2,6 @@
 call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-rooter'
 Plug 'altercation/vim-colors-solarized'
-Plug 'bling/vim-bufferline'
 Plug 'cohama/lexima.vim'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -255,9 +254,8 @@ let g:airline_mode_map = {
       \'S': 'S',
       \'': 'S',
       \}
-let g:bufferline_echo = 0
-let g:bufferline_show_bufnr = 0
 let g:airline#extensions#coc#enabled=1
+let g:airline#extensions#tabline#enabled=1
 " }}}
 
 set modelines=1  " Fold .vimrc by markers
