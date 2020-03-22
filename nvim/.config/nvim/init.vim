@@ -1,5 +1,5 @@
 " Plugins {{{
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin(stdpath('data') . '/plugged')
 Plug 'airblade/vim-rooter'
 Plug 'altercation/vim-colors-solarized'
 Plug 'bling/vim-bufferline'
