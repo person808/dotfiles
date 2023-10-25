@@ -43,6 +43,14 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	end,
 })
 
+-- Highlight on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = vim.api.nvim_create_augroup("highlight_yank", {}),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
+
 vim.diagnostic.config({
 	virtual_text = false,
 	signs = true,
@@ -323,7 +331,7 @@ require("lazy").setup({
 			"saadparwaiz1/cmp_luasnip",
 			"onsails/lspkind.nvim",
 		},
-		event = "InsertEnter",
+		event = { "CmdlineEnter", "InsertEnter" },
 		config = function()
 			local cmp = require("cmp")
 			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
@@ -447,15 +455,22 @@ require("lazy").setup({
 				relculright = true,
 				segments = {
 					{
-						sign = { name = { "Diagnostic" }, maxwidth = 2, auto = true },
+						sign = { name = { "Diagnostic" }, maxwidth = 2 },
 						click = "v:lua.ScSa",
 					},
 					{ text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
 					{ text = { builtin.foldfunc, " " }, click = "v:lua.ScFa" },
 					{
-						sign = { namespace = { "gitsigns" }, maxwidth = 2, colwidth = 1, auto = true, wrap = true },
+						sign = {
+							namespace = { "gitsigns" },
+							maxwidth = 2,
+							colwidth = 1,
+							auto = true,
+							wrap = true,
+						},
 						click = "v:lua.ScSa",
 					},
+					{ text = { " " } },
 				},
 			})
 		end,
@@ -530,9 +545,9 @@ require("lazy").setup({
 	{
 		"NeogitOrg/neogit",
 		dependencies = {
-			"nvim-lua/plenary.nvim", -- required
-			"nvim-telescope/telescope.nvim", -- optional
-			"sindrets/diffview.nvim", -- optional
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+			"sindrets/diffview.nvim",
 		},
 		cmd = "Neogit",
 		keys = {
