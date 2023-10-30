@@ -116,8 +116,8 @@ require("lazy").setup({
 		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
 			require("bufferline").setup({})
-			vim.keymap.set("n", "H", ":BufferLineCyclePrev<CR>")
-			vim.keymap.set("n", "L", ":BufferLineCycleNext<CR>")
+			vim.keymap.set("n", "H", ":BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
+			vim.keymap.set("n", "L", ":BufferLineCycleNext<CR>", { desc = "Next buffer" })
 		end,
 	},
 	{
@@ -246,23 +246,48 @@ require("lazy").setup({
 					end
 
 					local opts = { buffer = bufnr }
-					vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+					vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Go to declaration" })
+					vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition" })
 					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-					vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+					vim.keymap.set(
+						"n",
+						"gi",
+						vim.lsp.buf.implementation,
+						{ buffer = bufnr, desc = "Go to implementation" }
+					)
 					-- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-					vim.keymap.set("n", "<Leader>wa", vim.lsp.buf.add_workspace_folder, opts)
-					vim.keymap.set("n", "<Leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
+					vim.keymap.set(
+						"n",
+						"<Leader>wa",
+						vim.lsp.buf.add_workspace_folder,
+						{ buffer = bufnr, desc = "Add workspace folder" }
+					)
+					vim.keymap.set(
+						"n",
+						"<Leader>wr",
+						vim.lsp.buf.remove_workspace_folder,
+						{ buffer = bufnr, desc = "Remove workspace folder" }
+					)
 					vim.keymap.set("n", "<Leader>wl", function()
 						print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-					end, opts)
-					vim.keymap.set("n", "<Leader>D", vim.lsp.buf.type_definition, opts)
-					vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, opts)
-					vim.keymap.set({ "n", "v" }, "<Leader>ca", vim.lsp.buf.code_action, opts)
-					vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+					end, { buffer = bufnr, desc = "Show workspace folders" })
+					vim.keymap.set(
+						"n",
+						"<Leader>D",
+						vim.lsp.buf.type_definition,
+						{ buffer = bufnr, desc = "Show type definition" }
+					)
+					vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
+					vim.keymap.set(
+						{ "n", "v" },
+						"<Leader>ca",
+						vim.lsp.buf.code_action,
+						{ buffer = bufnr, desc = "Show code actions" }
+					)
+					vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "Show references" })
 					vim.keymap.set("n", "<Leader>f", function()
 						vim.lsp.buf.format({ async = true })
-					end, opts)
+					end, { buffer = bufnr, desc = "Format buffer" })
 
 					vim.api.nvim_create_user_command("Format", function()
 						vim.lsp.buf.format({ async = true })
@@ -443,8 +468,8 @@ require("lazy").setup({
 				end,
 			})
 
-			vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-			vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+			vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
+			vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close all folds" })
 		end,
 	},
 	{
@@ -489,10 +514,10 @@ require("lazy").setup({
 			})
 
 			local builtin = require("telescope.builtin")
-			vim.keymap.set("n", "<leader><leader>", builtin.builtin)
-			vim.keymap.set("n", "<leader>ff", builtin.find_files)
-			vim.keymap.set("n", "<leader>fg", builtin.live_grep)
-			vim.keymap.set("n", "<leader>bb", builtin.buffers)
+			vim.keymap.set("n", "<leader><leader>", builtin.builtin, { desc = "Telecope pickers" })
+			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
+			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Search" })
+			vim.keymap.set("n", "<leader>bb", builtin.buffers, { desc = "Show buffers" })
 		end,
 	},
 	{
