@@ -313,11 +313,13 @@ require("lazy").setup({
 		end,
 	},
 	{ "kosayoda/nvim-lightbulb" },
+	"JoosepAlviste/nvim-ts-context-commentstring",
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
+		event = "VeryLazy",
+		cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
 		dependencies = {
-			"JoosepAlviste/nvim-ts-context-commentstring",
 			"windwp/nvim-ts-autotag",
 		},
 		config = function()
@@ -330,9 +332,6 @@ require("lazy").setup({
 					enable = true,
 				},
 				autotag = {
-					enable = true,
-				},
-				context_commentstring = {
 					enable = true,
 				},
 			})
@@ -456,6 +455,7 @@ require("lazy").setup({
 	{
 		"kevinhwang91/nvim-ufo",
 		dependencies = { "kevinhwang91/promise-async", "nvim-treesitter/nvim-treesitter" },
+		event = "VeryLazy",
 		config = function()
 			vim.opt.foldcolumn = "1"
 			vim.opt.foldlevel = 99
@@ -503,6 +503,37 @@ require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
+		keys = {
+			{
+				"<leader><leader>",
+				function()
+					require("telescope.builtin").builtin()
+				end,
+				{ desc = "Telecope pickers" },
+			},
+			{
+				"<leader>ff",
+				function()
+					require("telescope.builtin").find_files()
+				end,
+				{ desc = "Find files" },
+			},
+			{
+				"<leader>fg",
+				function()
+					require("telescope.builtin").live_grep()
+				end,
+				{ desc = "Search" },
+			},
+			{
+				"<leader>bb",
+				function()
+					require("telescope.builtin").buffers()
+				end,
+				{ desc = "Show buffers" },
+			},
+		},
+		cmd = "Telescope",
 		config = function()
 			require("telescope").setup({
 				defaults = require("telescope.themes").get_dropdown({}),
@@ -512,12 +543,6 @@ require("lazy").setup({
 					},
 				},
 			})
-
-			local builtin = require("telescope.builtin")
-			vim.keymap.set("n", "<leader><leader>", builtin.builtin, { desc = "Telecope pickers" })
-			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
-			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Search" })
-			vim.keymap.set("n", "<leader>bb", builtin.buffers, { desc = "Show buffers" })
 		end,
 	},
 	{
