@@ -149,7 +149,7 @@ require("lazy").setup({
 			"williamboman/mason-lspconfig.nvim",
 			"creativenull/efmls-configs-nvim",
 		},
-		event = "VeryLazy",
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require("mason").setup()
 			local mason_lspconfig = require("mason-lspconfig")
