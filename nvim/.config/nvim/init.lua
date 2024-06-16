@@ -122,15 +122,22 @@ require("lazy").setup({
     },
   },
   {
+    "stevearc/oil.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("oil").setup()
+      vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+    end,
+  },
+  {
     "nvim-lualine/lualine.nvim",
     event = "UIEnter",
-    config = function()
-      require("lualine").setup({
-        options = {
-          theme = "ayu",
-        },
-      })
-    end,
+    opts = {
+      options = {
+        theme = "ayu",
+      },
+      extensions = { "lazy", "oil" },
+    },
   },
   {
     "windwp/nvim-autopairs",
@@ -236,6 +243,10 @@ require("lazy").setup({
               buffer = bufnr,
               callback = vim.lsp.buf.clear_references,
             })
+          end
+
+          if client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable()
           end
 
           local opts = { buffer = bufnr }
