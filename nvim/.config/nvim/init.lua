@@ -114,14 +114,16 @@ require("lazy").setup({
 	{
 		"akinsho/bufferline.nvim",
 		dependencies = "nvim-tree/nvim-web-devicons",
-		config = function()
-			require("bufferline").setup({})
-			vim.keymap.set("n", "H", ":BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
-			vim.keymap.set("n", "L", ":BufferLineCycleNext<CR>", { desc = "Next buffer" })
-		end,
+		event = "UIEnter",
+		opts = {},
+		keys = {
+			{ "H", ":BufferLineCyclePrev<CR>", desc = "Previous buffer" },
+			{ "L", ":BufferLineCycleNext<CR>", desc = "Next buffer" },
+		},
 	},
 	{
 		"nvim-lualine/lualine.nvim",
+		event = "UIEnter",
 		config = function()
 			require("lualine").setup({
 				options = {
@@ -136,29 +138,23 @@ require("lazy").setup({
 		opts = {},
 	},
 	{
+		"folke/lazydev.nvim",
+		ft = "lua",
+		opts = {},
+	},
+	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
-			"folke/neodev.nvim",
 			"creativenull/efmls-configs-nvim",
 		},
+		event = "VeryLazy",
 		config = function()
-			require("neodev").setup({
-				override = function(root_dir, library)
-					if root_dir:match("dotfiles") then
-						library.enabled = true
-						library.plugins = true
-						library.types = true
-						library.runtime = true
-					end
-				end,
-				pathStrict = true,
-			})
 			require("mason").setup()
 			local mason_lspconfig = require("mason-lspconfig")
 			mason_lspconfig.setup({
-				ensure_installed = { "lua_ls", "clangd", "cmake", "jsonls", "tsserver", "efm" },
+				ensure_installed = { "lua_ls", "clangd", "jsonls", "tsserver", "efm" },
 			})
 
 			mason_lspconfig.setup_handlers({
@@ -313,7 +309,7 @@ require("lazy").setup({
 		end,
 	},
 	{ "kosayoda/nvim-lightbulb" },
-	"JoosepAlviste/nvim-ts-context-commentstring",
+	{ "JoosepAlviste/nvim-ts-context-commentstring", event = "VeryLazy" },
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
@@ -423,6 +419,7 @@ require("lazy").setup({
 					end, { "i", "s" }),
 				}),
 				sources = cmp.config.sources({
+					{ name = "lazydev", group_index = 0 },
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
 				}, {
