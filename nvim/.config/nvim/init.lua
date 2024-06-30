@@ -130,6 +130,11 @@ require("lazy").setup({
     end,
   },
   {
+    "j-hui/fidget.nvim",
+    event = "UIEnter",
+    opts = {},
+  },
+  {
     "nvim-lualine/lualine.nvim",
     event = "UIEnter",
     opts = {
