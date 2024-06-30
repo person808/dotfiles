@@ -69,7 +69,7 @@ for type, icon in pairs(signs) do
 end
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -147,8 +147,15 @@ require("lazy").setup({
   {
     "folke/lazydev.nvim",
     ft = "lua",
-    opts = {},
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+      },
+    },
   },
+  { "Bilal2453/luvit-meta", lazy = true },
   {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -214,6 +221,9 @@ require("lazy").setup({
         callback = function(ev)
           local bufnr = ev.buf
           local client = vim.lsp.get_client_by_id(ev.data.client_id)
+          if not client then
+            return
+          end
 
           if client.server_capabilities.completionProvider then
             vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
@@ -529,6 +539,13 @@ require("lazy").setup({
           require("telescope.builtin").buffers()
         end,
         { desc = "Show buffers" },
+      },
+      {
+        "<leader>?",
+        function()
+          require("telescope.builtin").keymaps()
+        end,
+        { desc = "Show keybindings" },
       },
     },
     cmd = "Telescope",
