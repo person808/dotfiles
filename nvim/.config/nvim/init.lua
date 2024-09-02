@@ -126,9 +126,12 @@ require("lazy").setup({
     "stevearc/dressing.nvim",
     opts = {
       select = {
-        backend = { "builtin" }
-      }
-    }
+        backend = { "builtin" },
+        builtin = {
+          relative = "cursor",
+        },
+      },
+    },
   },
   {
     "folke/which-key.nvim",
@@ -364,7 +367,6 @@ require("lazy").setup({
       })
     end,
   },
-  { "kosayoda/nvim-lightbulb" },
   { "JoosepAlviste/nvim-ts-context-commentstring", event = "VeryLazy" },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -531,11 +533,21 @@ require("lazy").setup({
         relculright = true,
         segments = {
           {
-            sign = { name = { "Diagnostic" }, maxwidth = 2 },
+            sign = { namespace = { "diagnostic/sign" }, maxwidth = 2, auto = true },
             click = "v:lua.ScSa",
           },
-          { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
-          { text = { builtin.foldfunc, " " }, click = "v:lua.ScFa" },
+          {
+            text = { builtin.lnumfunc, " " },
+            click = "v:lua.ScLa",
+          },
+          {
+            text = { builtin.foldfunc, " " },
+            click = "v:lua.ScFa",
+          },
+          {
+            sign = { name = { ".*" }, maxwidth = 2, colwidth = 1, auto = true, wrap = true },
+            click = "v:lua.ScSa",
+          },
           {
             sign = {
               namespace = { "gitsigns" },
@@ -582,13 +594,6 @@ require("lazy").setup({
           require("telescope.builtin").buffers()
         end,
         desc = "Show buffers",
-      },
-      {
-        "<leader>?",
-        function()
-          require("telescope.builtin").keymaps()
-        end,
-        desc = "Show keybindings",
       },
     },
     cmd = "Telescope",
