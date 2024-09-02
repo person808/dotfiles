@@ -123,6 +123,14 @@ require("lazy").setup({
     },
   },
   {
+    "stevearc/dressing.nvim",
+    opts = {
+      select = {
+        backend = { "builtin" }
+      }
+    }
+  },
+  {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
