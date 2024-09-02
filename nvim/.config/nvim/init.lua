@@ -93,6 +93,7 @@ require("lazy").setup({
   "tpope/vim-commentary",
   "tpope/vim-surround",
   "haya14busa/is.vim",
+  "lewis6991/satellite.nvim",
   {
     "rhysd/clever-f.vim",
     init = function()
@@ -127,14 +128,14 @@ require("lazy").setup({
     opts = {
       preset = "helix",
       win = {
-        col = 0
+        col = 0,
       },
       spec = {
-        { "<leader>b", group = "Buffers" },
-        { "<leader>f", group = "Files" },
-        { "<leader>g", group = "Git" },
+        { "<leader>b",  group = "Buffers" },
+        { "<leader>f",  group = "Files" },
+        { "<leader>g",  group = "Git" },
         { "<leader>gh", group = "Hunks" },
-        { "<leader>r", group = "Refactor" },
+        { "<leader>r",  group = "Refactor" },
       },
     },
     keys = {
@@ -186,7 +187,10 @@ require("lazy").setup({
       },
     },
   },
-  { "Bilal2453/luvit-meta", lazy = true },
+  {
+    "Bilal2453/luvit-meta",
+    lazy = true,
+  },
   {
     "neovim/nvim-lspconfig",
     dependencies = {
