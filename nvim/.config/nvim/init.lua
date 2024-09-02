@@ -122,6 +122,32 @@ require("lazy").setup({
     },
   },
   {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {
+      preset = "helix",
+      win = {
+        col = 0
+      },
+      spec = {
+        { "<leader>b", group = "Buffers" },
+        { "<leader>f", group = "Files" },
+        { "<leader>g", group = "Git" },
+        { "<leader>gh", group = "Hunks" },
+        { "<leader>r", group = "Refactor" },
+      },
+    },
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Local Keymaps",
+      },
+    },
+  },
+  {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
@@ -294,12 +320,12 @@ require("lazy").setup({
           vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
           vim.keymap.set(
             { "n", "v" },
-            "<Leader>ca",
+            "<Leader>ra",
             vim.lsp.buf.code_action,
             { buffer = bufnr, desc = "Show code actions" }
           )
           vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "Show references" })
-          vim.keymap.set("n", "<Leader>f", function()
+          vim.keymap.set("n", "<Leader>ri", function()
             vim.lsp.buf.format({ async = true })
           end, { buffer = bufnr, desc = "Format buffer" })
 
@@ -522,35 +548,35 @@ require("lazy").setup({
         function()
           require("telescope.builtin").builtin()
         end,
-        { desc = "Telecope pickers" },
+        desc = "Telecope pickers",
       },
       {
         "<leader>ff",
         function()
           require("telescope.builtin").find_files()
         end,
-        { desc = "Find files" },
+        desc = "Find files",
       },
       {
         "<leader>fg",
         function()
           require("telescope.builtin").live_grep()
         end,
-        { desc = "Search" },
+        desc = "Search",
       },
       {
         "<leader>bb",
         function()
           require("telescope.builtin").buffers()
         end,
-        { desc = "Show buffers" },
+        desc = "Show buffers",
       },
       {
         "<leader>?",
         function()
           require("telescope.builtin").keymaps()
         end,
-        { desc = "Show keybindings" },
+        desc = "Show keybindings",
       },
     },
     cmd = "Telescope",
