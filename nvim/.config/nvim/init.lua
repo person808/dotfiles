@@ -134,41 +134,39 @@ require("lazy").setup({
     },
   },
   {
-    "folke/trouble.nvim",
-    opts = {}, -- for default options, refer to the configuration section for custom setup.
-    cmd = "Trouble",
+    "stevearc/quicker.nvim",
+    event = "FileType qf",
     keys = {
       {
         "<leader>cx",
-        "<cmd>Trouble diagnostics toggle<cr>",
+        function()
+          vim.diagnostic.setqflist()
+        end,
         desc = "Diagnostics",
       },
       {
         "<leader>cX",
-        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        function()
+          vim.diagnostic.setloclist()
+        end,
         desc = "Buffer Diagnostics",
       },
       {
-        "<leader>cs",
-        "<cmd>Trouble symbols toggle focus=false<cr>",
-        desc = "Symbols",
-      },
-      {
-        "<leader>cd",
-        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-        desc = "LSP Definitions/References",
+        "<leader>wQ",
+        function()
+          require("quicker").toggle()
+        end,
+        desc = "Toggle Quickfix List",
       },
       {
         "<leader>wL",
-        "<cmd>Trouble loclist toggle<cr>",
-        desc = "Location List",
-      },
-      {
-        "<leader>wQ",
-        "<cmd>Trouble qflist toggle<cr>",
-        desc = "Quickfix List",
+        function()
+          require("quicker").toggle({ loclist = true })
+        end,
+        desc = "Toggle Location List",
       },
     },
+    opts = {},
   },
   {
     "folke/which-key.nvim",
@@ -179,13 +177,13 @@ require("lazy").setup({
         col = 0,
       },
       spec = {
-        { "<leader>b",  group = "Buffers" },
-        { "<leader>c",  group = "Code" },
+        { "<leader>b", group = "Buffers" },
+        { "<leader>c", group = "Code" },
         { "<leader>cw", group = "Workspace" },
-        { "<leader>f",  group = "Files" },
-        { "<leader>g",  group = "Git" },
+        { "<leader>f", group = "Files" },
+        { "<leader>g", group = "Git" },
         { "<leader>gh", group = "Hunks" },
-        { "<leader>w",  group = "Windows" },
+        { "<leader>w", group = "Windows" },
       },
     },
     keys = {
