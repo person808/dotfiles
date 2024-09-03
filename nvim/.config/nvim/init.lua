@@ -134,6 +134,43 @@ require("lazy").setup({
     },
   },
   {
+    "folke/trouble.nvim",
+    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    cmd = "Trouble",
+    keys = {
+      {
+        "<leader>cx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics",
+      },
+      {
+        "<leader>cX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics",
+      },
+      {
+        "<leader>cs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols",
+      },
+      {
+        "<leader>cd",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions/References",
+      },
+      {
+        "<leader>wL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List",
+      },
+      {
+        "<leader>wQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List",
+      },
+    },
+  },
+  {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
@@ -143,10 +180,12 @@ require("lazy").setup({
       },
       spec = {
         { "<leader>b",  group = "Buffers" },
+        { "<leader>c",  group = "Code" },
+        { "<leader>cw", group = "Workspace" },
         { "<leader>f",  group = "Files" },
         { "<leader>g",  group = "Git" },
         { "<leader>gh", group = "Hunks" },
-        { "<leader>r",  group = "Refactor" },
+        { "<leader>w",  group = "Windows" },
       },
     },
     keys = {
@@ -313,34 +352,34 @@ require("lazy").setup({
           -- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
           vim.keymap.set(
             "n",
-            "<Leader>wa",
+            "<Leader>cwa",
             vim.lsp.buf.add_workspace_folder,
             { buffer = bufnr, desc = "Add workspace folder" }
           )
           vim.keymap.set(
             "n",
-            "<Leader>wr",
+            "<Leader>cwr",
             vim.lsp.buf.remove_workspace_folder,
             { buffer = bufnr, desc = "Remove workspace folder" }
           )
-          vim.keymap.set("n", "<Leader>wl", function()
+          vim.keymap.set("n", "<Leader>cwl", function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
           end, { buffer = bufnr, desc = "Show workspace folders" })
           vim.keymap.set(
             "n",
-            "<Leader>D",
+            "<Leader>cD",
             vim.lsp.buf.type_definition,
             { buffer = bufnr, desc = "Show type definition" }
           )
-          vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
+          vim.keymap.set("n", "<Leader>cn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
           vim.keymap.set(
             { "n", "v" },
-            "<Leader>ra",
+            "<Leader>ca",
             vim.lsp.buf.code_action,
             { buffer = bufnr, desc = "Show code actions" }
           )
           vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "Show references" })
-          vim.keymap.set("n", "<Leader>ri", function()
+          vim.keymap.set("n", "<Leader>ci", function()
             vim.lsp.buf.format({ async = true })
           end, { buffer = bufnr, desc = "Format buffer" })
 
