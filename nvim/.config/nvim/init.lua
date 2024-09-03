@@ -570,7 +570,7 @@ require("lazy").setup({
         relculright = true,
         segments = {
           {
-            sign = { namespace = { "diagnostic/sign" }, maxwidth = 2, auto = true },
+            sign = { namespace = { "diagnostic/sign" }, maxwidth = 1, auto = true },
             click = "v:lua.ScSa",
           },
           {
