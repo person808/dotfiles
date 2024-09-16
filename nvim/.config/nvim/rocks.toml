@@ -1,0 +1,97 @@
+# This is your rocks.nvim plugins declaration file.
+# Here is a small yet pretty detailed example on how to use it:
+#
+# [plugins]
+# nvim-treesitter = "semver_version"  # e.g. "1.0.0"
+[config]
+colorscheme = "ayu-mirage"
+
+# List of non-Neovim rocks.
+# This includes things like `toml` or other lua packages.
+[rocks]
+
+# List of Neovim plugins to install alongside their versions.
+# If the plugin name contains a dot then you must add quotes to the key name!
+[plugins]
+"rocks.nvim" = "2.39.0" # rocks.nvim can also manage itself :D
+neovim-ayu = "scm"
+"rocks-config.nvim" = "2.3.1"
+"rocks-git.nvim" = "2.2.0"
+"bufferline.nvim" = "4.7.0"
+"dressing.nvim" = "2.2.2"
+"indent-blankline.nvim" = "3.7.2"
+"lualine.nvim" = "scm"
+"statuscol.nvim" = "scm"
+"which-key.nvim" = "3.13.2"
+"gitsigns.nvim" = "0.9.0"
+neogit = "1.0.0"
+"oil.nvim" = "2.12.2"
+"diffview.nvim" = "scm"
+"lazydev.nvim" = "1.8.0"
+"mason.nvim" = "1.10.0"
+nvim-lspconfig = "1.0.0"
+"mason-lspconfig.nvim" = "1.31.0"
+cmp-nvim-lsp = "scm"
+"lspkind.nvim" = "scm"
+cmp-buffer = "scm"
+cmp-path = "scm"
+cmp-cmdline = "scm"
+nvim-cmp = "scm"
+"telescope.nvim" = "scm"
+"rocks-treesitter.nvim" = "1.1.2"
+nvim-ts-autotag = "scm"
+"quicker.nvim" = "1.1.1"
+nvim-ufo = "1.4.0"
+nvim-ts-context-commentstring = "scm"
+"conform.nvim" = "8.1.0"
+nvim-lint = "scm"
+
+[plugins.vim-rooter]
+git = "airblade/vim-rooter"
+
+[plugins.vim-sleuth]
+git = "tpope/vim-sleuth"
+rev = "v2.0^{}"
+
+[plugins.vim-surround]
+git = "tpope/vim-surround"
+rev = "v2.2^{}"
+
+[plugins."is.vim"]
+git = "haya14busa/is.vim"
+
+[plugins."satellite.nvim"]
+git = "lewis6991/satellite.nvim"
+rev = "v1.0.0"
+
+[plugins.luvit-meta]
+git = "bilal2453/luvit-meta"
+
+[plugins."clever-f.vim"]
+git = "rhysd/clever-f.vim"
+rev = "ver1.7"
+
+[plugins.vim-eunuch]
+git = "tpope/vim-eunuch"
+rev = "v1.3^{}"
+
+[plugins."fidget.nvim"]
+version = "1.4.1"
+config = true
+
+[plugins.nvim-autopairs]
+version = "scm"
+config = true
+
+[plugins."nvim-colorizer.lua"]
+version = "scm"
+config = "plugins.colorizer"
+
+[bundles.lsp]
+items = [
+    "cmp-nvim-lsp",
+    "lazydev.nvim",
+    "mason.nvim",
+    "mason-lspconfig.nvim",
+    "nvim-lspconfig",
+]
