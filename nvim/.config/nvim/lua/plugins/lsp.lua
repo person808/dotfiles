@@ -33,7 +33,10 @@ require("mason-lspconfig").setup_handlers({
   function(server_name)
     local handlers = {
       ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-      ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+      ["textDocument/signatureHelp"] = vim.lsp.with(
+        vim.lsp.handlers.signature_help,
+        { border = "rounded" }
+      ),
     }
     -- Setup config tables
     local default_config = {
@@ -102,10 +105,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 
     local opts = { buffer = bufnr }
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Go to declaration" })
+    vim.keymap.set(
+      "n",
+      "gD",
+      vim.lsp.buf.declaration,
+      { buffer = bufnr, desc = "Go to declaration" }
+    )
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition" })
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Go to implementation" })
+    vim.keymap.set(
+      "n",
+      "gi",
+      vim.lsp.buf.implementation,
+      { buffer = bufnr, desc = "Go to implementation" }
+    )
     -- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
     vim.keymap.set(
       "n",
@@ -122,9 +135,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<Leader>cwl", function()
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, { buffer = bufnr, desc = "Show workspace folders" })
-    vim.keymap.set("n", "<Leader>cD", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Show type definition" })
+    vim.keymap.set(
+      "n",
+      "<Leader>cD",
+      vim.lsp.buf.type_definition,
+      { buffer = bufnr, desc = "Show type definition" }
+    )
     vim.keymap.set("n", "<Leader>cn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
-    vim.keymap.set({ "n", "v" }, "<Leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Show code actions" })
+    vim.keymap.set(
+      { "n", "v" },
+      "<Leader>ca",
+      vim.lsp.buf.code_action,
+      { buffer = bufnr, desc = "Show code actions" }
+    )
     vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "Show references" })
   end,
 })

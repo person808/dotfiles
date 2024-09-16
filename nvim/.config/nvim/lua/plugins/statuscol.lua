@@ -15,7 +15,13 @@ require("statuscol").setup({
       click = "v:lua.ScFa",
     },
     {
-      sign = { name = { ".*" }, maxwidth = 2, colwidth = 1, auto = true, wrap = true },
+      sign = {
+        name = { ".*" },
+        maxwidth = 2,
+        colwidth = 1,
+        auto = true,
+        wrap = true,
+      },
       click = "v:lua.ScSa",
     },
     {

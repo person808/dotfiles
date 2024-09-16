@@ -134,7 +134,10 @@ if not pcall(require, "rocks") then
   end
 
   -- If the clone was successful then source the bootstrapping script
-  assert(vim.v.shell_error == 0, "rocks.nvim installation failed. Try exiting and re-entering Neovim!")
+  assert(
+    vim.v.shell_error == 0,
+    "rocks.nvim installation failed. Try exiting and re-entering Neovim!"
+  )
   vim.cmd.source(vim.fs.joinpath(rocks_location, "bootstrap.lua"))
   vim.fn.delete(rocks_location, "rf")
 end
