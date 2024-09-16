@@ -126,19 +126,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<Leader>cn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
     vim.keymap.set({ "n", "v" }, "<Leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Show code actions" })
     vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "Show references" })
-
-    vim.api.nvim_create_autocmd("CursorHold", {
-      group = augroup,
-      buffer = ev.buf,
-      callback = function()
-        local opts = {
-          focusable = false,
-          close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-          prefix = " ",
-          scope = "cursor",
-        }
-        vim.diagnostic.open_float(nil, opts)
-      end,
-    })
   end,
 })

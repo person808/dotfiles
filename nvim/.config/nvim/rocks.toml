@@ -13,7 +13,7 @@ colorscheme = "ayu-mirage"
 # List of Neovim plugins to install alongside their versions.
 # If the plugin name contains a dot then you must add quotes to the key name!
 [plugins]
-"rocks.nvim" = "2.39.0" # rocks.nvim can also manage itself :D
+"rocks.nvim" = "2.40.0"
 neovim-ayu = "scm"
 "rocks-config.nvim" = "2.3.1"
 "rocks-git.nvim" = "2.2.0"
@@ -44,9 +44,11 @@ nvim-ufo = "1.4.0"
 nvim-ts-context-commentstring = "scm"
 "conform.nvim" = "8.1.0"
 nvim-lint = "scm"
+"rocks-edit.nvim" = "scm"
 
 [plugins.vim-rooter]
 git = "airblade/vim-rooter"
+rev = "4a0df2f1b0f3d69e8f7e19afe464a7c3a7af89a2"
 
 [plugins.vim-sleuth]
 git = "tpope/vim-sleuth"
@@ -58,6 +60,7 @@ rev = "v2.2^{}"
 
 [plugins."is.vim"]
 git = "haya14busa/is.vim"
+rev = "d393cb346dcdf733fecd7bbfc45b70b8c05e9eb4"
 
 [plugins."satellite.nvim"]
 git = "lewis6991/satellite.nvim"
@@ -65,6 +68,7 @@ rev = "v1.0.0"
 
 [plugins.luvit-meta]
 git = "bilal2453/luvit-meta"
+rev = "ce76f6f6cdc9201523a5875a4471dcfe0186eb60"
 
 [plugins."clever-f.vim"]
 git = "rhysd/clever-f.vim"
