@@ -7,12 +7,29 @@ require("lazydev").setup({
 })
 
 require("mason").setup()
-local mason_lspconfig = require("mason-lspconfig")
-mason_lspconfig.setup({
-  ensure_installed = { "lua_ls", "clangd", "jsonls", "ts_ls" },
-})
+local mason_registry = require("mason-registry")
+local packages = {
+  "basedpyright",
+  "bash-language-server",
+  "clangd",
+  "cmake-language-server",
+  "json-lsp",
+  "lua-language-server",
+  "shellcheck",
+  "stylua",
+  "typescript-language-server",
+}
 
-mason_lspconfig.setup_handlers({
+mason_registry.refresh(function()
+  for _, pkg_name in ipairs(packages) do
+    local pkg = mason_registry.get_package(pkg_name)
+    if not pkg:is_installed() then
+      pkg:install()
+    end
+  end
+end)
+
+require("mason-lspconfig").setup_handlers({
   function(server_name)
     local handlers = {
       ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
@@ -117,7 +134,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local opts = {
           focusable = false,
           close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-          source = "always",
           prefix = " ",
           scope = "cursor",
         }
