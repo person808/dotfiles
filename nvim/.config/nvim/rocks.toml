@@ -45,6 +45,7 @@ nvim-ts-context-commentstring = "scm"
 "conform.nvim" = "8.1.0"
 nvim-lint = "scm"
 "rocks-edit.nvim" = "scm"
+"markview.nvim" = "23.1.0"
 
 [plugins.vim-rooter]
 git = "airblade/vim-rooter"
