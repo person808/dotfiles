@@ -17,7 +17,6 @@ colorscheme = "ayu-mirage"
 neovim-ayu = "scm"
 "rocks-config.nvim" = "2.3.1"
 "rocks-git.nvim" = "2.2.0"
-"bufferline.nvim" = "4.7.0"
 "dressing.nvim" = "2.2.2"
 "indent-blankline.nvim" = "3.7.2"
 "lualine.nvim" = "scm"
@@ -86,6 +85,10 @@ config = true
 [plugins."nvim-colorizer.lua"]
 version = "scm"
 config = "plugins.colorizer"
+
+[plugins."barbar.nvim"]
+git = "romgrk/barbar.nvim"
+rev = "v1.9.1^{}"
 
 [bundles.lsp]
 items = [
