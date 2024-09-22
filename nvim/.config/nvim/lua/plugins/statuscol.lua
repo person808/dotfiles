@@ -10,10 +10,7 @@ require("statuscol").setup({
       text = { builtin.lnumfunc, " " },
       click = "v:lua.ScLa",
     },
-    {
-      text = { builtin.foldfunc, " " },
-      click = "v:lua.ScFa",
-    },
+
     {
       sign = {
         name = { ".*" },
@@ -26,13 +23,15 @@ require("statuscol").setup({
     {
       sign = {
         namespace = { "gitsigns" },
-        maxwidth = 2,
+        maxwidth = 1,
         colwidth = 1,
-        auto = true,
         wrap = true,
       },
       click = "v:lua.ScSa",
     },
-    { text = { " " } },
+    {
+      text = { builtin.foldfunc, " " },
+      click = "v:lua.ScFa",
+    },
   },
 })

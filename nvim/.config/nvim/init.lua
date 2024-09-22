@@ -75,7 +75,7 @@ vim.diagnostic.config({
   },
 })
 
-local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
+local signs = { Error = "󰅚", Warn = "󰀪", Hint = "󰌶", Info = "" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -90,10 +90,7 @@ vim.api.nvim_create_autocmd("CursorHold", {
       prefix = " ",
       scope = "cursor",
     }
-    local _, win_id = vim.diagnostic.open_float(nil, opts)
-    if win_id then
-      require("ui").set_float_options(win_id)
-    end
+    vim.diagnostic.open_float(nil, opts)
   end,
 })
 
@@ -151,36 +148,45 @@ end
 
 vim.cmd.colorscheme("ayu-mirage")
 
+--- @type fun(string, vim.api.keyset.highlight): vim.api.keyset.highlight
+local function merge_highlight(original_hl_name, overrides)
+  local original_hl = vim.api.nvim_get_hl(0, { name = original_hl_name })
+  while original_hl.link ~= nil do
+    original_hl = vim.api.nvim_get_hl(0, { name = original_hl.link })
+  end
+  return vim.tbl_extend("force", original_hl, overrides)
+end
+
 local colors = require("ayu.colors")
 colors.generate(false)
-vim.api.nvim_set_hl(0, "NormalFloat", { fg = colors.fg, bg = colors.panel_bg })
+vim.api.nvim_set_hl(
+  0,
+  "NormalFloat",
+  { fg = colors.fg, bg = colors.panel_bg, blend = require("ui").floating_window_options.winblend }
+)
 vim.api.nvim_set_hl(0, "FloatBorder", { link = "NormalFloat" })
 vim.api.nvim_set_hl(0, "FloatTitle", { link = "NormalFloat" })
 vim.api.nvim_set_hl(0, "Pmenu", { link = "NormalFloat" })
-vim.api.nvim_set_hl(0, "PmenuSel", { fg = colors.fg, bg = colors.selection_bg })
+vim.api.nvim_set_hl(0, "PmenuSel", merge_highlight("Pmenu", { bg = colors.selection_bg }))
 vim.api.nvim_set_hl(0, "TelescopeNormal", { link = "NormalFloat" })
-vim.api.nvim_set_hl(0, "TelescopePromptNormal", { fg = colors.fg, bg = colors.panel_border })
+vim.api.nvim_set_hl(
+  0,
+  "TelescopePromptNormal",
+  merge_highlight("TelescopeNormal", { bg = colors.panel_border })
+)
 vim.api.nvim_set_hl(0, "TelescopePromptBorder", { link = "TelescopePromptNormal" })
 vim.api.nvim_set_hl(
   0,
   "TelescopePromptTitle",
-  { fg = colors.panel_border, bg = colors.panel_border }
+  merge_highlight("TelescopePromptNormal", { fg = colors.panel_border })
 )
 vim.api.nvim_set_hl(
   0,
   "TelescopePreviewNormal",
-  { fg = colors.panel_shadow, bg = colors.panel_shadow }
+  merge_highlight("TelescopeNormal", { bg = colors.panel_shadow })
 )
-vim.api.nvim_set_hl(
-  0,
-  "TelescopePreviewBorder",
-  { fg = colors.panel_shadow, bg = colors.panel_shadow }
-)
-vim.api.nvim_set_hl(
-  0,
-  "TelescopePreviewTitle",
-  { fg = colors.panel_shadow, bg = colors.panel_shadow }
-)
+vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { link = "TelescopePreviewNormal" })
+vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { link = "TelescopePreviewNormal" })
 vim.api.nvim_set_hl(0, "TelescopeSelection", { link = "PmenuSel" })
 vim.api.nvim_set_hl(0, "TelescopeMultiSelection", { fg = colors.entity })
 vim.api.nvim_set_hl(0, "TelescopeMultiIcon", { fg = colors.entity })

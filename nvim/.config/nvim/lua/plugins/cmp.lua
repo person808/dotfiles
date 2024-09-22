@@ -19,12 +19,10 @@ cmp.setup({
   },
   window = {
     completion = {
-      winblend = require("ui").floating_window_options.winblend,
       col_offset = -3,
       border = "solid",
     },
     documentation = {
-      winblend = require("ui").floating_window_options.winblend,
       border = "solid",
     },
   },

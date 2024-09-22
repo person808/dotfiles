@@ -1,9 +1,6 @@
 require("dressing").setup({
   input = {
     border = "solid",
-    win_options = {
-      winblend = require("ui").floating_window_options.winblend,
-    },
   },
   select = {
     backend = { "builtin" },
@@ -11,7 +8,6 @@ require("dressing").setup({
       relative = "cursor",
       border = "solid",
       win_options = {
-        winblend = require("ui").floating_window_options.winblend,
         winhighlight = "CursorLine:PmenuSel",
       },
     },
