@@ -150,15 +150,13 @@ vim.cmd.colorscheme("ayu-mirage")
 
 --- @type fun(string, vim.api.keyset.highlight): vim.api.keyset.highlight
 local function merge_highlight(original_hl_name, overrides)
-  local original_hl = vim.api.nvim_get_hl(0, { name = original_hl_name })
-  while original_hl.link ~= nil do
-    original_hl = vim.api.nvim_get_hl(0, { name = original_hl.link })
-  end
+  local original_hl = vim.api.nvim_get_hl(0, { name = original_hl_name, link = false })
   return vim.tbl_extend("force", original_hl, overrides)
 end
 
 local colors = require("ayu.colors")
 colors.generate(false)
+vim.api.nvim_set_hl(0, "CursorLineNr", merge_highlight("CursorLineNr", { bg = "bg" }))
 vim.api.nvim_set_hl(
   0,
   "NormalFloat",

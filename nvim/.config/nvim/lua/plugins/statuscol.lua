@@ -25,7 +25,6 @@ require("statuscol").setup({
         namespace = { "gitsigns" },
         maxwidth = 1,
         colwidth = 1,
-        wrap = true,
       },
       click = "v:lua.ScSa",
     },
