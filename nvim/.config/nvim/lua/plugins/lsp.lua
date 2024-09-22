@@ -29,14 +29,21 @@ mason_registry.refresh(function()
   end
 end)
 
+local function customise_handler(handler)
+  local overrides = { border = "solid" }
+  return vim.lsp.with(function(err, result, context, config)
+    local _, win_id = handler(err, result, context, config)
+    if win_id then
+      require("ui").set_float_options(win_id)
+    end
+  end, overrides)
+end
+
 require("mason-lspconfig").setup_handlers({
   function(server_name)
     local handlers = {
-      ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-      ["textDocument/signatureHelp"] = vim.lsp.with(
-        vim.lsp.handlers.signature_help,
-        { border = "rounded" }
-      ),
+      ["textDocument/hover"] = customise_handler(vim.lsp.handlers.hover),
+      ["textDocument/signatureHelp"] = customise_handler(vim.lsp.handlers.signature_help),
     }
     -- Setup config tables
     local default_config = {

@@ -8,9 +8,27 @@ table.insert(vimgrep_arguments, "--glob")
 table.insert(vimgrep_arguments, "!**/.git/*")
 
 require("telescope").setup({
-  defaults = vim.tbl_extend("force", require("telescope.themes").get_dropdown({}), {
+  defaults = {
+    prompt_prefix = " ",
+    selection_caret = " ",
+    entry_prefix = " ",
+    multi_icon = "",
+    results_title = false,
+    prompt_title = false,
+    preview_title = false,
+    sorting_strategy = "ascending",
+    layout_config = {
+      horizontal = {
+        prompt_position = "top",
+        preview_width = 0.55,
+      },
+      width = 0.87,
+      height = 0.80,
+    },
+    winblend = require("ui").floating_window_options.winblend,
+    borderchars = { "", "", "", "", "", "", "", "" },
     vimgrep_arguments = vimgrep_arguments,
-  }),
+  },
   pickers = {
     builtin = {
       previewer = false,

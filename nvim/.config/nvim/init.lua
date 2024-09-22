@@ -45,100 +45,145 @@ vim.keymap.set("n", "<leader>cX", vim.diagnostic.setloclist, { desc = "Buffer Di
 -- (happens when dropping a file on gvim) and for a commit message (it's
 -- likely a different one than last time).
 vim.api.nvim_create_autocmd("BufReadPost", {
-	group = vim.api.nvim_create_augroup("JumpToLastPosition", {}),
-	callback = function(args)
-		local valid_line = vim.fn.line([['"]]) >= 1 and vim.fn.line([['"]]) < vim.fn.line("$")
-		local not_commit = vim.b[args.buf].filetype ~= "commit"
+  group = vim.api.nvim_create_augroup("JumpToLastPosition", {}),
+  callback = function(args)
+    local valid_line = vim.fn.line([['"]]) >= 1 and vim.fn.line([['"]]) < vim.fn.line("$")
+    local not_commit = vim.b[args.buf].filetype ~= "commit"
 
-		if valid_line and not_commit then
-			vim.cmd([[normal! g`"]])
-		end
-	end,
+    if valid_line and not_commit then
+      vim.cmd([[normal! g`"]])
+    end
+  end,
 })
 
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
-	group = vim.api.nvim_create_augroup("highlight_yank", {}),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+  group = vim.api.nvim_create_augroup("highlight_yank", {}),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 
 vim.diagnostic.config({
-	virtual_text = false,
-	signs = true,
-	underline = true,
-	update_in_insert = false,
-	severity_sort = true,
-	float = {
-		border = "rounded",
-	},
+  virtual_text = false,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+  float = {
+    border = "solid",
+  },
 })
 
 local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
 for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
 vim.api.nvim_create_autocmd("CursorHold", {
-	group = vim.api.nvim_create_augroup("diagnostic_hover", {}),
-	callback = function()
-		local opts = {
-			focusable = false,
-			close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-			prefix = " ",
-			scope = "cursor",
-		}
-		vim.diagnostic.open_float(nil, opts)
-	end,
+  group = vim.api.nvim_create_augroup("diagnostic_hover", {}),
+  callback = function()
+    local opts = {
+      focusable = false,
+      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+      prefix = " ",
+      scope = "cursor",
+    }
+    local _, win_id = vim.diagnostic.open_float(nil, opts)
+    if win_id then
+      require("ui").set_float_options(win_id)
+    end
+  end,
 })
 
 do
-	-- Specifies where to install/use rocks.nvim
-	local install_location = vim.fs.joinpath(vim.fn.stdpath("data"), "rocks")
-	-- Set up configuration options related to rocks.nvim (recommended to leave as default)
-	local rocks_config = {
-		rocks_path = vim.fs.normalize(install_location),
-	}
-	vim.g.rocks_nvim = rocks_config
+  -- Specifies where to install/use rocks.nvim
+  local install_location = vim.fs.joinpath(vim.fn.stdpath("data"), "rocks")
+  -- Set up configuration options related to rocks.nvim (recommended to leave as default)
+  local rocks_config = {
+    rocks_path = vim.fs.normalize(install_location),
+  }
+  vim.g.rocks_nvim = rocks_config
 
-	-- Configure the package path (so that plugin code can be found)
-	local luarocks_path = {
-		vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?.lua"),
-		vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?", "init.lua"),
-	}
-	package.path = package.path .. ";" .. table.concat(luarocks_path, ";")
+  -- Configure the package path (so that plugin code can be found)
+  local luarocks_path = {
+    vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?.lua"),
+    vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?", "init.lua"),
+  }
+  package.path = package.path .. ";" .. table.concat(luarocks_path, ";")
 
-	-- Configure the C path (so that e.g. tree-sitter parsers can be found)
-	local luarocks_cpath = {
-		vim.fs.joinpath(rocks_config.rocks_path, "lib", "lua", "5.1", "?.so"),
-		vim.fs.joinpath(rocks_config.rocks_path, "lib64", "lua", "5.1", "?.so"),
-	}
-	package.cpath = package.cpath .. ";" .. table.concat(luarocks_cpath, ";")
+  -- Configure the C path (so that e.g. tree-sitter parsers can be found)
+  local luarocks_cpath = {
+    vim.fs.joinpath(rocks_config.rocks_path, "lib", "lua", "5.1", "?.so"),
+    vim.fs.joinpath(rocks_config.rocks_path, "lib64", "lua", "5.1", "?.so"),
+  }
+  package.cpath = package.cpath .. ";" .. table.concat(luarocks_cpath, ";")
 
-	-- Load all installed plugins, including rocks.nvim itself
-	vim.opt.runtimepath:append(
-		vim.fs.joinpath(rocks_config.rocks_path, "lib", "luarocks", "rocks-5.1", "rocks.nvim", "*")
-	)
+  -- Load all installed plugins, including rocks.nvim itself
+  vim.opt.runtimepath:append(
+    vim.fs.joinpath(rocks_config.rocks_path, "lib", "luarocks", "rocks-5.1", "rocks.nvim", "*")
+  )
 end
 
 -- If rocks.nvim is not installed then install it!
 if not pcall(require, "rocks") then
-	local rocks_location = vim.fs.joinpath(vim.fn.stdpath("cache"), "rocks.nvim")
-	if not vim.uv.fs_stat(rocks_location) then
-		-- Pull down rocks.nvim
-		vim.fn.system({
-			"git",
-			"clone",
-			"--filter=blob:none",
-			"https://github.com/nvim-neorocks/rocks.nvim",
-			rocks_location,
-		})
-	end
+  local rocks_location = vim.fs.joinpath(vim.fn.stdpath("cache"), "rocks.nvim")
+  if not vim.uv.fs_stat(rocks_location) then
+    -- Pull down rocks.nvim
+    vim.fn.system({
+      "git",
+      "clone",
+      "--filter=blob:none",
+      "https://github.com/nvim-neorocks/rocks.nvim",
+      rocks_location,
+    })
+  end
 
-	-- If the clone was successful then source the bootstrapping script
-	assert(vim.v.shell_error == 0, "rocks.nvim installation failed. Try exiting and re-entering Neovim!")
-	vim.cmd.source(vim.fs.joinpath(rocks_location, "bootstrap.lua"))
-	vim.fn.delete(rocks_location, "rf")
+  -- If the clone was successful then source the bootstrapping script
+  assert(
+    vim.v.shell_error == 0,
+    "rocks.nvim installation failed. Try exiting and re-entering Neovim!"
+  )
+  vim.cmd.source(vim.fs.joinpath(rocks_location, "bootstrap.lua"))
+  vim.fn.delete(rocks_location, "rf")
 end
+
+vim.cmd.colorscheme("ayu-mirage")
+
+local colors = require("ayu.colors")
+colors.generate(false)
+vim.api.nvim_set_hl(0, "NormalFloat", { fg = colors.fg, bg = colors.panel_bg })
+vim.api.nvim_set_hl(0, "FloatBorder", { link = "NormalFloat" })
+vim.api.nvim_set_hl(0, "FloatTitle", { link = "NormalFloat" })
+vim.api.nvim_set_hl(0, "Pmenu", { link = "NormalFloat" })
+vim.api.nvim_set_hl(0, "PmenuSel", { fg = colors.fg, bg = colors.selection_bg })
+vim.api.nvim_set_hl(0, "TelescopeNormal", { link = "NormalFloat" })
+vim.api.nvim_set_hl(0, "TelescopePromptNormal", { fg = colors.fg, bg = colors.panel_border })
+vim.api.nvim_set_hl(0, "TelescopePromptBorder", { link = "TelescopePromptNormal" })
+vim.api.nvim_set_hl(
+  0,
+  "TelescopePromptTitle",
+  { fg = colors.panel_border, bg = colors.panel_border }
+)
+vim.api.nvim_set_hl(
+  0,
+  "TelescopePreviewNormal",
+  { fg = colors.panel_shadow, bg = colors.panel_shadow }
+)
+vim.api.nvim_set_hl(
+  0,
+  "TelescopePreviewBorder",
+  { fg = colors.panel_shadow, bg = colors.panel_shadow }
+)
+vim.api.nvim_set_hl(
+  0,
+  "TelescopePreviewTitle",
+  { fg = colors.panel_shadow, bg = colors.panel_shadow }
+)
+vim.api.nvim_set_hl(0, "TelescopeSelection", { link = "PmenuSel" })
+vim.api.nvim_set_hl(0, "TelescopeMultiSelection", { fg = colors.entity })
+vim.api.nvim_set_hl(0, "TelescopeMultiIcon", { fg = colors.entity })
+vim.api.nvim_set_hl(0, "WhichKeyNormal", { link = "NormalFloat" })
+vim.api.nvim_set_hl(0, "WhichKeyBorder", { link = "NormalFloat" })
+vim.api.nvim_set_hl(0, "WhichKeyTitle", { link = "NormalFloat" })

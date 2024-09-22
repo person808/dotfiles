@@ -18,21 +18,23 @@ cmp.setup({
     end,
   },
   window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+    completion = {
+      winblend = require("ui").floating_window_options.winblend,
+      col_offset = -3,
+      border = "solid",
+    },
+    documentation = {
+      winblend = require("ui").floating_window_options.winblend,
+      border = "solid",
+    },
   },
   formatting = {
     fields = { "kind", "abbr", "menu" },
-    format = function(entry, vim_item)
-      local kind = require("lspkind").cmp_format({
-        mode = "symbol_text",
-      })(entry, vim_item)
-      local strings = vim.split(kind.kind, "%s", { trimempty = true })
-      kind.kind = " " .. (strings[1] or "") .. " "
-      kind.menu = ""
-      kind.concat = kind.abbr
-      return kind
-    end,
+    expandable_indicator = false,
+    format = require("lspkind").cmp_format({
+      preset = "codicons",
+      mode = "symbol",
+    }),
   },
   mapping = cmp.mapping.preset.insert({
     ["<C-b>"] = cmp.mapping.scroll_docs(-4),

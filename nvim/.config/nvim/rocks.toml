@@ -3,9 +3,6 @@
 #
 # [plugins]
 # nvim-treesitter = "semver_version"  # e.g. "1.0.0"
-[config]
-colorscheme = "ayu-mirage"
-
 # List of non-Neovim rocks.
 # This includes things like `toml` or other lua packages.
 [rocks]

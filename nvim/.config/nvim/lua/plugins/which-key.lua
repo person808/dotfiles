@@ -2,6 +2,8 @@ require("which-key").setup({
   preset = "helix",
   win = {
     col = 0,
+    border = "solid",
+    wo = require("ui").floating_window_options.winblend,
   },
   spec = {
     { "<leader>b", group = "Buffers" },
