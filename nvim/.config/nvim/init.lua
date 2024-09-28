@@ -184,7 +184,7 @@ vim.api.nvim_set_hl(
   merge_highlight("TelescopeNormal", { bg = colors.panel_shadow })
 )
 vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { link = "TelescopePreviewNormal" })
-vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { link = "TelescopePreviewNormal" })
+vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { fg = colors.panel_shadow })
 vim.api.nvim_set_hl(0, "TelescopeSelection", { link = "PmenuSel" })
 vim.api.nvim_set_hl(0, "TelescopeMultiSelection", { fg = colors.entity })
 vim.api.nvim_set_hl(0, "TelescopeMultiIcon", { fg = colors.entity })
