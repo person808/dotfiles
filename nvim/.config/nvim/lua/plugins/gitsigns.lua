@@ -41,7 +41,7 @@ require("gitsigns").setup({
     map("v", "<leader>ghr", function()
       gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
     end, { desc = "Reset selected hunk" })
-    map("n", "<leader>ghu", gs.undo_stage_hunk, { desc = "Undo state hunk" })
+    map("n", "<leader>ghu", gs.undo_stage_hunk, { desc = "Undo stage hunk" })
     map("n", "<leader>ghp", gs.preview_hunk, { desc = "Preview hunk" })
   end,
 })

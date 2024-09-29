@@ -56,6 +56,7 @@ tree-sitter-bash = "0.0.23"
 tree-sitter-fish = "0.0.23"
 tree-sitter-gitcommit = "0.0.23"
 tree-sitter-ssh_config = "0.0.23"
+"auto-save.nvim" = "scm"
 
 [plugins.vim-rooter]
 git = "airblade/vim-rooter"
@@ -91,7 +92,6 @@ rev = "v1.3^{}"
 
 [plugins."fidget.nvim"]
 version = "1.4.1"
-config = true
 
 [plugins.nvim-autopairs]
 version = "scm"
