@@ -1,3 +1,51 @@
+local float_namespace = vim.api.nvim_create_namespace("lsp_float")
+--- Adds extra inline highlights to the given buffer.
+---@param buf integer
+local function add_inline_highlights(buf)
+  for l, line in ipairs(vim.api.nvim_buf_get_lines(buf, 0, -1, false)) do
+    for pattern, hl_group in pairs({
+      ["@%S+"] = "@parameter",
+      ["^%s*(Parameters:)"] = "@text.title",
+      ["^%s*(Return:)"] = "@text.title",
+      ["^%s*(See also:)"] = "@text.title",
+      ["{%S-}"] = "@parameter",
+      ["|%S-|"] = "@text.reference",
+    }) do
+      local from = 1 ---@type integer?
+      while from do
+        local to
+        from, to = line:find(pattern, from)
+        if from then
+          vim.api.nvim_buf_set_extmark(buf, float_namespace, l - 1, from - 1, {
+            end_col = to,
+            hl_group = hl_group,
+          })
+        end
+        from = to and to + 1 or nil
+      end
+    end
+  end
+end
+
+--- HACK: Override `vim.lsp.util.stylize_markdown` to use Treesitter.
+---@param bufnr integer
+---@param contents string[]
+---@param opts table
+---@return string[]
+---@diagnostic disable-next-line: duplicate-set-field
+vim.lsp.util.stylize_markdown = function(bufnr, contents, opts)
+  contents = vim.lsp.util._normalize_markdown(contents, {
+    width = vim.lsp.util._make_floating_popup_size(contents, opts),
+  })
+  vim.bo[bufnr].filetype = "markdown"
+  vim.treesitter.start(bufnr)
+  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, contents)
+
+  add_inline_highlights(bufnr)
+
+  return contents
+end
+
 require("lazydev").setup({
   library = {
     -- See the configuration section for more details
@@ -40,6 +88,11 @@ require("mason-lspconfig").setup_handlers({
     }
     -- Setup config tables
     local default_config = {
+      capabilities = vim.tbl_extend(
+        "force",
+        vim.lsp.protocol.make_client_capabilities(),
+        require("cmp_nvim_lsp").default_capabilities()
+      ),
       handlers = handlers,
     }
     local server_configs = {
