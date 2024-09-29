@@ -157,6 +157,7 @@ end
 local colors = require("ayu.colors")
 colors.generate(false)
 vim.api.nvim_set_hl(0, "CursorLineNr", merge_highlight("CursorLineNr", { bg = "bg" }))
+vim.api.nvim_set_hl(0, "LspInlayHint", { link = "Comment" })
 vim.api.nvim_set_hl(
   0,
   "NormalFloat",
