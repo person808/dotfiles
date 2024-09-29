@@ -105,6 +105,14 @@ config = "plugins.colorizer"
 git = "romgrk/barbar.nvim"
 rev = "v1.9.1^{}"
 
+[plugins.nvim]
+git = "catppuccin/nvim"
+rev = "v1.9.0"
+
+[plugins."neofusion.nvim"]
+git = "diegoulloao/neofusion.nvim"
+rev = "f1776ed91ed7aa605d7827ee498b06bd8bbc37b5"
+
 [bundles.lsp]
 items = [
     "cmp-nvim-lsp",
