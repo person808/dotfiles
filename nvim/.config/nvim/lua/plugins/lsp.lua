@@ -131,9 +131,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 
     if client.server_capabilities.documentHighlightProvider then
-      vim.api.nvim_set_hl(0, "LspReferenceRead", { ctermbg = 237, bg = "#45403d" })
-      vim.api.nvim_set_hl(0, "LspReferenceText", { ctermbg = 237, bg = "#45403d" })
-      vim.api.nvim_set_hl(0, "LspReferenceWrite", { ctermbg = 237, bg = "#45403d" })
+      -- vim.api.nvim_set_hl(0, "LspReferenceRead", { ctermbg = 237, bg = "#45403d" })
+      -- vim.api.nvim_set_hl(0, "LspReferenceText", { ctermbg = 237, bg = "#45403d" })
+      -- vim.api.nvim_set_hl(0, "LspReferenceWrite", { ctermbg = 237, bg = "#45403d" })
       vim.api.nvim_create_augroup("lsp_document_highlight", {
         clear = false,
       })
