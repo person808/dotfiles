@@ -6,10 +6,7 @@ require("dressing").setup({
     backend = { "builtin" },
     builtin = {
       relative = "cursor",
-      border = "solid",
-      win_options = {
-        winhighlight = "CursorLine:PmenuSel",
-      },
+      border = require("ui").floating_window_options.border,
     },
   },
 })

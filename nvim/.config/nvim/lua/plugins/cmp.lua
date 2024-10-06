@@ -1,5 +1,6 @@
 local cmp = require("cmp")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+local ui = require("ui")
 
 local has_words_before = function()
   unpack = unpack or table.unpack
@@ -18,14 +19,8 @@ cmp.setup({
     end,
   },
   window = {
-    completion = {
-      winblend = require("ui").floating_window_options.winblend,
-      border = "solid",
-    },
-    documentation = {
-      winblend = require("ui").floating_window_options.winblend,
-      border = "solid",
-    },
+    completion = ui.floating_window_options,
+    documentation = ui.floating_window_options,
   },
   formatting = {
     fields = { "abbr", "kind", "menu" },

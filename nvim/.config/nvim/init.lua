@@ -99,7 +99,7 @@ vim.diagnostic.config({
   update_in_insert = true,
   severity_sort = true,
   float = {
-    border = "solid",
+    border = require("ui").floating_window_options.border,
   },
 })
 

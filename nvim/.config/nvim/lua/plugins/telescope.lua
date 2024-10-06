@@ -26,7 +26,6 @@ require("telescope").setup({
       height = 0.80,
     },
     winblend = require("ui").floating_window_options.winblend,
-    borderchars = { "", "", "", "", "", "", "", "" },
     vimgrep_arguments = vimgrep_arguments,
   },
   pickers = {
