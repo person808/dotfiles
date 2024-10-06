@@ -1,3 +1,5 @@
+local ui = require("ui")
+
 local float_namespace = vim.api.nvim_create_namespace("lsp_float")
 --- Adds extra inline highlights to the given buffer.
 ---@param buf integer
@@ -80,10 +82,13 @@ end)
 require("mason-lspconfig").setup_handlers({
   function(server_name)
     local handlers = {
-      ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "solid" }),
+      ["textDocument/hover"] = vim.lsp.with(
+        vim.lsp.handlers.hover,
+        { border = ui.floating_window_options.border }
+      ),
       ["textDocument/signatureHelp"] = vim.lsp.with(
         vim.lsp.handlers.signature_help,
-        { border = "solid" }
+        { border = ui.floating_window_options.border }
       ),
     }
     -- Setup config tables
@@ -131,9 +136,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 
     if client.server_capabilities.documentHighlightProvider then
-      -- vim.api.nvim_set_hl(0, "LspReferenceRead", { ctermbg = 237, bg = "#45403d" })
-      -- vim.api.nvim_set_hl(0, "LspReferenceText", { ctermbg = 237, bg = "#45403d" })
-      -- vim.api.nvim_set_hl(0, "LspReferenceWrite", { ctermbg = 237, bg = "#45403d" })
       vim.api.nvim_create_augroup("lsp_document_highlight", {
         clear = false,
       })
