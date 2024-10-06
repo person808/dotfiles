@@ -23,9 +23,10 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 vim.opt.autoread = true
 vim.opt.swapfile = false
+vim.o.pumblend = require("ui").floating_window_options.winblend
 vim.g.mapleader = " "
 
-if vim.fn.has("wsl") then
+if vim.fn.has("wsl") == 1 then
   vim.g.clipboard = {
     name = "WslClipboard",
     copy = {
@@ -173,49 +174,15 @@ if not pcall(require, "rocks") then
   vim.fn.delete(rocks_location, "rf")
 end
 
-vim.cmd.colorscheme("ayu-mirage")
-
---- @type fun(string, vim.api.keyset.highlight): vim.api.keyset.highlight
-local function merge_highlight(original_hl_name, overrides)
-  local original_hl = vim.api.nvim_get_hl(0, { name = original_hl_name, link = false })
-  return vim.tbl_extend("force", original_hl, overrides)
-end
-
-local colors = require("ayu.colors")
-colors.generate(false)
-vim.api.nvim_set_hl(0, "CursorLineNr", merge_highlight("CursorLineNr", { bg = "bg" }))
-vim.api.nvim_set_hl(0, "LspInlayHint", { link = "Comment" })
-vim.api.nvim_set_hl(
-  0,
-  "NormalFloat",
-  { fg = colors.fg, bg = colors.panel_bg, blend = require("ui").floating_window_options.winblend }
-)
-vim.api.nvim_set_hl(0, "FloatBorder", { link = "NormalFloat" })
-vim.api.nvim_set_hl(0, "FloatTitle", { link = "NormalFloat" })
-vim.api.nvim_set_hl(0, "Pmenu", { link = "NormalFloat" })
-vim.api.nvim_set_hl(0, "PmenuSel", merge_highlight("Pmenu", { bg = colors.selection_bg }))
-vim.api.nvim_set_hl(0, "TelescopeNormal", { link = "NormalFloat" })
-vim.api.nvim_set_hl(
-  0,
-  "TelescopePromptNormal",
-  merge_highlight("TelescopeNormal", { bg = colors.panel_border })
-)
-vim.api.nvim_set_hl(0, "TelescopePromptBorder", { link = "TelescopePromptNormal" })
-vim.api.nvim_set_hl(
-  0,
-  "TelescopePromptTitle",
-  merge_highlight("TelescopePromptNormal", { fg = colors.panel_border })
-)
-vim.api.nvim_set_hl(
-  0,
-  "TelescopePreviewNormal",
-  merge_highlight("TelescopeNormal", { bg = colors.panel_shadow })
-)
-vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { link = "TelescopePreviewNormal" })
-vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { fg = colors.panel_shadow })
-vim.api.nvim_set_hl(0, "TelescopeSelection", { link = "PmenuSel" })
-vim.api.nvim_set_hl(0, "TelescopeMultiSelection", { fg = colors.entity })
-vim.api.nvim_set_hl(0, "TelescopeMultiIcon", { fg = colors.entity })
-vim.api.nvim_set_hl(0, "WhichKeyNormal", { link = "NormalFloat" })
-vim.api.nvim_set_hl(0, "WhichKeyBorder", { link = "NormalFloat" })
-vim.api.nvim_set_hl(0, "WhichKeyTitle", { link = "NormalFloat" })
+require("catppuccin").setup({
+  integrations = {
+    barbar = true,
+    fidget = true,
+    mason = true,
+    telescope = {
+      style = "nvchad"
+    },
+    which_key = true
+  },
+})
+vim.cmd.colorscheme("catppuccin")

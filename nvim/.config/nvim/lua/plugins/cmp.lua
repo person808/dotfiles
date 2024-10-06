@@ -20,7 +20,6 @@ cmp.setup({
   window = {
     completion = {
       winblend = require("ui").floating_window_options.winblend,
-      col_offset = -3,
       border = "solid",
     },
     documentation = {
@@ -29,11 +28,11 @@ cmp.setup({
     },
   },
   formatting = {
-    fields = { "kind", "abbr", "menu" },
+    fields = { "abbr", "kind", "menu" },
     expandable_indicator = false,
     format = require("lspkind").cmp_format({
       preset = "codicons",
-      mode = "symbol",
+      mode = "symbol_text",
     }),
   },
   mapping = cmp.mapping.preset.insert({
