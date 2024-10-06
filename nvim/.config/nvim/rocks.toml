@@ -120,6 +120,10 @@ rev = "f1776ed91ed7aa605d7827ee498b06bd8bbc37b5"
 version = "scm"
 config = true
 
+[plugins.cmp-nvim-lsp-signature-help]
+git = "hrsh7th/cmp-nvim-lsp-signature-help"
+rev = "031e6ba70b0ad5eee49fd2120ff7a2e325b17fa7"
+
 [bundles.lsp]
 items = [
     "cmp-nvim-lsp",
