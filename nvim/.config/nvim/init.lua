@@ -177,12 +177,13 @@ end
 require("catppuccin").setup({
   integrations = {
     barbar = true,
+    diffview = true,
     fidget = true,
     mason = true,
     telescope = {
-      style = "nvchad"
+      style = "nvchad",
     },
-    which_key = true
+    which_key = true,
   },
 })
 vim.cmd.colorscheme("catppuccin")
