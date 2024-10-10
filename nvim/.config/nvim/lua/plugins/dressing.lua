@@ -1,6 +1,6 @@
 require("dressing").setup({
   input = {
-    border = "solid",
+    border = require("ui").floating_window_options.border
   },
   select = {
     backend = { "builtin" },
