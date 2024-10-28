@@ -10,10 +10,10 @@
 # List of Neovim plugins to install alongside their versions.
 # If the plugin name contains a dot then you must add quotes to the key name!
 [plugins]
-"rocks.nvim" = "2.40.2"
+"rocks.nvim" = "2.41.0"
 neovim-ayu = "scm"
 "rocks-config.nvim" = "3.0.0"
-"rocks-git.nvim" = "2.3.1"
+"rocks-git.nvim" = "2.5.0"
 "dressing.nvim" = "3.0.0"
 "indent-blankline.nvim" = "3.8.2"
 "lualine.nvim" = "scm"
@@ -42,24 +42,25 @@ nvim-ts-context-commentstring = "scm"
 nvim-lint = "scm"
 "rocks-edit.nvim" = "scm"
 "markview.nvim" = "24.0.0"
-tree-sitter-tsx = "0.0.29"
+tree-sitter-tsx = "0.0.30"
 tree-sitter-jsonc = "0.0.29"
-tree-sitter-json = "0.0.29"
-tree-sitter-javascript = "0.0.29"
-tree-sitter-cpp = "0.0.31"
-tree-sitter-toml = "0.0.29"
+tree-sitter-json = "0.0.30"
+tree-sitter-javascript = "0.0.31"
+tree-sitter-cpp = "0.0.32"
+tree-sitter-toml = "0.0.30"
 tree-sitter-gitignore = "0.0.29"
-tree-sitter-cmake = "0.0.30"
-tree-sitter-typescript = "0.0.29"
-tree-sitter-bash = "0.0.29"
+tree-sitter-cmake = "0.0.31"
+tree-sitter-typescript = "0.0.30"
+tree-sitter-bash = "0.0.31"
 tree-sitter-fish = "0.0.29"
-tree-sitter-gitcommit = "0.0.29"
+tree-sitter-gitcommit = "0.0.33"
 tree-sitter-ssh_config = "0.0.29"
 "auto-save.nvim" = "scm"
-tree-sitter-python = "0.0.29"
+tree-sitter-python = "0.0.30"
 tree-sitter-ecma = "0.0.29"
 nvim-treesitter-context = "scm"
 catppuccin = "0.1.0"
+tree-sitter-bitbake = "0.0.30"
 
 [plugins.vim-rooter]
 git = "airblade/vim-rooter"
@@ -67,11 +68,11 @@ rev = "4a0df2f1b0f3d69e8f7e19afe464a7c3a7af89a2"
 
 [plugins.vim-sleuth]
 git = "tpope/vim-sleuth"
-rev = "v2.0^{}"
+rev = "v2.0"
 
 [plugins.vim-surround]
 git = "tpope/vim-surround"
-rev = "v2.2^{}"
+rev = "v2.2"
 
 [plugins."is.vim"]
 git = "haya14busa/is.vim"
@@ -87,11 +88,11 @@ rev = "ce76f6f6cdc9201523a5875a4471dcfe0186eb60"
 
 [plugins."clever-f.vim"]
 git = "rhysd/clever-f.vim"
-rev = "ver1.7"
+rev = "6a3ac5e3688598af9411ab741737f98c47370c22"
 
 [plugins.vim-eunuch]
 git = "tpope/vim-eunuch"
-rev = "v1.3^{}"
+rev = "v1.3"
 
 [plugins."fidget.nvim"]
 version = "1.4.1"
@@ -106,7 +107,7 @@ config = "plugins.colorizer"
 
 [plugins."barbar.nvim"]
 git = "romgrk/barbar.nvim"
-rev = "v1.9.1^{}"
+rev = "v1.9.1"
 
 [plugins.nvim]
 git = "catppuccin/nvim"
