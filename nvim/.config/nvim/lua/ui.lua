@@ -1,7 +1,7 @@
 local M = {}
 
 M.floating_window_options = {
-  winblend = 5,
+  winblend = 0,
   border = "single",
 }
 
