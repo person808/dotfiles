@@ -1,1 +1,10 @@
-require("ibl").setup({ scope = { enabled = false }, exclude = { filetypes = { "markdown" } } })
+return {
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    opts = {
+      scope = { enabled = false },
+      exclude = { filetypes = { "markdown" } },
+    },
+  },
+}
