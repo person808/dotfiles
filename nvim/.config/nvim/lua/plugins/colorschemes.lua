@@ -5,6 +5,7 @@ return {
     opts = {
       integrations = {
         barbar = true,
+        blink_cmp = true,
         diffview = true,
         fidget = true,
         mason = true,
