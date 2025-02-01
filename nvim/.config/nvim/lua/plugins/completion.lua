@@ -34,7 +34,10 @@ return {
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
       },
-      signature = { enabled = true },
+      signature = {
+        enabled = true,
+        window = { border = require("ui").floating_window_options.border },
+      },
     },
     opts_extend = { "sources.default" },
   },
