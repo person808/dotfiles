@@ -3,7 +3,7 @@ return {
     "saghen/blink.cmp",
     lazy = false,
     dependencies = "rafamadriz/friendly-snippets",
-    version = "0.*",
+    version = "1.*",
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
