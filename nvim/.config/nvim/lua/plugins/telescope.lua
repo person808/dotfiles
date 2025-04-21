@@ -30,6 +30,7 @@ return {
             width = 0.87,
             height = 0.80,
           },
+          border = false,
           winblend = require("ui").floating_window_options.winblend,
           vimgrep_arguments = vimgrep_arguments,
         },

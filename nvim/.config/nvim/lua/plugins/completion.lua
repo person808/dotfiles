@@ -19,12 +19,10 @@ return {
         documentation = {
           auto_show = true,
           window = {
-            border = require("ui").floating_window_options.border,
             winblend = require("ui").floating_window_options.winblend,
           },
         },
         menu = {
-          border = require("ui").floating_window_options.border,
           winblend = require("ui").floating_window_options.winblend,
         },
         ghost_text = {
@@ -36,7 +34,6 @@ return {
       },
       signature = {
         enabled = true,
-        window = { border = require("ui").floating_window_options.border },
       },
     },
     opts_extend = { "sources.default" },

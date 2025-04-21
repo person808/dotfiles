@@ -41,6 +41,7 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 vim.opt.autoread = true
 vim.opt.swapfile = false
+vim.opt.winborder = "single"
 vim.o.pumblend = require("ui").floating_window_options.winblend
 vim.g.mapleader = " "
 
@@ -116,9 +117,6 @@ vim.diagnostic.config({
   underline = true,
   update_in_insert = true,
   severity_sort = true,
-  float = {
-    border = require("ui").floating_window_options.border,
-  },
 })
 
 local signs = { Error = "●", Warn = "●", Hint = "●", Info = "●" }

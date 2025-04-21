@@ -1,53 +1,3 @@
-local ui = require("ui")
-
-local float_namespace = vim.api.nvim_create_namespace("lsp_float")
---- Adds extra inline highlights to the given buffer.
----@param buf integer
-local function add_inline_highlights(buf)
-  for l, line in ipairs(vim.api.nvim_buf_get_lines(buf, 0, -1, false)) do
-    for pattern, hl_group in pairs({
-      ["@%S+"] = "@parameter",
-      ["^%s*(Parameters:)"] = "@text.title",
-      ["^%s*(Return:)"] = "@text.title",
-      ["^%s*(See also:)"] = "@text.title",
-      ["{%S-}"] = "@parameter",
-      ["|%S-|"] = "@text.reference",
-    }) do
-      local from = 1 ---@type integer?
-      while from do
-        local to
-        from, to = line:find(pattern, from)
-        if from then
-          vim.api.nvim_buf_set_extmark(buf, float_namespace, l - 1, from - 1, {
-            end_col = to,
-            hl_group = hl_group,
-          })
-        end
-        from = to and to + 1 or nil
-      end
-    end
-  end
-end
-
---- HACK: Override `vim.lsp.util.stylize_markdown` to use Treesitter.
----@param bufnr integer
----@param contents string[]
----@param opts table
----@return string[]
----@diagnostic disable-next-line: duplicate-set-field
-vim.lsp.util.stylize_markdown = function(bufnr, contents, opts)
-  contents = vim.lsp.util._normalize_markdown(contents, {
-    width = vim.lsp.util._make_floating_popup_size(contents, opts),
-  })
-  vim.bo[bufnr].filetype = "markdown"
-  vim.treesitter.start(bufnr)
-  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, contents)
-
-  add_inline_highlights(bufnr)
-
-  return contents
-end
-
 return {
   {
     "folke/lazydev.nvim",
@@ -94,21 +44,7 @@ return {
     config = function()
       require("mason-lspconfig").setup_handlers({
         function(server_name)
-          local handlers = {
-            ["textDocument/hover"] = vim.lsp.with(
-              vim.lsp.handlers.hover,
-              { border = ui.floating_window_options.border }
-            ),
-            ["textDocument/signatureHelp"] = vim.lsp.with(
-              vim.lsp.handlers.signature_help,
-              { border = ui.floating_window_options.border }
-            ),
-          }
           -- Setup config tables
-          local default_config = {
-            capabilities = require("blink.cmp").get_lsp_capabilities(),
-            handlers = handlers,
-          }
           local server_configs = {
             lua_ls = {
               settings = {
@@ -121,9 +57,8 @@ return {
             },
           }
 
-          require("lspconfig")[server_name].setup(
-            vim.tbl_deep_extend("force", default_config, server_configs[server_name] or {})
-          )
+          vim.lsp.config(server_name, server_configs[server_name] or {})
+          vim.lsp.enable(server_name)
         end,
       })
     end,
@@ -141,14 +76,10 @@ return {
             return
           end
 
-          vim.o.foldmethod = "expr"
-          vim.o.foldexpr = "v:lua.vim.lsp.foldexpr()"
-
-          if client.server_capabilities.completionProvider then
-            vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-          end
-          if client.server_capabilities.definitionProvider then
-            vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
+          if client:supports_method("textDocument/foldingRange") then
+            local win = vim.api.nvim_get_current_win()
+            vim.wo[win][0].foldmethod = "expr"
+            vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
           end
 
           if client.server_capabilities.documentHighlightProvider then
@@ -175,7 +106,6 @@ return {
             vim.lsp.inlay_hint.enable()
           end
 
-          local opts = { buffer = bufnr }
           vim.keymap.set(
             "n",
             "gD",
@@ -188,7 +118,6 @@ return {
             vim.lsp.buf.definition,
             { buffer = bufnr, desc = "Go to definition" }
           )
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
           vim.keymap.set(
             "n",
             "gi",
