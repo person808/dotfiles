@@ -11,6 +11,8 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    -- Ensure markview loads first to install treesitter queries
+    dependencies = { "OXY2DEV/markview.nvim" },
     config = function()
       vim.o.foldmethod = "expr"
       vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
@@ -33,8 +35,7 @@ return {
     "OXY2DEV/markview.nvim",
     lazy = false,
     dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
+      "saghen/blink.cmp"
     },
   },
 }
