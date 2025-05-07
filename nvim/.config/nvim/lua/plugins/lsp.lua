@@ -41,27 +41,7 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "saghen/blink.cmp" },
-    config = function()
-      require("mason-lspconfig").setup_handlers({
-        function(server_name)
-          -- Setup config tables
-          local server_configs = {
-            lua_ls = {
-              settings = {
-                Lua = {
-                  workspace = {
-                    checkThirdParty = false,
-                  },
-                },
-              },
-            },
-          }
-
-          vim.lsp.config(server_name, server_configs[server_name] or {})
-          vim.lsp.enable(server_name)
-        end,
-      })
-    end,
+    config = true,
   },
   {
     "neovim/nvim-lspconfig",
@@ -124,7 +104,12 @@ return {
             vim.lsp.buf.implementation,
             { buffer = bufnr, desc = "Go to implementation" }
           )
-          -- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+          vim.keymap.set(
+            "n",
+            "<Leader>ck",
+            vim.lsp.buf.signature_help,
+            { buffer = bufnr, desc = "Show signature help" }
+          )
           vim.keymap.set(
             "n",
             "<Leader>cwa",
@@ -142,22 +127,9 @@ return {
           end, { buffer = bufnr, desc = "Show workspace folders" })
           vim.keymap.set(
             "n",
-            "<Leader>cD",
+            "<Leader>cd",
             vim.lsp.buf.type_definition,
             { buffer = bufnr, desc = "Show type definition" }
-          )
-          vim.keymap.set("n", "<Leader>cn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
-          vim.keymap.set(
-            { "n", "v" },
-            "<Leader>ca",
-            vim.lsp.buf.code_action,
-            { buffer = bufnr, desc = "Show code actions" }
-          )
-          vim.keymap.set(
-            "n",
-            "gr",
-            vim.lsp.buf.references,
-            { buffer = bufnr, desc = "Show references" }
           )
         end,
       })
