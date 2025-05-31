@@ -10,24 +10,28 @@ return {
   "windwp/nvim-ts-autotag",
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     build = ":TSUpdate",
     -- Ensure markview loads first to install treesitter queries
     dependencies = { "OXY2DEV/markview.nvim" },
+    lazy = false,
     config = function()
-      vim.o.foldmethod = "expr"
-      vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      require("nvim-treesitter").install("stable")
 
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = "all",
-        highlight = {
-          enable = true,
-        },
-        incremental_selection = {
-          enable = true,
-        },
-        indent = {
-          enable = true,
-        },
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function(args)
+          local filetype = args.match
+          if
+            pcall(function()
+              vim.treesitter.get_parser(args.buf, filetype)
+            end)
+          then
+            vim.treesitter.start(args.buf, vim.treesitter.language.get_lang(filetype))
+            vim.wo.foldmethod = "expr"
+            vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
       })
     end,
   },
@@ -35,7 +39,7 @@ return {
     "OXY2DEV/markview.nvim",
     lazy = false,
     dependencies = {
-      "saghen/blink.cmp"
+      "saghen/blink.cmp",
     },
   },
 }

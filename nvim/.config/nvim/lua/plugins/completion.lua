@@ -8,7 +8,7 @@ return {
     ---@type blink.cmp.Config
     opts = {
       keymap = {
-        preset = "enter",
+        preset = "super-tab",
       },
       appearance = {
         use_nvim_cmp_as_default = true,
@@ -16,6 +16,7 @@ return {
       },
       completion = {
         accept = { auto_brackets = { enabled = true } },
+        trigger = { show_in_snippet = false },
         documentation = {
           auto_show = true,
           window = {
