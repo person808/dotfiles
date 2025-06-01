@@ -2,7 +2,7 @@ return {
   {
     "saghen/blink.cmp",
     lazy = false,
-    dependencies = "rafamadriz/friendly-snippets",
+    dependencies = { "rafamadriz/friendly-snippets", "xzbdmw/colorful-menu.nvim" },
     version = "1.*",
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
@@ -24,6 +24,19 @@ return {
           },
         },
         menu = {
+          draw = {
+            columns = { { "kind_icon" }, { "label", gap = 1 } },
+            components = {
+              label = {
+                text = function(ctx)
+                  return require("colorful-menu").blink_components_text(ctx)
+                end,
+                highlight = function(ctx)
+                  return require("colorful-menu").blink_components_highlight(ctx)
+                end,
+              },
+            },
+          },
           winblend = require("ui").floating_window_options.winblend,
         },
         ghost_text = {
@@ -52,4 +65,5 @@ return {
     event = "InsertEnter",
     config = true,
   },
+  "xzbdmw/colorful-menu.nvim",
 }

@@ -27,12 +27,12 @@ vim.opt.undofile = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.scrolloff = 5
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.showmode = false
+vim.opt.cmdheight = 0
 vim.opt.laststatus = 3
 vim.opt.fillchars = { eob = " ", fold = " ", foldopen = "", foldsep = " ", foldclose = "" }
 vim.opt.foldcolumn = "1"
@@ -75,6 +75,7 @@ end
 vim.g.clever_f_smart_case = true
 vim.g.clever_f_fix_key_direction = true
 vim.g.rooter_resolve_links = true
+vim.g.rooter_silent_chdir = true
 
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>")
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>")
@@ -147,7 +148,7 @@ require("lazy").setup({
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "catppuccin" } },
+  install = { colorscheme = { "catppuccin-macchiato" } },
 })
 
-vim.cmd.colorscheme("catppuccin")
+vim.cmd.colorscheme("catppuccin-macchiato")
