@@ -20,10 +20,12 @@ return {
         documentation = {
           auto_show = true,
           window = {
+            border = "solid",
             winblend = require("ui").floating_window_options.winblend,
           },
         },
         menu = {
+          border = "none",
           draw = {
             columns = { { "kind_icon" }, { "label", gap = 1 } },
             components = {
