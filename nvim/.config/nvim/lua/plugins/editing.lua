@@ -9,6 +9,13 @@ return {
   "tpope/vim-eunuch",
   "windwp/nvim-ts-autotag",
   {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    dependencies = {
+      "saghen/blink.cmp",
+    },
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
     build = ":TSUpdate",
@@ -31,12 +38,5 @@ return {
         end,
       })
     end,
-  },
-  {
-    "OXY2DEV/markview.nvim",
-    lazy = false,
-    dependencies = {
-      "saghen/blink.cmp",
-    },
   },
 }
