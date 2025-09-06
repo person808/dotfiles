@@ -11,6 +11,8 @@ return {
   {
     "OXY2DEV/markview.nvim",
     lazy = false,
+    -- Load before nvim-treesitter (default priority is 50)
+    priority = 40,
     dependencies = {
       "saghen/blink.cmp",
     },
@@ -18,13 +20,9 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
-    build = ":TSUpdate",
-    -- Ensure markview loads first to install treesitter queries
-    dependencies = { "OXY2DEV/markview.nvim" },
+    build = ":TSInstall all",
     lazy = false,
     config = function()
-      require("nvim-treesitter").install("stable")
-
       vim.api.nvim_create_autocmd("FileType", {
         callback = function(args)
           -- Try to start treesitter
