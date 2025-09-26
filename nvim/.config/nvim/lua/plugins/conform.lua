@@ -24,7 +24,7 @@ return {
           ["*"] = {},
           -- Use the "_" filetype to run formatters on filetypes that don't
           -- have other formatters configured.
-          ["_"] = { "trim_whitespace" },
+          -- ["_"] = { "trim_whitespace" },
         },
         default_format_opts = {
           lsp_format = "fallback",
