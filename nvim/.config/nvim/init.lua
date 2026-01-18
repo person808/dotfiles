@@ -44,6 +44,7 @@ vim.opt.swapfile = false
 vim.opt.winborder = "single"
 vim.o.pumblend = require("ui").floating_window_options.winblend
 vim.g.mapleader = " "
+vim.o.background = "light"
 
 if vim.fn.has("wsl") == 1 then
   vim.g.clipboard = {
@@ -148,7 +149,7 @@ require("lazy").setup({
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "catppuccin-macchiato" } },
+  install = { colorscheme = { "jb" } },
 })
 
-vim.cmd.colorscheme("catppuccin-macchiato")
+vim.cmd.colorscheme("jb")

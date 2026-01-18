@@ -31,7 +31,6 @@ return {
             height = 0.80,
           },
           border = true,
-          borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
           winblend = require("ui").floating_window_options.winblend,
           vimgrep_arguments = vimgrep_arguments,
         },

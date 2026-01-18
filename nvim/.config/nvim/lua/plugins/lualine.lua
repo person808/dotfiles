@@ -3,7 +3,7 @@ return {
     "nvim-lualine/lualine.nvim",
     opts = {
       options = {
-        theme = "catppuccin",
+        theme = "jb",
         section_separators = "",
         component_separators = "",
         globalstatus = true,
