@@ -1,21 +1,107 @@
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out =
-    vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
+local function github(repository)
+  return "https://github.com/" .. repository
 end
 
-vim.opt.rtp:prepend(lazypath)
+--- @alias PackEventKind 'install' | 'update' | 'delete'
+--- @type table<string, table<PackEventKind, function>>
+local pack_event_handlers = {
+  ["nvim-treesitter"] = {
+    install = function()
+      vim.cmd("TSInstall all")
+    end,
+    update = function()
+      vim.cmd("TSUpdate")
+    end,
+  },
+}
+
+vim.api.nvim_create_autocmd("PackChanged", {
+  callback = function(ev)
+    --- @type string, string
+    local name, kind = ev.data.spec.name, ev.data.kind
+    local event_handler = pack_event_handlers[name] and pack_event_handlers[name][kind]
+    if event_handler ~= nil then
+      if not ev.data.active then
+        vim.cmd.packadd(name)
+      end
+      event_handler()
+    end
+  end,
+})
+
+vim.api.nvim_create_user_command("PackUpdate", function()
+  vim.pack.update()
+end, { desc = "Update packages" })
+
+vim.api.nvim_create_user_command("PackDelete", function()
+  local inactive_plugins = vim
+    .iter(vim.pack.get())
+    :filter(function(x)
+      return not x.active
+    end)
+    :map(function(x)
+      return x.spec.name
+    end)
+    :totable()
+
+  vim.pack.del(inactive_plugins)
+end, { desc = "Delete packages" })
+
+vim.pack.add({
+  -- Misc
+  github("nvim-lua/plenary.nvim"),
+  github("pocco81/auto-save.nvim"),
+  github("airblade/vim-rooter"),
+  github("tpope/vim-sleuth"),
+  github("tpope/vim-surround"),
+  github("haya14busa/is.vim"),
+  github("rhysd/clever-f.vim"),
+  github("tpope/vim-eunuch"),
+  github("windwp/nvim-ts-autotag"),
+  github("OXY2DEV/markview.nvim"),
+  github("nvim-treesitter/nvim-treesitter"),
+  -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring/issues/126
+  -- github("JoosepAlviste/nvim-ts-context-commentstring"),
+
+  -- UI
+  github("stevearc/oil.nvim"),
+  github("nvim-tree/nvim-web-devicons"),
+  github("nickkadutskyi/jb.nvim"),
+  github("romgrk/barbar.nvim"),
+  github("catgoose/nvim-colorizer.lua"),
+  github("lewis6991/satellite.nvim"),
+  github("folke/which-key.nvim"),
+  github("stevearc/dressing.nvim"),
+  github("j-hui/fidget.nvim"),
+  github("lukas-reineke/indent-blankline.nvim"),
+  github("nvim-lualine/lualine.nvim"),
+  github("stevearc/quicker.nvim"),
+  github("luukvbaal/statuscol.nvim"),
+  github("nvim-telescope/telescope.nvim"),
+
+  -- LSP
+  github("folke/lazydev.nvim"),
+  github("onsails/lspkind.nvim"),
+  github("williamboman/mason.nvim"),
+  github("williamboman/mason-lspconfig.nvim"),
+  github("neovim/nvim-lspconfig"),
+
+  -- Completion
+  { src = github("saghen/blink.cmp"), version = vim.version.range("1.x") },
+  github("rafamadriz/friendly-snippets"),
+  github("xzbdmw/colorful-menu.nvim"),
+  github("windwp/nvim-autopairs"),
+
+  -- Formatting/Linting
+  github("stevearc/conform.nvim"),
+  github("mfussenegger/nvim-lint"),
+
+  -- Git
+  github("NeogitOrg/neogit"),
+  github("sindrets/diffview.nvim"),
+  github("lewis6991/gitsigns.nvim"),
+})
+
 vim.opt.updatetime = 250
 vim.opt.clipboard = "unnamedplus"
 vim.opt.ignorecase = true
@@ -73,11 +159,6 @@ if vim.fn.has("wsl") == 1 then
   }
 end
 
-vim.g.clever_f_smart_case = true
-vim.g.clever_f_fix_key_direction = true
-vim.g.rooter_resolve_links = true
-vim.g.rooter_silent_chdir = true
-
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>")
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>")
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>")
@@ -117,11 +198,11 @@ vim.diagnostic.config({
   virtual_text = false,
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = '●',
-      [vim.diagnostic.severity.WARN] = '●',
-      [vim.diagnostic.severity.HINT] = '●',
-      [vim.diagnostic.severity.INFO] = '●',
-    }
+      [vim.diagnostic.severity.ERROR] = "●",
+      [vim.diagnostic.severity.WARN] = "●",
+      [vim.diagnostic.severity.HINT] = "●",
+      [vim.diagnostic.severity.INFO] = "●",
+    },
   },
   underline = true,
   update_in_insert = true,
@@ -140,16 +221,3 @@ vim.api.nvim_create_autocmd("CursorHold", {
     vim.diagnostic.open_float(nil, opts)
   end,
 })
-
--- Setup lazy.nvim
-require("lazy").setup({
-  spec = {
-    -- import your plugins
-    { import = "plugins" },
-  },
-  -- Configure any other settings here. See the documentation for more details.
-  -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "jb" } },
-})
-
-vim.cmd.colorscheme("jb")
