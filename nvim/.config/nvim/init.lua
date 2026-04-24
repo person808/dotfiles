@@ -60,8 +60,7 @@ vim.pack.add({
   github("windwp/nvim-ts-autotag"),
   github("OXY2DEV/markview.nvim"),
   github("nvim-treesitter/nvim-treesitter"),
-  -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring/issues/126
-  -- github("JoosepAlviste/nvim-ts-context-commentstring"),
+  github("JoosepAlviste/nvim-ts-context-commentstring"),
 
   -- UI
   github("stevearc/oil.nvim"),
