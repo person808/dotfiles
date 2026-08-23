@@ -33,6 +33,10 @@ vim.api.nvim_create_user_command("PackUpdate", function()
   vim.pack.update()
 end, { desc = "Update packages" })
 
+vim.api.nvim_create_user_command("PackSync", function()
+  vim.pack.update(nil, { target = "lockfile" })
+end, { desc = "Sync packages" })
+
 vim.api.nvim_create_user_command("PackDelete", function()
   local inactive_plugins = vim
     .iter(vim.pack.get())
